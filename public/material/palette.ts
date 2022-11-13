@@ -12,13 +12,13 @@ const palette: TPalette = {
   },
   primary: {
     main: "#303af7",
-    light: "#9FC7FF",
+    light: "#4e57f9",
     dark: "#102A7D",
     contrastText: black,
   },
   secondary: {
     main: "#F3C917",
-    light: "#F8DC7E",
+    light: "#4e57f9",
     dark: "#D3951B",
     contrastText: black,
   },
