@@ -26,8 +26,10 @@ const CommonModal = ({
 
   const { content, ...otherModalContentProps } = modalContentProps;
   const { title, ...otherModalTitleProps } = modalTitleProps;
-  const { children: dialogActionsChildren, ...otherDialogActionsProps } = modalActionsProps;
-  const { className: closeIconClassName, ...otherCloseIconProps } = closeIconProps;
+  const { children: dialogActionsChildren, ...otherDialogActionsProps } =
+    modalActionsProps;
+  const { className: closeIconClassName, ...otherCloseIconProps } =
+    closeIconProps;
 
   return (
     <Dialog
@@ -45,10 +47,14 @@ const CommonModal = ({
         </IconButton>
       )}
 
-      {modalTitle ?? <CommonModalTitle {...otherModalTitleProps}>{title}</CommonModalTitle>}
+      {modalTitle ?? (
+        <CommonModalTitle {...otherModalTitleProps}>{title}</CommonModalTitle>
+      )}
 
       {modalContent ?? (
-        <CommonModalContent {...otherModalContentProps}>{content}</CommonModalContent>
+        <CommonModalContent {...otherModalContentProps}>
+          {content}
+        </CommonModalContent>
       )}
 
       {modalActions ??
@@ -70,7 +76,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     position: "relative",
     width: 536,
     maxWidth: "100%",
-    background: "#1E2126",
+    background: theme.palette.common.white,
     border: "1px solid rgba(255, 255, 255, 0.16)",
     borderRadius: 16,
     boxShadow: "none",

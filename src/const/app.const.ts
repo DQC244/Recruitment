@@ -20,3 +20,15 @@ export const SORT_DIRECTION = {
 export const DATE_FORMAT = "dd/MM/yy";
 export const FULL_DATE_FORMAT = "dd/MM/yyyy";
 export const TIME_FORMAT = "HH:mm";
+
+export const USER_TYPE = {
+  employer: 1,
+  candidate: 2,
+};
+
+export const COMPANY_LOCATION = {
+  hanoi: 0,
+  hoChiMinh: 2,
+  daNang: 3,
+  other: 4,
+};

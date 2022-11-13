@@ -28,7 +28,7 @@ const HeaderTabs = () => {
       case PathConstant.BLOG:
         return PathConstant.BLOG;
       default:
-        return "";
+        return false;
     }
   };
 

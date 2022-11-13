@@ -2,21 +2,25 @@ import React, { memo } from "react";
 import { SvgIcon } from "@mui/material";
 import { IIconProps } from "models";
 
-const TimesIcon = ({ sx, ...otherProps }: IIconProps) => {
+const CloseIcon = ({ sx, ...otherProps }: IIconProps) => {
   return (
-    <SvgIcon viewBox="0 0 24 24" sx={{ fontSize: "inherit", ...sx }} {...otherProps}>
+    <SvgIcon
+      viewBox="0 0 32 32"
+      sx={{ fontSize: "inherit", ...sx }}
+      {...otherProps}
+    >
       <path
-        d="M18.75 5.25L5.25 18.75"
-        stroke="currentStroke"
-        color="currentColor"
+        d="M25 7L7 25"
+        stroke="currentColor"
+        fill="transparent"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M18.75 18.75L5.25 5.25"
-        stroke="currentStroke"
-        color="currentColor"
+        d="M25 25L7 7"
+        stroke="currentColor"
+        fill="transparent"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -25,4 +29,4 @@ const TimesIcon = ({ sx, ...otherProps }: IIconProps) => {
   );
 };
 
-export default memo(TimesIcon);
+export default memo(CloseIcon);

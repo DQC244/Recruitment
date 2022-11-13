@@ -4,7 +4,11 @@ import { makeStyles } from "@mui/styles";
 import { DialogContent, DialogContentProps } from "@mui/material";
 import clsx from "clsx";
 
-const CommonModalContent = ({ children, className, ...otherProps }: CommonModalContentProps) => {
+const CommonModalContent = ({
+  children,
+  className,
+  ...otherProps
+}: CommonModalContentProps) => {
   const classes = useStyles();
 
   return (
@@ -23,7 +27,6 @@ export default memo(CommonModalContent);
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
-    textAlign: "center",
     padding: theme.spacing(0, 5, 4),
 
     [theme.breakpoints.down("sm")]: {

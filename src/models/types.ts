@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 import { Theme } from "@mui/system";
-import { TypographyProps, SxProps, SvgIconProps } from "@mui/material";
+import {
+  TypographyProps,
+  SxProps,
+  SvgIconProps,
+  DialogProps,
+} from "@mui/material";
 import { Variant } from "@mui/material/styles/createTypography";
 
 export interface IProps {
@@ -53,3 +58,28 @@ export interface EventInputFileProps {
 export interface ObjectMultiLanguageProps {
   [x: string]: string;
 }
+
+export type CommonModalProps = DialogProps & {
+  classes?: {
+    paper?: string;
+    [x: string]: unknown;
+  };
+  hasCloseIcon?: boolean;
+  actions?: ReactNode;
+  modalTitle?: ReactNode;
+  modalContent?: ReactNode;
+  modalActions?: ReactNode;
+  modalTitleProps?: {
+    title?: string;
+    className?: string;
+    [x: string]: unknown;
+  };
+  modalContentProps?: {
+    className?: string;
+    content?: ReactNode;
+    [x: string]: unknown;
+  };
+  modalActionsProps?: { children?: ReactNode; [x: string]: unknown };
+  closeIconProps?: { className?: string; [x: string]: unknown };
+  onClose: () => void;
+};
