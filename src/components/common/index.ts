@@ -6,6 +6,15 @@ import AppImage from "./AppImage";
 import CommonTab from "./CommonTab";
 import CommonTabs from "./CommonTabs";
 
+import {
+  CommonModal,
+  CommonModalTitle,
+  CommonModalContent,
+  CommonModalActions,
+  ConfirmModal,
+  NoticeModal,
+} from "./modal";
+
 export {
   AppHead,
   AppLink,
@@ -14,6 +23,12 @@ export {
   AppImage,
   CommonTab,
   CommonTabs,
+  CommonModal,
+  CommonModalTitle,
+  CommonModalContent,
+  CommonModalActions,
+  ConfirmModal,
+  NoticeModal,
 };
 
 export type { AppHeadProps };
