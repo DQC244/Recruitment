@@ -10,4 +10,10 @@ export default {
   },
 
   lPostJob: "Post a Job",
+  lSignIn: "SIGN IN",
+  lUsernameEmail: "Username or Email",
+  lPassword: "Password",
+
+  pYourUserName: "Your Username or Email",
+  pYourPassword: "Your Password",
 };

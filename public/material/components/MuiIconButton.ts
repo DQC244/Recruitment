@@ -7,12 +7,11 @@ export default {
       height: 40,
       width: 40,
       borderRadius: 4,
-      ...typography.body2,
+      ...typography.body1,
     },
     colorSecondary: {
       border: "1px solid #F5D23F",
       background: palette.secondary.main,
-      boxShadow: `0px 2px 1px ${palette.shadow.secondary}`,
       "&:hover": {
         background: palette.secondary.light,
         borderColor: "#F9E294",

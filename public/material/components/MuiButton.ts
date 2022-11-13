@@ -20,7 +20,7 @@ export default {
   styleOverrides: {
     root: {
       textTransform: "unset",
-      color: palette.common.white,
+      color: palette.common.black,
       ...mediumStyle,
       ...textSizeMedium,
     },
@@ -28,10 +28,10 @@ export default {
     contained: {
       ...containedMediumStyle,
       border: "unset",
+      color: palette.common.white,
       "&:disabled": {
         borderColor: "#9698A4",
         color: palette.text.disabled,
-        boxShadow: `0px 2px 1px 0px ${palette.shadow.disabled}`,
       },
     },
     containedPrimary: {

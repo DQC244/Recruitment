@@ -1,3 +1,8 @@
-import TimesIcon from "./TimesIcon";
+import UserIcon from "./UserIcon";
+import CloseIcon from "./CloseIcon";
+import ArrowIcon from "./ArrowIcon";
+import HiddenIcon from "./HiddenIcon";
+import UnHiddenIcon from "./UnHiddenIcon";
+import PlusIcon from "./PlusIcon";
 
-export { TimesIcon };
+export { UserIcon, CloseIcon, ArrowIcon, HiddenIcon, UnHiddenIcon, PlusIcon };
