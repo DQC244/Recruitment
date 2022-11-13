@@ -7,26 +7,27 @@ const mediumStyle = {
 };
 
 const containedMediumStyle = {
-  minWidth: 180,
+  minWidth: 120,
 };
 
 const textMediumStyle = {
-  minWidth: 96,
+  minWidth: 48,
 };
 
-const textSizeMedium = typography.h4;
+const textSizeMedium = typography.body1;
 
 export default {
   styleOverrides: {
     root: {
-      textTransform: undefined,
+      textTransform: "unset",
+      color: palette.common.white,
       ...mediumStyle,
       ...textSizeMedium,
     },
 
     contained: {
       ...containedMediumStyle,
-      border: "1px solid",
+      border: "unset",
       "&:disabled": {
         borderColor: "#9698A4",
         color: palette.text.disabled,
@@ -34,11 +35,9 @@ export default {
       },
     },
     containedPrimary: {
-      borderColor: "#4D7BBD",
       backgroundColor: palette.primary.main,
-      boxShadow: `0px 2px 1px 0px ${palette.shadow.primary}`,
+      boxShadow: "unset",
       "&:hover": {
-        borderColor: "#7B9DCF",
         backgroundColor: palette.primary.light,
       },
     },

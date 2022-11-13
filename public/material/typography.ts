@@ -1,30 +1,29 @@
 const typography = {
-  fontFamily: "",
+  fontFamily: "Inter Tight",
   h1: {
-    fontSize: 46,
-    fontWeight: 700,
-    lineHeight: "56px",
+    fontSize: 56,
+    fontWeight: 400,
+    lineHeight: "64px",
   },
   h2: {
-    fontSize: 34,
-    fontWeight: 700,
-    lineHeight: "48px",
+    fontSize: 48,
+    fontWeight: 500,
+    lineHeight: "56px",
   },
   h3: {
-    fontSize: 23,
-    fontWeight: 700,
-    lineHeight: "32px",
+    fontSize: 32,
+    fontWeight: 500,
+    lineHeight: "40px",
   },
   h4: {
-    fontSize: 18,
-    fontWeight: 700,
-    lineHeight: "24px",
+    fontSize: 24,
+    fontWeight: 500,
+    lineHeight: "32px",
   },
   h5: {
-    // Refer variant subtitle3 in design
-    fontSize: 14,
-    fontWeight: 400,
-    lineHeight: "18px",
+    fontSize: 18,
+    fontWeight: 500,
+    lineHeight: "24px",
   },
   body1: {
     fontSize: 16,
@@ -34,22 +33,22 @@ const typography = {
   body2: {
     fontSize: 14,
     fontWeight: 400,
-    lineHeight: "20px",
+    lineHeight: "16px",
   },
   subtitle1: {
-    fontSize: 18,
-    fontWeight: 400,
-    lineHeight: "20px",
-  },
-  subtitle2: {
     fontSize: 16,
     fontWeight: 600,
-    lineHeight: "20px",
+    lineHeight: "24px",
+  },
+  subtitle2: {
+    fontSize: 14,
+    fontWeight: 600,
+    lineHeight: "16px",
   },
   caption: {
     fontSize: 12,
-    fontWeight: 400,
-    lineHeight: "14px",
+    fontWeight: 500,
+    lineHeight: "16px",
   },
 };
 

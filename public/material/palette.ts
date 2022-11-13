@@ -5,34 +5,34 @@ const black = "#172123";
 type TPalette = Record<string, any> & { mode: "light" | "dark" };
 
 const palette: TPalette = {
-  mode: "dark",
+  mode: "light",
   common: {
     black,
     white,
   },
   primary: {
-    main: "#2960B0",
+    main: "#303af7",
     light: "#9FC7FF",
     dark: "#102A7D",
-    contrastText: white,
+    contrastText: black,
   },
   secondary: {
     main: "#F3C917",
     light: "#F8DC7E",
     dark: "#D3951B",
-    contrastText: white,
+    contrastText: black,
   },
   error: {
     dark: "#A93131",
     light: "#FF9F9F",
     main: "#FF6F6F",
-    contrastText: white,
+    contrastText: black,
   },
   warning: {
     main: "#FCFF62",
     light: "",
     dark: "#D3B239",
-    contrastText: white,
+    contrastText: black,
   },
   // info: {
   //   main: "",
@@ -75,7 +75,8 @@ const palette: TPalette = {
   },
   divider: "",
   background: {
-    default: "linear-gradient(90deg, #09245B 0%, #1B3271 36.25%, #1B3271 59.17%, #09245B 100%)",
+    default:
+      "linear-gradient(90deg, #09245B 0%, #1B3271 36.25%, #1B3271 59.17%, #09245B 100%)",
     paper: "#152E86",
   },
   action: {},

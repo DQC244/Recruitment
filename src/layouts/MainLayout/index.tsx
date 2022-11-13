@@ -8,7 +8,11 @@ import MLHeader, { HEADER_HEIGHT_IN_PX } from "./components/MLHeader";
 import { makeStyles } from "@mui/styles";
 import { useCalcSizeDevice } from "hooks";
 
-const MainLayout = ({ className, children, ...otherProps }: MainLayoutProps): JSX.Element => {
+const MainLayout = ({
+  className,
+  children,
+  ...otherProps
+}: MainLayoutProps): JSX.Element => {
   useCalcSizeDevice();
   const classesDefault = useStyles();
 
@@ -39,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "100vw",
     minHeight: `calc(100vh - ${HEADER_HEIGHT_IN_PX}px)`,
     marginTop: HEADER_HEIGHT_IN_PX,
-    background: theme.palette.background.default,
+    background: theme.palette.common.white,
     overflow: "hidden",
   },
 }));
