@@ -1,30 +1,18 @@
-import React, { memo, useMemo } from "react";
-import { Box } from "@mui/material";
-import Image from "next/image";
+import React, { memo } from "react";
+import { Box, BoxProps } from "@mui/material";
+import Image, { ImageProps } from "next/image";
 
-const AppImage = ({ width, height, classes, src, ...otherProps }: AppImageType) => {
-  const widthValue = useMemo(() => width || "unset", [width]);
-  const heightValue = useMemo(() => height || "unset", [height]);
-
+const AppImage = ({ className, src, ...otherProps }: AppImageType) => {
   return (
-    <Box position="relative" width={widthValue} height={heightValue} className={classes?.root}>
-      <Image
-        layout="fill"
-        objectFit="contain"
-        src={src}
-        {...otherProps}
-      />
+    <Box position="relative" className={className}>
+      <Image layout="fill" objectFit="contain" src={src} {...otherProps} />
     </Box>
   );
 };
 
-type AppImageType = {
-  width: number;
-  height: number;
-  src: string;
-  classes?: {
-    root: string,
+type AppImageType = BoxProps &
+  ImageProps & {
+    src: string;
   };
-};
 
 export default memo(AppImage);

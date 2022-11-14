@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "100vw",
     minHeight: `calc(100vh - ${HEADER_HEIGHT_IN_PX}px)`,
     marginTop: HEADER_HEIGHT_IN_PX,
-    background: theme.palette.common.white,
+    background: "unset",
     overflow: "hidden",
   },
 }));

@@ -93,6 +93,7 @@ const AppSelect = ({
         <Popper
           className={clsx(defaultClasses.popper, popperClassName)}
           anchorEl={anchorEl}
+          placement="bottom"
           modifiers={[
             {
               name: "offset",
@@ -144,8 +145,8 @@ export default memo(AppSelect);
 const useStyles = makeStyles((theme: ThemeProps) => ({
   buttonRoot: {
     ...theme.typography?.subtitle1,
-    minWidth: 177,
-    height: 40,
+    minWidth: 200,
+    height: 48,
     padding: theme.spacing(1.25, 2),
     justifyContent: "space-between",
     color: theme.palette.common.black,
@@ -161,7 +162,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     transform: "rotate(180deg)",
   },
   popper: {
-    minWidth: 177,
+    minWidth: 200,
     backgroundColor: "white",
     borderRadius: 8,
     border: "1px solid rgba(255, 255, 255, 0.08)",
