@@ -9,6 +9,7 @@ import AppInput from "./AppInput";
 import AppSelect from "./AppSelect";
 import PasswordInput from "./PasswordInput";
 import CommonMenu from "./CommonMenu";
+import PrimarySlider from "./PrimarySlider";
 
 import {
   CommonModal,
@@ -37,6 +38,7 @@ export {
   AppSelect,
   PasswordInput,
   CommonMenu,
+  PrimarySlider,
 };
 
 export type { AppHeadProps };

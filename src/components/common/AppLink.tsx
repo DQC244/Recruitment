@@ -20,4 +20,4 @@ AppLink.displayName = "AppLink";
 
 export type AppLinkProps = LinkProps & MuiLinkProps;
 
-export default memo(AppLink);
+export default AppLink;

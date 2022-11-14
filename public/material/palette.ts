@@ -17,7 +17,7 @@ const palette: TPalette = {
     contrastText: black,
   },
   secondary: {
-    main: "#662B69",
+    main: "#fe9703",
     light: "#0D1628",
     dark: "#D3951B",
     contrastText: black,
