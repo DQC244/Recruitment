@@ -91,6 +91,10 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     padding: "24px 16px",
   },
   root: {
-    marginTop: 100,
+    marginTop: 150,
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 40,
+    },
   },
 }));

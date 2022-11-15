@@ -56,7 +56,7 @@ const palette: TPalette = {
     5: "#10239E",
   },
   success: {
-    main: "#2e7d32",
+    main: "#2ecc71",
     light: "#4caf50",
     dark: "#1b5e20",
     contrastText: black,

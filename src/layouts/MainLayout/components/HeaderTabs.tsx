@@ -21,8 +21,8 @@ const HeaderTabs = () => {
         return PathConstant.ROOT;
       case PathConstant.COMPANY:
         return PathConstant.COMPANY;
-      case PathConstant.JOB:
-        return PathConstant.JOB;
+      case PathConstant.JOBS:
+        return PathConstant.JOBS;
       case PathConstant.PAGES:
         return PathConstant.PAGES;
       case PathConstant.BLOG:
@@ -74,7 +74,7 @@ const getHeaderTabArr = (
   });
   return [
     { label: objTabs.lHome, path: PathConstant.ROOT },
-    { label: objTabs.lJobs, path: PathConstant.JOB },
+    { label: objTabs.lJobs, path: PathConstant.JOBS },
     { label: objTabs.lCompanies, path: PathConstant.COMPANY },
     { label: objTabs.lPages, path: PathConstant.PAGES },
     { label: objTabs.lBlogs, path: PathConstant.BLOG },
@@ -99,18 +99,18 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
       marginRight: 0,
     },
 
-    [theme.breakpoints.down("lg")]: {
-      margin: theme.spacing(3, 0, 0),
-      fontSize: 24,
-      "&:first-child": {
-        margin: 0,
-      },
-    },
+    // [theme.breakpoints.down("lg")]: {
+    //   margin: theme.spacing(3, 0, 0),
+    //   fontSize: 24,
+    //   "&:first-child": {
+    //     margin: 0,
+    //   },
+    // },
   },
   flexContainer: {
     [theme.breakpoints.down("lg")]: {
-      flexDirection: "column",
-      alignItems: "flex-start",
+      // flexDirection: "column",
+      // alignItems: "flex-start",
     },
   },
 }));
