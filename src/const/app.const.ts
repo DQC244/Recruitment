@@ -32,3 +32,11 @@ export const COMPANY_LOCATION = {
   daNang: 3,
   other: 4,
 };
+
+export const JOB_TYPE = {
+  freelance: 0,
+  fulltime: 1,
+  partTime: 2,
+  internship: 3,
+  temporary: 4,
+};

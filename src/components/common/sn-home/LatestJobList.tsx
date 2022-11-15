@@ -137,6 +137,10 @@ const JOB_LIST = [
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
-    marginTop: 100,
+    marginTop: 150,
+
+    [theme.breakpoints.down("sm")]: {
+      marginTop: 40,
+    },
   },
 }));
