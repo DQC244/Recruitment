@@ -43,7 +43,7 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
       <Stack spacing={1}>
         <Button disabled={isLoading} onClick={handleSignIn} variant="contained">
           {isLoading ? (
-            <CircularProgress sx={{ color: "white" }} />
+            <CircularProgress size={24} sx={{ color: "white" }} />
           ) : (
             getLabel("lSignIn")
           )}

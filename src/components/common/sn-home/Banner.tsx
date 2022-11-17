@@ -79,8 +79,7 @@ type company = {
 
 export default Banner;
 
-const CATEGORIES = [
-  { value: 0, label: "All" },
+export const CATEGORIES = [
   { value: 1, label: "Design & Art" },
   { value: 2, label: "Health Care" },
   { value: 3, label: "IT Engineer" },

@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     position: "fixed",
     height: HEADER_HEIGHT_IN_PX,
     backgroundColor: theme.palette.common.white,
-    boxShadow: `0px 4px 4px ${theme.palette.grey.A100}`,
   },
   container: {
     height: HEADER_HEIGHT_IN_PX,

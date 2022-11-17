@@ -124,7 +124,7 @@ const EmployerForm = () => {
           variant="contained"
         >
           {isLoading ? (
-            <CircularProgress sx={{ color: "white" }} />
+            <CircularProgress size={24} sx={{ color: "white" }} />
           ) : (
             "REGISTER"
           )}

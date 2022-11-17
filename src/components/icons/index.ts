@@ -6,6 +6,8 @@ import UnHiddenIcon from "./UnHiddenIcon";
 import PlusIcon from "./PlusIcon";
 import SearchIcon from "./SearchIcon";
 import LocationIcon from "./LocationIcon";
+import CheckboxIcon from "./CheckboxIcon";
+import EmailIcon from "./EmailIcon";
 
 export {
   UserIcon,
@@ -16,4 +18,6 @@ export {
   PlusIcon,
   SearchIcon,
   LocationIcon,
+  CheckboxIcon,
+  EmailIcon,
 };

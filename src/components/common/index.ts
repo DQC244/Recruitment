@@ -10,6 +10,8 @@ import AppSelect from "./AppSelect";
 import PasswordInput from "./PasswordInput";
 import CommonMenu from "./CommonMenu";
 import PrimarySlider from "./PrimarySlider";
+import AppAccordion from "./AppAccordion";
+import AppCheckbox from "./AppCheckbox";
 
 import {
   CommonModal,
@@ -39,6 +41,8 @@ export {
   PasswordInput,
   CommonMenu,
   PrimarySlider,
+  AppAccordion,
+  AppCheckbox,
 };
 
 export type { AppHeadProps };

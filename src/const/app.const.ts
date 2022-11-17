@@ -28,9 +28,9 @@ export const USER_TYPE = {
 
 export const COMPANY_LOCATION = {
   hanoi: 0,
-  hoChiMinh: 2,
-  daNang: 3,
-  other: 4,
+  hoChiMinh: 1,
+  daNang: 2,
+  other: 3,
 };
 
 export const JOB_TYPE = {

@@ -2,13 +2,28 @@ import React from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AppTypography } from "components/common";
-import JobType from "components/filter/JobType";
+import JobType from "components/common/filter/JobType";
 import clsx from "clsx";
+import Location from "components/common/filter/Location";
+import CategoriesFilter from "../filter/CategoriesFilter";
+import SalaryFilter from "../filter/SalaryFilter";
 
 const FilterJob = () => {
   const classes = useStyles();
 
   const handleChangeJob = (value?: any) => {
+    console.log(value);
+    return;
+  };
+  const handleChangeCategories = (value?: any) => {
+    console.log(value);
+    return;
+  };
+  const handleChangeLocation = (value?: any) => {
+    console.log(value);
+    return;
+  };
+  const handleChangeSalary = (value?: any) => {
     console.log(value);
     return;
   };
@@ -22,11 +37,10 @@ const FilterJob = () => {
         spacing={3}
         className={clsx("hidden-scrollbar", classes.filterWrapper)}
       >
-        <JobType className={classes.job} value={1} onChange={handleChangeJob} />
-        <JobType className={classes.job} value={1} onChange={handleChangeJob} />
-        <JobType className={classes.job} value={1} onChange={handleChangeJob} />
-        <JobType className={classes.job} value={1} onChange={handleChangeJob} />
-        <JobType className={classes.job} value={1} onChange={handleChangeJob} />
+        <SalaryFilter onChangeValue={handleChangeSalary} />
+        <JobType className={classes.job} onChange={handleChangeJob} />
+        <CategoriesFilter onChangeCategories={handleChangeCategories} />
+        <Location onChangeLocation={handleChangeLocation} />
       </Stack>
     </Box>
   );
@@ -39,7 +53,6 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     minWidth: 250,
     height: "100%",
-    borderRight: "1px solid #e9e9e9",
     padding: "45px 0px 16px",
   },
   headerButton: {
@@ -51,6 +64,7 @@ const useStyles = makeStyles(() => ({
     minHeight: "unset",
   },
   filterWrapper: {
+    padding: "0px 8px",
     height: "100%",
     overflowY: "scroll",
   },

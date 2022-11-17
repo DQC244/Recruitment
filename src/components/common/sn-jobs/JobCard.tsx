@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AppConstant, ImageConstant } from "const";
+import { AppConstant, ImageConstant, PathConstant } from "const";
 import { ThemeProps } from "models/types";
 import { AppTypography } from "components/common";
-import Image from "next/image";
 import { UnHiddenIcon } from "components/icons";
 import { getLabelJobType } from "./helper";
+import Image from "next/image";
 
 const JobCard = ({ data }: JobCardProps) => {
   const classes = useStyles();
@@ -35,7 +35,7 @@ const JobCard = ({ data }: JobCardProps) => {
           Company: {data?.companyName}
         </AppTypography>
         <AppTypography variant="body2" color="grey.500">
-          Location: ${data?.location}
+          Location: {data?.location}
         </AppTypography>
         {data?.rate && (
           <AppTypography variant="body2" color="grey.500">
@@ -49,6 +49,7 @@ const JobCard = ({ data }: JobCardProps) => {
         )}
         <Stack direction="row" spacing={1} alignItems="center">
           <Button
+            href={`${PathConstant.JOBS}/${data?.jobId}`}
             className={classes.button}
             variant="contained"
             endIcon={<UnHiddenIcon />}
@@ -66,6 +67,7 @@ const JobCard = ({ data }: JobCardProps) => {
 
 type JobCardProps = {
   data?: {
+    jobId?: string;
     jobType?: typeof AppConstant.JOB_TYPE[keyof typeof AppConstant.JOB_TYPE];
     jobName?: string;
     companyName?: string;

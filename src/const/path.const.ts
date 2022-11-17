@@ -4,5 +4,6 @@ export const REGISTER = "/register";
 export const PROFILE = "/profile";
 export const COMPANY = "/companies";
 export const JOBS = "/jobs";
+export const JOBS_DETAIL = `/${JOBS}/[jobId]`;
 export const PAGES = "/pages";
 export const BLOG = "/blog";

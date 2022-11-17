@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Box, BoxProps, Button, ButtonProps } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AppTypography } from "components/common";
 import FilterLayout, { FilterLayoutProps } from "./FilterLayout";
 import clsx from "clsx";
 import { ThemeProps } from "models/types";
+import { AppConstant } from "const";
 
-const FiltersBox = ({
+const JobType = ({
   data,
   onChange,
   listProps = {},
@@ -18,17 +19,19 @@ const FiltersBox = ({
   const { className: buttonClassName, ...otherButtonProps } = buttonProps;
   const { className: listClassName, ...otherListProps } = listProps;
 
-  const [filters, setFilters] = useState(data);
+  const [filters, setFilters] = useState<number[]>([]);
 
-  const onChangeFilters = (value?: number) => {
-    const newFilters = filters?.map((item) =>
-      item.value === value ? { ...item, checked: !item.checked } : item
-    );
-    setFilters(newFilters);
-
-    if (onChange instanceof Function) {
-      onChange(newFilters);
+  const onChangeFilters = (value: number) => {
+    let newFilter = [...filters];
+    let index = newFilter.indexOf(value);
+    if (index !== -1) {
+      newFilter.splice(index, 1);
+    } else {
+      newFilter = [...newFilter, value];
     }
+
+    setFilters(newFilter);
+    onChange(newFilter);
   };
 
   useEffect(() => {
@@ -38,12 +41,12 @@ const FiltersBox = ({
   }, [data]);
 
   return (
-    <FilterLayout {...otherProps}>
+    <FilterLayout title="Job Type" {...otherProps}>
       <Box
         className={clsx(defaultClasses.list, listClassName)}
         {...otherListProps}
       >
-        {filters?.map(({ value, label, checked }) => (
+        {defaultFilters.map(({ value, label }) => (
           <Button
             key={label}
             variant="outlined"
@@ -51,7 +54,7 @@ const FiltersBox = ({
             className={clsx(
               defaultClasses.button,
               buttonClassName,
-              checked && defaultClasses.checked
+              filters.includes(value) && defaultClasses.checked
             )}
             {...otherButtonProps}
           >
@@ -64,18 +67,37 @@ const FiltersBox = ({
 };
 
 export type FiltersBoxProps = FilterLayoutProps & {
-  data?: {
-    value?: number;
-    label?: string;
-    checked?: boolean;
-  }[];
+  data?: number[];
   buttonProps?: ButtonProps;
   listProps?: BoxProps;
 
   onChange: (value?: any) => void;
 };
 
-export default FiltersBox;
+export default memo(JobType);
+
+const defaultFilters = [
+  {
+    value: AppConstant.JOB_TYPE.freelance,
+    label: "Freelance",
+  },
+  {
+    value: AppConstant.JOB_TYPE.fulltime,
+    label: "Fulltime",
+  },
+  {
+    value: AppConstant.JOB_TYPE.partTime,
+    label: "Part Time",
+  },
+  {
+    value: AppConstant.JOB_TYPE.internship,
+    label: "Internship",
+  },
+  {
+    value: AppConstant.JOB_TYPE.temporary,
+    label: "Temporary",
+  },
+];
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   list: {
