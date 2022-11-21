@@ -20,8 +20,10 @@ const HeaderTabs = () => {
       case PathConstant.ROOT:
         return PathConstant.ROOT;
       case PathConstant.COMPANY:
+      case PathConstant.COMPANY_DETAIL:
         return PathConstant.COMPANY;
       case PathConstant.JOBS:
+      case PathConstant.JOBS_DETAIL:
         return PathConstant.JOBS;
       case PathConstant.PAGES:
         return PathConstant.PAGES;

@@ -137,17 +137,17 @@ const useStyles = makeStyles<ThemeProps>((theme) => ({
     ...theme?.typography?.subtitle2,
     position: "relative",
     transform: "initial",
-    color: theme.palette.common.white,
+    color: theme.palette.common.black,
     marginBottom: theme.spacing(0.5),
   },
   inputLabelFocused: {
     "&$inputLabelFocused": {
-      color: theme.palette.common.white,
+      color: theme.palette.common.black,
     },
   },
   inputLabelError: {
     "&$inputLabelError": {
-      color: theme.palette.common.white,
+      color: theme.palette.common.black,
     },
   },
   inputLabelAsterisk: {

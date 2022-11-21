@@ -4,13 +4,13 @@ import { Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 
-const Companies: NextPage = () => {
+const CompanyDetail: NextPage = () => {
   const classes = useStyles();
 
-  return <Container className={classes.root}>companies</Container>;
+  return <Container className={classes.root}>companies detail</Container>;
 };
 
-export default Companies;
+export default CompanyDetail;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
