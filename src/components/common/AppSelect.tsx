@@ -24,6 +24,7 @@ import clsx from "clsx";
 const AppSelect = ({
   data,
   selectedIndex,
+  defaultLabel,
   onSelected,
   buttonProps = {},
   popperProps = { open: false },
@@ -63,9 +64,8 @@ const AppSelect = ({
       const selectedItemData = data.find(
         (item) => item.value === selectedIndex
       );
-      const newSelectList = data.filter((item) => item.value !== selectedIndex);
       setSelectedItem(selectedItemData);
-      setSelectList(newSelectList);
+      setSelectList(data);
     }
   }, [data, selectedIndex]);
 
@@ -88,7 +88,7 @@ const AppSelect = ({
           disableFocusRipple
           {...otherButtonProps}
         >
-          {selectedItem?.label}
+          {defaultLabel || selectedItem?.label}
         </Button>
         <Popper
           className={clsx(defaultClasses.popper, popperClassName)}
@@ -111,7 +111,11 @@ const AppSelect = ({
               value={item.value}
               classes={{
                 ...menuItemClasses,
-                root: clsx(defaultClasses.menuItemRoot, menuItemClasses?.root),
+                root: clsx(
+                  defaultClasses.menuItemRoot,
+                  menuItemClasses?.root,
+                  selectedItem?.value === item.value && defaultClasses.checked
+                ),
               }}
               onClick={handleClickMenuItem(item)}
               {...otherMenuItemProps}
@@ -133,6 +137,7 @@ type ItemSelect = {
 type AppSelectProps = {
   data: ItemSelect[];
   selectedIndex: string | number;
+  defaultLabel?: string;
   popperProps?: PopperProps;
   buttonProps?: ButtonProps;
   menuItemProps?: MenuItemProps;
@@ -174,6 +179,12 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
     "&:last-child": {
       border: "unset",
+    },
+  },
+  checked: {
+    "&,&:hover": {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary.main,
     },
   },
 }));

@@ -52,6 +52,7 @@ export default Jobs;
 
 const DATA = [
   {
+    jobId: 1,
     jobName: "develop",
     companyName: "facebook",
     rate: "2$ - 3$ /hours",
@@ -61,6 +62,7 @@ const DATA = [
     postedDate: "Posted 3 years ago",
   },
   {
+    jobId: 2,
     jobName: "develop",
     companyName: "facebook",
     rate: "2$ - 3$ /hours",
@@ -70,6 +72,7 @@ const DATA = [
     postedDate: "Posted 3 years ago",
   },
   {
+    jobId: 3,
     jobName: "develop",
     companyName: "facebook",
     rate: "2$ - 3$ /hours",
@@ -79,6 +82,7 @@ const DATA = [
     postedDate: "Posted 3 years ago",
   },
   {
+    jobId: 4,
     jobName: "develop",
     companyName: "facebook",
     rate: "2$ - 3$ /hours",
@@ -88,6 +92,7 @@ const DATA = [
     postedDate: "Posted 3 years ago",
   },
   {
+    jobId: 5,
     jobName: "develop",
     companyName: "facebook",
     rate: "2$ - 3$ /hours",
@@ -97,6 +102,7 @@ const DATA = [
     postedDate: "Posted 3 years ago",
   },
   {
+    jobId: 6,
     jobName: "develop",
     companyName: "facebook",
     rate: "2$ - 3$ /hours",
@@ -106,6 +112,7 @@ const DATA = [
     postedDate: "Posted 3 years ago",
   },
   {
+    jobId: 7,
     jobName: "develop",
     companyName: "facebook",
     rate: "2$ - 3$ /hours",

@@ -67,7 +67,7 @@ const JobCard = ({ data }: JobCardProps) => {
 
 type JobCardProps = {
   data?: {
-    jobId?: string;
+    jobId?: number;
     jobType?: typeof AppConstant.JOB_TYPE[keyof typeof AppConstant.JOB_TYPE];
     jobName?: string;
     companyName?: string;

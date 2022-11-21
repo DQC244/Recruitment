@@ -17,7 +17,9 @@ const CompanyCard = ({ data, ...otherProps }: CardJobProps) => {
               <AppImage
                 src={data.companyLogo}
                 className={classes.logo}
-                objectFit="cover"
+                imageProps={{
+                  objectFit: "cover",
+                }}
               />
             )}
           </Box>

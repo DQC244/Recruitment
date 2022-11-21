@@ -142,6 +142,7 @@ type company = {
 export default EmployerForm;
 
 export const COMPANY_LOCATION_DATA = [
+  { value: AppConstant.COMPANY_LOCATION.all, label: "Location" },
   { value: AppConstant.COMPANY_LOCATION.hanoi, label: "Ha Noi" },
   { value: AppConstant.COMPANY_LOCATION.hoChiMinh, label: "Ho Chi Minh" },
   { value: AppConstant.COMPANY_LOCATION.daNang, label: "Da nang" },

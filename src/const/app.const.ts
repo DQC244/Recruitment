@@ -27,6 +27,7 @@ export const USER_TYPE = {
 };
 
 export const COMPANY_LOCATION = {
+  all: -1,
   hanoi: 0,
   hoChiMinh: 1,
   daNang: 2,

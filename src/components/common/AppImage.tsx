@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Box, BoxProps } from "@mui/material";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
 
 const AppImage = ({
   className,
@@ -25,7 +25,7 @@ const AppImage = ({
 
 type AppImageType = BoxProps & {
   src?: string;
-  imageProps?: ImageProps;
+  imageProps?: object;
 };
 
 export default memo(AppImage);

@@ -47,6 +47,7 @@ const Banner = () => {
             placeholder="keyword skill"
           />
           <AppSelect
+            defaultLabel={COMPANY_LOCATION_DATA[0].label}
             selectedIndex={companyLocation.value}
             onSelected={handleChangeLocationCompany}
             data={COMPANY_LOCATION_DATA}
@@ -55,6 +56,7 @@ const Banner = () => {
             }}
           />
           <AppSelect
+            defaultLabel={CATEGORIES[0].label}
             selectedIndex={categories.value}
             onSelected={handleChangeCategory}
             data={CATEGORIES}
@@ -72,7 +74,7 @@ const Banner = () => {
   );
 };
 
-type company = {
+export type company = {
   value: string | number;
   label: ReactNode;
 };
@@ -80,6 +82,7 @@ type company = {
 export default Banner;
 
 export const CATEGORIES = [
+  { value: -1, label: "Category" },
   { value: 1, label: "Design & Art" },
   { value: 2, label: "Health Care" },
   { value: 3, label: "IT Engineer" },
