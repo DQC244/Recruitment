@@ -14,6 +14,13 @@ import RankIcon from "./RankIcon";
 import ExperienceIcon from "./ExperienceIcon";
 import QualificationIcon from "./QualificationIcon";
 import MoneyIcon from "./MoneyIcon";
+import NetworkIcon from "./NetworkIcon";
+import PhoneIcon from "./PhoneIcon";
+import FacebookIcon from "./FacebookIcon";
+import TwitterIcon from "./TwitterIcon";
+import LinkedinIcon from "./LinkedinIcon";
+import TeamSizeIcon from "./TeamSizeIcon";
+import CategoryIcon from "./CategoryIcon";
 
 export {
   UserIcon,
@@ -32,4 +39,11 @@ export {
   ExperienceIcon,
   QualificationIcon,
   MoneyIcon,
+  NetworkIcon,
+  PhoneIcon,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  TeamSizeIcon,
+  CategoryIcon,
 };
