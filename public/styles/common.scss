@@ -46,6 +46,12 @@ body {
   justify-content: space-between;
 }
 
+.space-around-root {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .eclipse {
   overflow: hidden;
   text-overflow: ellipsis;

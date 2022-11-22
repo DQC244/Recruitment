@@ -27,7 +27,7 @@ const MLHeader = () => {
           DQC
         </AppLink>
         <HeaderTabs />
-        <Box>
+        <Box display="flex">
           <Account className={classes.account} />
           <Button endIcon={<PlusIcon />} variant="contained">
             {getLabel("lPostJob")}
