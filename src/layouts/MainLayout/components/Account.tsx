@@ -1,4 +1,4 @@
-import { Avatar, IconButton, IconButtonProps } from "@mui/material";
+import { Avatar, Box, IconButton, IconButtonProps } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { UserIcon } from "components/icons";
 import { ThemeProps } from "models/types";
@@ -6,17 +6,25 @@ import React, { MouseEvent, useState } from "react";
 import clsx from "clsx";
 import LoginModal from "./LoginModal";
 import { AppTypography, CommonMenu } from "components/common";
-import { ImageConstant } from "const";
+import { ImageConstant, PathConstant } from "const";
+import { useRouter } from "next/router";
 
 const Account = ({ className, ...otherProps }: IconButtonProps) => {
   const classes = useStyles();
+  const router = useRouter();
 
   // TODO:update when data
-  const hasAccount = false;
+  const hasAccount = true;
   const name = "chien";
 
   const [isOpen, setIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+  const handleRedirectDashboard = (item: any) => {
+    if (item.label === "My profile") {
+      router.push(PathConstant.DASHBOARD);
+    }
+  };
 
   const listMenu = [
     {
@@ -24,7 +32,7 @@ const Account = ({ className, ...otherProps }: IconButtonProps) => {
         <AppTypography color="primary.main">chien@gmail.com</AppTypography>
       ),
     },
-    { label: "My profile" },
+    { label: "My profile", onClick: handleRedirectDashboard },
     { label: "Logout" },
   ];
 
@@ -42,28 +50,29 @@ const Account = ({ className, ...otherProps }: IconButtonProps) => {
 
   return (
     <>
-      <IconButton
-        onClick={handleOpen}
-        className={clsx(classes.root, className)}
-        {...otherProps}
-      >
-        {hasAccount ? (
-          <>
-            <Avatar src={ImageConstant.LogoImage} />
-            <AppTypography textTransform="capitalize" variant="subtitle1">
-              {name}
-            </AppTypography>
-          </>
-        ) : (
-          <UserIcon sx={{ fontSize: 24 }} />
+      <Box className={clsx("center-root", className)}>
+        <IconButton
+          onClick={handleOpen}
+          className={clsx(classes.root, hasAccount && classes.hasAccount)}
+          {...otherProps}
+        >
+          {hasAccount ? (
+            <>
+              <Avatar src={ImageConstant.LogoImage} />
+            </>
+          ) : (
+            <UserIcon sx={{ fontSize: 24 }} />
+          )}
+        </IconButton>
+        {hasAccount && (
+          <AppTypography ml={1} textTransform="capitalize" variant="subtitle1">
+            {name}
+          </AppTypography>
         )}
-      </IconButton>
-
+      </Box>
       {hasAccount ? (
         <CommonMenu
-          onClickItem={() => {
-            return;
-          }}
+          onClickItem={handleRedirectDashboard}
           placement="bottom"
           anchorEl={anchorEl}
           modifiers={[
@@ -92,5 +101,10 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     width: "fit-content",
     borderRadius: 16,
     border: `1px solid ${theme.palette.grey[200]}`,
+  },
+  hasAccount: {
+    width: 40,
+    height: 40,
+    borderRadius: "50%",
   },
 }));

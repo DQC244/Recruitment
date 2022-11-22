@@ -19,8 +19,8 @@ import { AppConstant } from "const";
 export const covertTimeStampToDateFormat = (
   timeStamp: number,
   isUTC = true,
-  dateFormat = AppConstant.DATE_FORMAT,
-  timeFormat = AppConstant.TIME_FORMAT,
+  dateFormat = AppConstant.FULL_DATE_FORMAT,
+  timeFormat = AppConstant.TIME_FORMAT
 ) => {
   if (!timeStamp) return {};
 
@@ -29,8 +29,14 @@ export const covertTimeStampToDateFormat = (
   const convertedDate = new Date(timeStamp * 1000);
 
   if (isUTC) {
-    date = format(addMinutes(convertedDate, convertedDate.getTimezoneOffset()), dateFormat);
-    time = format(addMinutes(convertedDate, convertedDate.getTimezoneOffset()), timeFormat);
+    date = format(
+      addMinutes(convertedDate, convertedDate.getTimezoneOffset()),
+      dateFormat
+    );
+    time = format(
+      addMinutes(convertedDate, convertedDate.getTimezoneOffset()),
+      timeFormat
+    );
   } else {
     date = format(convertedDate, dateFormat);
     time = format(convertedDate, timeFormat);
@@ -52,7 +58,7 @@ export const formatTimeStampToUTCString = (timeStamp: number): string => {
     const { date, time } = covertTimeStampToDateFormat(
       timeStamp,
       true,
-      AppConstant.FULL_DATE_FORMAT,
+      AppConstant.FULL_DATE_FORMAT
     );
     return ` ${time} (UTC) - ${date}`;
   } else {
