@@ -4,9 +4,11 @@ import { ThemeProps } from "models/types";
 import React from "react";
 import AppTypography from "../AppTypography";
 import clsx from "clsx";
+import { CardPackages } from "../packages";
 
 const ActivePackages = () => {
   const classes = useStyles();
+  const isPackages = true;
 
   return (
     <Stack className={classes.root}>
@@ -14,15 +16,27 @@ const ActivePackages = () => {
         Active Packages
       </AppTypography>
       <Box className={clsx("center-root", classes.wrapper)}>
-        <AppTypography>
-          No packages have been bought or all packages have been used.
-        </AppTypography>
+        {isPackages ? (
+          <CardPackages data={DATA} />
+        ) : (
+          <AppTypography>
+            No packages have been bought or all packages have been used.
+          </AppTypography>
+        )}
       </Box>
     </Stack>
   );
 };
 
 export default ActivePackages;
+
+const DATA = {
+  name: "Corporate Package",
+  description:
+    "With the Corporate Job Package you will be able to post up to 10 jobs that will be visible for 60 days.",
+  price: 39.99,
+  dayPayment: 60,
+};
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
