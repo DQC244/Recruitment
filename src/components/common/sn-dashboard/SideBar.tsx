@@ -21,6 +21,8 @@ const SideBar = () => {
         return PathConstant.PACKAGES_DASHBOARD;
       case PathConstant.MY_COMPANY_DASHBOARD:
         return PathConstant.MY_COMPANY_DASHBOARD;
+      case PathConstant.PROFILES_DASHBOARD:
+        return PathConstant.PROFILES_DASHBOARD;
       default:
         return false;
     }
@@ -82,6 +84,16 @@ const SideBar = () => {
             variant="body2"
           >
             Packages
+          </AppLink>
+          <AppLink
+            href={PathConstant.PROFILES_DASHBOARD}
+            className={clsx(
+              classes.item,
+              PathConstant.PROFILES_DASHBOARD === value && classes.checked
+            )}
+            variant="body2"
+          >
+            My Profiles
           </AppLink>
         </Stack>
       </Stack>

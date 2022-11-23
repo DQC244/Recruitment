@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Container, IconButton, Stack } from "@mui/material";
+import { Box, Container, IconButton, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import { ImageConstant } from "const";
@@ -77,7 +77,6 @@ const BannerCompany = ({ data }: BannerCompanyProps) => {
                   </IconButton>
                 )}
               </Stack>
-              <Button variant="contained">Direct message</Button>
             </Stack>
           </Stack>
         </Container>
