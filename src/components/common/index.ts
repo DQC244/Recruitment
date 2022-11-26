@@ -13,6 +13,8 @@ import PrimarySlider from "./PrimarySlider";
 import AppAccordion from "./AppAccordion";
 import AppCheckbox from "./AppCheckbox";
 import AppRadio from "./AppRadio";
+import UploadImageInput from "./UploadImageInput";
+import BasicDateTimePicker from "./BasicDateTimePicker";
 
 import {
   CommonModal,
@@ -45,6 +47,8 @@ export {
   AppAccordion,
   AppCheckbox,
   AppRadio,
+  UploadImageInput,
+  BasicDateTimePicker,
 };
 
 export type { AppHeadProps };

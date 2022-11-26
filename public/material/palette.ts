@@ -95,7 +95,7 @@ const palette: TPalette = {
   background: {
     default:
       "linear-gradient(90deg, #09245B 0%, #1B3271 36.25%, #1B3271 59.17%, #09245B 100%)",
-    paper: "#152E86",
+    paper: "#8C8C8C",
   },
   gradient: {
     default: "linear-gradient(266.5deg, #6626CF 0%, #8C53EF 100%)",
