@@ -22,6 +22,7 @@ import LinkedinIcon from "./LinkedinIcon";
 import TeamSizeIcon from "./TeamSizeIcon";
 import CategoryIcon from "./CategoryIcon";
 import RadioIcon from "./RadioIcon";
+import ImageIcon from "./ImageIcon";
 
 export {
   UserIcon,
@@ -48,4 +49,5 @@ export {
   TeamSizeIcon,
   CategoryIcon,
   RadioIcon,
+  ImageIcon,
 };
