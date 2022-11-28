@@ -29,6 +29,7 @@ const AppInput = ({
 
   return (
     <TextField
+      fullWidth
       InputProps={{
         classes: {
           ...inputClasses,

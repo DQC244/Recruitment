@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { ActivePackages, SideBar } from "components/common/sn-dashboard";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";

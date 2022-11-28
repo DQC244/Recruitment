@@ -136,7 +136,7 @@ type ItemSelect = {
 
 type AppSelectProps = {
   data: ItemSelect[];
-  selectedIndex: string | number;
+  selectedIndex?: string | number;
   defaultLabel?: string;
   popperProps?: PopperProps;
   buttonProps?: ButtonProps;
@@ -173,6 +173,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     border: "1px solid rgba(255, 255, 255, 0.08)",
     filter: "drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.4))",
     overflow: "hidden",
+    zIndex: 1,
   },
   menuItemRoot: {
     padding: theme.spacing(0.75, 2),

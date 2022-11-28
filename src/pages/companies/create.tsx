@@ -1,21 +1,18 @@
 import React from "react";
 import { NextPage } from "next";
-import { Container } from "@mui/material";
-import {
-  Banner,
-  CategoryList,
-  FeaturedEmployers,
-  LatestJobList,
-} from "components/common/sn-home";
+import { Button, Container, Stack } from "@mui/material";
 import CompanyActionPanel from "components/common/CompanyActionPanel";
 
 const Create: NextPage = () => {
   return (
-    <>
-      <Container>
+    <Container>
+      <Stack spacing={5}>
         <CompanyActionPanel />
-      </Container>
-    </>
+        <Button sx={{ width: 240 }} variant="contained">
+          Create
+        </Button>
+      </Stack>
+    </Container>
   );
 };
 

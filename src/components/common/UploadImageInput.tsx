@@ -84,6 +84,7 @@ export default memo(UploadImageInput);
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   labelRoot: {
+    ...theme.typography?.subtitle2,
     color: "black",
   },
   asterisk: {

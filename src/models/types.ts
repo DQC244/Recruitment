@@ -83,3 +83,8 @@ export type CommonModalProps = DialogProps & {
   closeIconProps?: { className?: string; [x: string]: unknown };
   onClose: () => void;
 };
+
+export type AppSelectProps = {
+  value: string | number;
+  label: ReactNode;
+};
