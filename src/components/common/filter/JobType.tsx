@@ -76,7 +76,7 @@ export type FiltersBoxProps = FilterLayoutProps & {
 
 export default memo(JobType);
 
-const defaultFilters = [
+export const defaultFilters = [
   {
     value: AppConstant.JOB_TYPE.freelance,
     label: "Freelance",

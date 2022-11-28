@@ -8,6 +8,7 @@ import { AppLink } from "components/common";
 import { useTranslation } from "react-i18next";
 import Account from "./Account";
 import { PlusIcon } from "components/icons";
+import { PathConstant } from "const";
 
 const MLHeader = () => {
   const classes = useStyles();
@@ -29,7 +30,11 @@ const MLHeader = () => {
         <HeaderTabs />
         <Box display="flex">
           <Account className={classes.account} />
-          <Button endIcon={<PlusIcon />} variant="contained">
+          <Button
+            href={PathConstant.CREATE_JOBS}
+            endIcon={<PlusIcon />}
+            variant="contained"
+          >
             {getLabel("lPostJob")}
           </Button>
         </Box>
