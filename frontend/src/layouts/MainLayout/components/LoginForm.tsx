@@ -6,6 +6,7 @@ import {
   PasswordInput,
 } from "components/common";
 import { PathConstant } from "const";
+import { useAuthContext } from "context";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -13,11 +14,22 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
   const { t: getLabel } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSignIn = () => {
+  const { handleLogin } = useAuthContext();
+
+  const handleSignIn = async () => {
     setIsLoading(true);
+    await handleLogin(
+      {
+        email,
+        password,
+      },
+      setError
+    );
+    setIsLoading(false);
   };
 
   return (
@@ -25,8 +37,8 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
       <Box>
         <AppTypography>{getLabel("lUsernameEmail")}</AppTypography>
         <AppInput
-          value={username}
-          onChange={(e) => setUsername(e.currentTarget.value)}
+          value={email}
+          onChange={(e) => setEmail(e.currentTarget.value)}
           fullWidth
           placeholder={getLabel("pYourUserName")}
         />
@@ -41,14 +53,18 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         />
       </Box>
       <Stack spacing={1}>
-        <Button disabled={isLoading} onClick={handleSignIn} variant="contained">
+        <Button
+          disabled={!email || !password || isLoading}
+          onClick={handleSignIn}
+          variant="contained"
+        >
           {isLoading ? (
             <CircularProgress size={24} sx={{ color: "white" }} />
           ) : (
             getLabel("lSignIn")
           )}
         </Button>
-        <AppTypography></AppTypography>
+        <AppTypography color="error.main">{error}</AppTypography>
         <AppLink onClick={onClose} href={PathConstant.REGISTER}>
           Don't have an account?
         </AppLink>

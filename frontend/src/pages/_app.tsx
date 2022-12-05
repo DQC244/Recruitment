@@ -8,7 +8,7 @@ import store from "redux-store";
 import MainLayout from "layouts/MainLayout";
 import "language";
 import "public/styles/index.scss";
-import { GlobalModalProvider } from "context";
+import { AuthProvider, GlobalModalProvider } from "context";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -24,10 +24,12 @@ const MyApp = (props: MyAppProps) => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <GlobalModalProvider>
-            <CssBaseline />
-            <MainLayout {...pageProps}>
-              {getLayout(<Component {...pageProps} />)}
-            </MainLayout>
+            <AuthProvider>
+              <CssBaseline />
+              <MainLayout {...pageProps}>
+                {getLayout(<Component {...pageProps} />)}
+              </MainLayout>
+            </AuthProvider>
           </GlobalModalProvider>
         </ThemeProvider>
       </Provider>

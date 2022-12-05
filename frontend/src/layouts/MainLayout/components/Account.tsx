@@ -6,33 +6,36 @@ import React, { MouseEvent, useState } from "react";
 import clsx from "clsx";
 import LoginModal from "./LoginModal";
 import { AppTypography, CommonMenu } from "components/common";
-import { ImageConstant, PathConstant } from "const";
+import { PathConstant } from "const";
 import { useRouter } from "next/router";
+import { useAuthContext } from "context";
 
 const Account = ({ className, ...otherProps }: IconButtonProps) => {
   const classes = useStyles();
   const router = useRouter();
 
   // TODO:update when data
-  const hasAccount = true;
-  const name = "chien";
+
+  const { hasAccount, accountInfo, handleLogout } = useAuthContext();
 
   const [isOpen, setIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const handleRedirectDashboard = (item: any) => {
+  const handleClickItem = (item: any) => {
     if (item.label === "My profile") {
       router.push(PathConstant.DASHBOARD);
+    } else if (item.label === "Logout") {
+      handleLogout();
     }
   };
 
   const listMenu = [
     {
       label: (
-        <AppTypography color="primary.main">chien@gmail.com</AppTypography>
+        <AppTypography color="primary.main">{accountInfo.email}</AppTypography>
       ),
     },
-    { label: "My profile", onClick: handleRedirectDashboard },
+    { label: "My profile" },
     { label: "Logout" },
   ];
 
@@ -58,7 +61,7 @@ const Account = ({ className, ...otherProps }: IconButtonProps) => {
         >
           {hasAccount ? (
             <>
-              <Avatar src={ImageConstant.LogoImage} />
+              <Avatar src={accountInfo.image} />
             </>
           ) : (
             <UserIcon sx={{ fontSize: 24 }} />
@@ -66,13 +69,13 @@ const Account = ({ className, ...otherProps }: IconButtonProps) => {
         </IconButton>
         {hasAccount && (
           <AppTypography ml={1} textTransform="capitalize" variant="subtitle1">
-            {name}
+            {accountInfo.name}
           </AppTypography>
         )}
       </Box>
       {hasAccount ? (
         <CommonMenu
-          onClickItem={handleRedirectDashboard}
+          onClickItem={handleClickItem}
           placement="bottom"
           anchorEl={anchorEl}
           modifiers={[

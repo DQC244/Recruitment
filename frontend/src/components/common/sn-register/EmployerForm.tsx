@@ -1,25 +1,34 @@
-import { Box, Button, CircularProgress, Stack, Switch } from "@mui/material";
 import {
-  AppInput,
-  AppTypography,
-  AppSelect,
-  PasswordInput,
-} from "components/common";
-import { AppConstant } from "const";
-import React, { ReactNode, useState } from "react";
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Snackbar,
+  Stack,
+  Switch,
+} from "@mui/material";
+import { AppInput, AppTypography, PasswordInput } from "components/common";
+import { AppConstant, PathConstant } from "const";
+import { useRouter } from "next/router";
+import React, { ChangeEvent, useState } from "react";
+import { CommonUtils } from "utils";
+import { useRegisterUser } from "./hooks";
 
-const EmployerForm = () => {
+const EmployerForm = ({ userType }: EmployerFormProps) => {
+  const handleRegisterService = useRegisterUser();
+
+  const router = useRouter();
+
   const [isAgree, setIsAgree] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [companyLocation, setCompanyLocation] = useState<company>(
-    COMPANY_LOCATION_DATA[0]
-  );
-  const [companyName, setCompanyName] = useState("");
-  const [websiteUrl, setWebsiteUrl] = useState("");
+  const [error, setError] = useState("");
+  const [errorEmailMsg, setErrorEmailMsg] = useState("");
+  const [errorPhoneMsg, setErrorPhoneMsg] = useState("");
+  const [isOpenMsg, setIsOpenMsg] = useState(false);
 
   const isDisabledButton =
     !userName ||
@@ -28,115 +37,141 @@ const EmployerForm = () => {
     !isAgree ||
     isLoading ||
     !phone ||
-    !companyName ||
-    !websiteUrl;
+    Boolean(errorEmailMsg) ||
+    Boolean(errorPhoneMsg);
 
   const handleAgree = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAgree(event.target.checked);
   };
 
-  const handleChangeLocationCompany = (item: company) => {
-    setCompanyLocation(item);
+  const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+    if (!CommonUtils.checkEmailFormat(value)) {
+      setErrorEmailMsg("Email invalidate");
+    } else {
+      setErrorEmailMsg("");
+    }
+    setEmail(value);
   };
 
-  const handleRegister = () => {
+  const handleChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value;
+    if (!CommonUtils.checkValidPhoneNumber(value)) {
+      setErrorPhoneMsg("Phone invalidate");
+    } else {
+      setErrorPhoneMsg("");
+    }
+    setPhone(value);
+  };
+
+  const handleRegister = async () => {
     setIsLoading(true);
+    const { isSuccess, message } = await handleRegisterService({
+      name: userName,
+      phone,
+      email,
+      permission: userType,
+      password,
+    });
+
+    if (isSuccess) {
+      setTimeout(() => {
+        router.push(PathConstant.ROOT);
+      }, 2000);
+    }
+
+    setError(message);
+    setIsOpenMsg(true);
+    setIsLoading(false);
   };
 
   return (
-    <Stack spacing={2}>
-      <Box>
-        <AppTypography>Username</AppTypography>
-        <AppInput
-          value={userName}
-          onChange={(e) => setUserName(e.currentTarget.value)}
-          fullWidth
-          placeholder="Your Username"
-        />
-      </Box>
-      <Box>
-        <AppTypography>Email</AppTypography>
-        <AppInput
-          value={email}
-          onChange={(e) => setEmail(e.currentTarget.value)}
-          fullWidth
-          placeholder="Your Email"
-        />
-      </Box>
-      <Box>
-        <AppTypography>Password</AppTypography>
-        <PasswordInput
-          value={password}
-          onChangeValue={(value) => setPassword(value)}
-          fullWidth
-          placeholder="Your Password"
-        />
-      </Box>
-      <Box>
-        <AppTypography>Phone Number</AppTypography>
-        <AppInput
-          value={phone}
-          onChange={(e) => setPhone(e.currentTarget.value)}
-          fullWidth
-          placeholder="Your Phone"
-        />
-      </Box>
-      <Box>
-        <AppTypography>Company Location</AppTypography>
-        <AppSelect
-          selectedIndex={companyLocation.value}
-          onSelected={handleChangeLocationCompany}
-          data={COMPANY_LOCATION_DATA}
-        />
-      </Box>
+    <>
+      <Stack spacing={2}>
+        <Box>
+          <AppTypography>Username</AppTypography>
+          <AppInput
+            value={userName}
+            onChange={(e) => setUserName(e.currentTarget.value)}
+            fullWidth
+            placeholder="Your Username"
+          />
+        </Box>
+        <Box>
+          <AppTypography>Email</AppTypography>
+          <AppInput
+            value={email}
+            onChange={handleChangeEmail}
+            fullWidth
+            placeholder="Your Email"
+            error={Boolean(errorEmailMsg)}
+            helperText={errorEmailMsg}
+          />
+        </Box>
+        <Box>
+          <AppTypography>Password</AppTypography>
+          <PasswordInput
+            value={password}
+            onChangeValue={(value) => setPassword(value)}
+            fullWidth
+            placeholder="Your Password"
+          />
+        </Box>
+        <Box>
+          <AppTypography>Phone Number</AppTypography>
+          <AppInput
+            value={phone}
+            onChange={handleChangePhone}
+            fullWidth
+            placeholder="Your Phone"
+            error={Boolean(errorPhoneMsg)}
+            helperText={errorPhoneMsg}
+          />
+        </Box>
 
-      <Box>
-        <AppTypography>Company Name</AppTypography>
-        <AppInput
-          value={companyName}
-          onChange={(e) => setCompanyName(e.currentTarget.value)}
-          fullWidth
-          placeholder="Your Company Name"
-        />
-      </Box>
-      <Box>
-        <AppTypography>Website URL</AppTypography>
-        <AppInput
-          value={websiteUrl}
-          onChange={(e) => setWebsiteUrl(e.currentTarget.value)}
-          fullWidth
-          placeholder="Your Website"
-        />
-      </Box>
-      <Box display="flex" alignItems="center">
-        <Switch checked={isAgree} onChange={handleAgree} />
-        <AppTypography>
-          By signing up, you agree to our
-          <AppTypography sx={{ ml: 1 }} color="primary.main" component="span">
-            Privacy Policy.
+        <Box display="flex" alignItems="center">
+          <Switch checked={isAgree} onChange={handleAgree} />
+          <AppTypography>
+            By signing up, you agree to our
+            <AppTypography sx={{ ml: 1 }} color="primary.main" component="span">
+              Privacy Policy.
+            </AppTypography>
           </AppTypography>
-        </AppTypography>
-      </Box>
-      <Stack spacing={1}>
-        <Button
-          disabled={isDisabledButton}
-          onClick={handleRegister}
-          variant="contained"
-        >
-          {isLoading ? (
-            <CircularProgress size={24} sx={{ color: "white" }} />
-          ) : (
-            "REGISTER"
-          )}
-        </Button>
+        </Box>
+        <Stack spacing={1}>
+          <Button
+            disabled={isDisabledButton}
+            onClick={handleRegister}
+            variant="contained"
+          >
+            {isLoading ? (
+              <CircularProgress size={24} sx={{ color: "white" }} />
+            ) : (
+              "REGISTER"
+            )}
+          </Button>
+        </Stack>
       </Stack>
-    </Stack>
+      <Snackbar
+        open={isOpenMsg}
+        autoHideDuration={5000}
+        onClose={() => setIsOpenMsg(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          onClose={() => setIsOpenMsg(false)}
+          severity={error ? "error" : "success"}
+          sx={{ width: "100%" }}
+        >
+          {error || "success!"}
+        </Alert>
+      </Snackbar>
+    </>
   );
 };
 
-type company = {
-  value: string | number;
-  label: ReactNode;
+type EmployerFormProps = {
+  userType: AppConstant.USER_TYPE;
 };
 
 export default EmployerForm;

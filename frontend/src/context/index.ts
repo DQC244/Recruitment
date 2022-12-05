@@ -1,7 +1,13 @@
-export {};
 import {
   GlobalModalProvider,
   useGlobalModalContext,
 } from "./GlobalModalContext";
 
-export { GlobalModalProvider, useGlobalModalContext };
+import { useAuthContext, AuthProvider } from "./AuthContext";
+
+export {
+  GlobalModalProvider,
+  useGlobalModalContext,
+  useAuthContext,
+  AuthProvider,
+};

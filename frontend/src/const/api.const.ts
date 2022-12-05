@@ -17,5 +17,8 @@ export const STT_INTERNAL_SERVER = 500;
 export const STT_NOT_MODIFIED = 304;
 
 // API
-export const POST_LOGIN = "/login";
-export const GET_PROFILE = "/profile";
+export const POST_LOGIN = "/api/auth/signIn";
+export const POST_REGISTER = "api/auth/signup";
+export const PUT_CHANGE_PASSWORD = "api/user/change-password";
+export const PUT_UPDATE_USER = "/api/user/update/{id}";
+export const GET_PROFILE = "/api/user/self";

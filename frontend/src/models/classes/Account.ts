@@ -1,19 +1,27 @@
+import { AppConstant } from "const";
+
 class Account {
-  name?: string;
-  address?: string;
-  email?: string;
+  _id: string;
+  name: string;
+  phone?: string;
+  email: string;
+  permission: AppConstant.USER_TYPE;
+  company?: string;
+  image?: string;
+  job?: string[];
+  package?: string;
 
-  constructor(attributes: IAccountProperties = {}) {
-    for (const key in attributes) {
-      this[key as keyof IAccountProperties] = attributes[key as keyof IAccountProperties];
-    }
+  constructor(data: Account) {
+    this._id = data._id;
+    this.name = data.name;
+    this.phone = data.phone;
+    this.email = data.email;
+    this.permission = data.permission;
+    this.company = data.company;
+    this.image = data.image;
+    this.job = data.job;
+    this.package = data.package;
   }
-}
-
-export interface IAccountProperties {
-  name?: string;
-  address?: string;
-  email?: string;
 }
 
 export default Account;

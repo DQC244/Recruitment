@@ -1,5 +1,5 @@
 // Defined class
-import AccountClass, { IAccountProperties } from "./classes/Account";
+import AccountClass from "./classes/Account";
 
 // Defined type
 import { IProps, IIconProps } from "./types";
@@ -9,7 +9,6 @@ import { IProps, IIconProps } from "./types";
 export { AccountClass };
 export type {
   // Interface
-  IAccountProperties,
 
   // Type
   IProps,

@@ -1,4 +1,4 @@
-export const KEY_TOKEN = "token";
+export const KEY_TOKEN = "access_token";
 export const COOKIE_EXPIRED_DATE = 7;
 
 export const NOT_HAVE_VALUE_LABEL = "- -";
@@ -21,10 +21,11 @@ export const DATE_FORMAT = "dd/MM/yy";
 export const FULL_DATE_FORMAT = "dd/MM/yyyy";
 export const TIME_FORMAT = "HH:mm";
 
-export const USER_TYPE = {
-  employer: 1,
-  candidate: 2,
-};
+export enum USER_TYPE {
+  admin,
+  employer,
+  candidate,
+}
 
 export const COMPANY_LOCATION = {
   all: -1,
