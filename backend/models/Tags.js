@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const Tags = new mongoose.Schema(
   {
-    id: { type: String, unique, require: true },
-    name: { type: String, unique, require: true },
+    name: { type: String, unique: true, require: true },
   },
   { timestamps: true }
 );
