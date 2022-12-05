@@ -20,6 +20,7 @@
     "dayjs": "^1.11.6",
     "eslint-config-prettier": "^8.5.0",
     "i18next": "^21.9.0",
+    "js-cookie": "^3.0.1",
     "moment": "^2.29.4",
     "next": "12.2.5",
     "prettier": "^2.7.1",
@@ -35,14 +36,17 @@
     "reduxsauce": "^1.2.1",
     "reselect": "^4.1.6",
     "sass": "^1.54.4",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "string-format": "^2.0.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.2.5",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "18.7.3",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
     "@types/react-slick": "^0.23.10",
+    "@types/string-format": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "eslint": "8.22.0",

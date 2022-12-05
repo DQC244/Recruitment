@@ -5,7 +5,6 @@ import { AppConstant } from "const";
 import { ThemeProps } from "models/types";
 import React, { useState } from "react";
 import AppTypography from "../AppTypography";
-import CandidateForm from "./CandidateForm";
 import clsx from "clsx";
 import EmployerForm from "./EmployerForm";
 
@@ -45,11 +44,7 @@ const RegisterForm = ({ className, ...otherProps }: StackProps) => {
           <AppTypography>Register as an Employer</AppTypography>
         </Button>
       </Stack>
-      {userType === AppConstant.USER_TYPE.employer ? (
-        <EmployerForm />
-      ) : (
-        <CandidateForm />
-      )}
+      <EmployerForm userType={userType} />
     </Stack>
   );
 };

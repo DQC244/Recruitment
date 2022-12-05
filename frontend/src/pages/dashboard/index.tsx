@@ -6,10 +6,12 @@ import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import { AppTypography } from "components/common";
 import clsx from "clsx";
+import { useAuthContext } from "context";
 
 const Dashboard: NextPage = () => {
   const classes = useStyles();
-  const email = "chien@gmail.com";
+
+  const { accountInfo } = useAuthContext();
   const publishedTotal = 0;
   const pendingTotal = 1;
   const expiredTotal = 1;
@@ -18,7 +20,7 @@ const Dashboard: NextPage = () => {
     <Stack direction="row" spacing={3} pl={37.5}>
       <SideBar />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
-        <AppTypography variant="h3">{`Welcome, ${email}`}</AppTypography>
+        <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
         <Box className="space-around-root">
           <Box className={clsx("center-root", classes.box)}>
             <AppTypography color="common.white" variant="h1">

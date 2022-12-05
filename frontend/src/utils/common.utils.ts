@@ -5,7 +5,9 @@
  *
  * @return {boolean} Return true if value is number >= 0, false otherwise
  */
-export const isGreaterThanOrEqualZero = (...args: (number | string)[]): boolean => {
+export const isGreaterThanOrEqualZero = (
+  ...args: (number | string)[]
+): boolean => {
   if (args.length) {
     return args.every((value) => {
       const valueAsInt = typeof value === "string" ? parseInt(value) : value;
@@ -25,7 +27,9 @@ export const isGreaterThanOrEqualZero = (...args: (number | string)[]): boolean 
  */
 export const isNotNumber = (...args: (number | string)[]): boolean => {
   return (
-    (args || []).filter((value: number | string) => !isGreaterThanOrEqualZero(value)).length > 0
+    (args || []).filter(
+      (value: number | string) => !isGreaterThanOrEqualZero(value)
+    ).length > 0
   );
 };
 
@@ -40,7 +44,9 @@ export const snakeToCamelCase = (str: string): string => {
   if (str.includes("_") || str.includes("-"))
     return str
       .toLowerCase()
-      .replace(/([-_][a-z])/g, (group) => group.toUpperCase().replace("-", "").replace("_", ""));
+      .replace(/([-_][a-z])/g, (group) =>
+        group.toUpperCase().replace("-", "").replace("_", "")
+      );
 
   return str;
 };
@@ -96,4 +102,14 @@ export const removeUnnecessarySpace = (str: string): string => {
  */
 export const isUndefinedOrNull = (value: number) => {
   return value === null || value === undefined;
+};
+
+export const checkValidPhoneNumber = (number: string): boolean => {
+  if (number.length !== 10) {
+    return false;
+  }
+
+  const isStartWithZero = number.charAt(0) == "0";
+
+  return isStartWithZero;
 };

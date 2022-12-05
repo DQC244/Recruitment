@@ -1,0 +1,11 @@
+.DS_Store
+.env
+node_modules/
+logs/*
+dist/*
+.idea/
+yarn-error.log
+.vscode/
+storage/logs/*
+storage/tmp/*
+airdropData/*

@@ -1,15 +1,18 @@
 import { Box, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { ImageConstant, PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
 import { ThemeProps } from "models/types";
 import { useRouter } from "next/router";
 import React, { useMemo } from "react";
-import { AppImage, AppLink, AppTypography } from "components/common";
+import { AppLink, AppTypography } from "components/common";
 import clsx from "clsx";
+import { useAuthContext } from "context";
 
 const SideBar = () => {
   const classes = useStyles();
   const router = useRouter();
+
+  const { accountInfo } = useAuthContext();
 
   const value = useMemo(() => {
     switch (router.pathname) {
@@ -31,13 +34,15 @@ const SideBar = () => {
   return (
     <Box className={classes.root}>
       <Stack spacing={2} className={classes.header}>
-        <AppImage
+        <Box
+          component="img"
           className={classes.imageUser}
-          src={ImageConstant.AvatarDefault}
-          imageProps={{ objectFit: "cover" }}
+          src={accountInfo.image}
         />
         <AppTypography color="common.white" variant="subtitle1">
-          Employer
+          {accountInfo.permission === AppConstant.USER_TYPE.employer
+            ? "Employer"
+            : "Candidate"}
         </AppTypography>
       </Stack>
       <Stack sx={{ p: 2 }}>
@@ -45,46 +50,50 @@ const SideBar = () => {
           Main
         </AppTypography>
         <Stack>
-          <AppLink
-            href={PathConstant.DASHBOARD}
-            className={clsx(
-              classes.item,
-              PathConstant.DASHBOARD === value && classes.checked
-            )}
-            variant="body2"
-          >
-            Dashboard
-          </AppLink>
-          <AppLink
-            href={PathConstant.MY_JOB_DASHBOARD}
-            className={clsx(
-              classes.item,
-              PathConstant.MY_JOB_DASHBOARD === value && classes.checked
-            )}
-            variant="body2"
-          >
-            My Job
-          </AppLink>
-          <AppLink
-            href={PathConstant.MY_COMPANY_DASHBOARD}
-            className={clsx(
-              classes.item,
-              PathConstant.MY_COMPANY_DASHBOARD === value && classes.checked
-            )}
-            variant="body2"
-          >
-            My Company
-          </AppLink>
-          <AppLink
-            href={PathConstant.PACKAGES_DASHBOARD}
-            className={clsx(
-              classes.item,
-              PathConstant.PACKAGES_DASHBOARD === value && classes.checked
-            )}
-            variant="body2"
-          >
-            Packages
-          </AppLink>
+          {accountInfo.permission === AppConstant.USER_TYPE.employer && (
+            <>
+              <AppLink
+                href={PathConstant.DASHBOARD}
+                className={clsx(
+                  classes.item,
+                  PathConstant.DASHBOARD === value && classes.checked
+                )}
+                variant="body2"
+              >
+                Dashboard
+              </AppLink>
+              <AppLink
+                href={PathConstant.MY_JOB_DASHBOARD}
+                className={clsx(
+                  classes.item,
+                  PathConstant.MY_JOB_DASHBOARD === value && classes.checked
+                )}
+                variant="body2"
+              >
+                My Job
+              </AppLink>
+              <AppLink
+                href={PathConstant.MY_COMPANY_DASHBOARD}
+                className={clsx(
+                  classes.item,
+                  PathConstant.MY_COMPANY_DASHBOARD === value && classes.checked
+                )}
+                variant="body2"
+              >
+                My Company
+              </AppLink>
+              <AppLink
+                href={PathConstant.PACKAGES_DASHBOARD}
+                className={clsx(
+                  classes.item,
+                  PathConstant.PACKAGES_DASHBOARD === value && classes.checked
+                )}
+                variant="body2"
+              >
+                Packages
+              </AppLink>
+            </>
+          )}
           <AppLink
             href={PathConstant.PROFILES_DASHBOARD}
             className={clsx(
@@ -120,6 +129,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   imageUser: {
     width: 120,
     height: 120,
+    objectFit: "cover",
     borderRadius: "50%",
     overflow: "hidden",
     backgroundColor: theme.palette.common.white,

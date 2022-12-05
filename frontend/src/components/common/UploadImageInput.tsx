@@ -1,4 +1,4 @@
-import React, { ChangeEvent, memo, useState } from "react";
+import React, { ChangeEvent, memo, useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import { Box, BoxProps, InputBase, InputLabel } from "@mui/material";
 import { ImageIcon } from "components/icons";
@@ -8,6 +8,7 @@ import clsx from "clsx";
 const UploadImageInput = ({
   label,
   onChangeImage,
+  value,
   ...otherProps
 }: UploadImageInputProps) => {
   const classes = useStyles();
@@ -29,6 +30,12 @@ const UploadImageInput = ({
 
     onChangeImage(localImageUrl);
   };
+
+  useEffect(() => {
+    if (value) {
+      setLocalImageUrl(value);
+    }
+  }, [value]);
 
   return (
     <Box {...otherProps}>
@@ -76,6 +83,7 @@ const MAXIMUM_SIZE = 100000000;
 
 type UploadImageInputProps = BoxProps & {
   label?: string;
+  value?: string;
 
   onChangeImage: (url: string) => void;
 };
@@ -118,8 +126,8 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   },
   wrapper: {
     position: "relative",
-    width: 200,
-    height: 200,
+    width: 400,
+    height: 400,
     flexDirection: "column",
     background: "rgba(255, 255, 255, 0.08)",
     border: "1px solid black",
