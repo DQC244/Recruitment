@@ -8,7 +8,6 @@ const User = new mongoose.Schema(
     email: { type: String, unique: true, require: true },
     permission: { type: Number, default: 1 },
     company: String,
-    job: [String],
     image: String,
   },
   {

@@ -1,4 +1,7 @@
-import { useCountdownByDuration, useCountdownByTimestamp } from "./useCountdown";
+import {
+  useCountdownByDuration,
+  useCountdownByTimestamp,
+} from "./useCountdown";
 import useResponsive from "./useResponsive";
 import useDesktop from "./useDesktop";
 import useLargeTablet from "./useLargeTablet";
@@ -8,6 +11,7 @@ import useTablet from "./useTablet";
 import useWindowSize from "./useWindowSize";
 import useTabletDown from "./useTabletDown";
 import useCalcSizeDevice from "./useCalcSizeDevice";
+import useHandleUploadFile from "./useHandleUploadFile";
 
 export {
   useResponsive,
@@ -21,4 +25,5 @@ export {
   useCountdownByDuration,
   useCountdownByTimestamp,
   useCalcSizeDevice,
+  useHandleUploadFile,
 };

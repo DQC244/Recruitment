@@ -14,6 +14,7 @@ import {
   PhoneIcon,
   TwitterIcon,
 } from "components/icons";
+import { CompanyClass } from "models";
 
 const BannerCompany = ({ data }: BannerCompanyProps) => {
   const classes = useStyles();
@@ -23,15 +24,23 @@ const BannerCompany = ({ data }: BannerCompanyProps) => {
       <Box className={classes.overlay}>
         <Container className={classes.container}>
           <Stack className={classes.wrapper} spacing={3} direction="row">
-            <AppImage className={classes.logoCompany} src={data?.imageUrl} />
+            <Box
+              component="img"
+              className={classes.logoCompany}
+              src={data?.logo}
+            />
             <Stack spacing={2} flex={1}>
               <AppTypography variant="h4">{data?.name}</AppTypography>
               <Stack direction="row" spacing={2}>
                 <Stack spacing={0.5} direction="row" alignItems="center">
-                  <NetworkIcon className={classes.icon} />
-                  <AppLink color="grey.500" href={"heft"}>
-                    {data?.website?.web}
-                  </AppLink>
+                  {data?.website?.web && (
+                    <>
+                      <NetworkIcon className={classes.icon} />
+                      <AppLink color="grey.500" href={"heft"}>
+                        {data?.website?.web}
+                      </AppLink>
+                    </>
+                  )}
                 </Stack>
                 <Stack spacing={0.5} direction="row" alignItems="center">
                   <PhoneIcon className={classes.icon} />
@@ -86,18 +95,7 @@ const BannerCompany = ({ data }: BannerCompanyProps) => {
 };
 
 type BannerCompanyProps = {
-  data?: {
-    name: string;
-    imageUrl: string;
-    phone: string;
-    email: string;
-    website: {
-      web: string;
-      facebook: string;
-      linkedin: string;
-      twitter: string;
-    };
-  };
+  data?: CompanyClass;
 };
 
 export default BannerCompany;
@@ -108,7 +106,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     width: "100%",
     height: 500,
     background: `center url(${ImageConstant.CompanyBanner})`,
-    marginBottom: 100,
+    marginBottom: 150,
   },
   overlay: {
     width: "100%",
@@ -134,6 +132,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     height: 120,
     background: theme.palette.grey[200],
     borderRadius: 4,
+    objectFit: "contain",
   },
   icon: {
     color: theme.palette.primary.main,

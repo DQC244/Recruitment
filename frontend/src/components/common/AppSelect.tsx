@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import { ArrowIcon } from "components/icons";
 import clsx from "clsx";
+import AppTypography from "./AppTypography";
 
 const AppSelect = ({
   data,
@@ -88,7 +89,7 @@ const AppSelect = ({
           disableFocusRipple
           {...otherButtonProps}
         >
-          {defaultLabel || selectedItem?.label}
+          <AppTypography>{defaultLabel || selectedItem?.label}</AppTypography>
         </Button>
         <Popper
           className={clsx(defaultClasses.popper, popperClassName)}

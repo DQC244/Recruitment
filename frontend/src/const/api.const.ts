@@ -22,3 +22,7 @@ export const POST_REGISTER = "api/auth/signup";
 export const PUT_CHANGE_PASSWORD = "api/user/change-password";
 export const PUT_UPDATE_USER = "/api/user/update/{id}";
 export const GET_PROFILE = "/api/user/self";
+export const GET_CATEGORIES = "/api/category/get";
+export const POST_CREATE_COMPANY = "/api/company/add";
+export const GET_COMPANY_DETAIL = "/api/company/get/{id}";
+export const GET_COMPANY_LIST = "/api/company/get";

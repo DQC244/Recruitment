@@ -9,6 +9,7 @@ const UploadImageInput = ({
   label,
   onChangeImage,
   value,
+  inputLabelProps,
   ...otherProps
 }: UploadImageInputProps) => {
   const classes = useStyles();
@@ -28,7 +29,7 @@ const UploadImageInput = ({
 
     setLocalImageUrl(localImageUrl);
 
-    onChangeImage(localImageUrl);
+    onChangeImage(uploadFileArray[0]);
   };
 
   useEffect(() => {
@@ -41,6 +42,7 @@ const UploadImageInput = ({
     <Box {...otherProps}>
       <InputLabel
         classes={{ root: classes.labelRoot, asterisk: classes.asterisk }}
+        {...inputLabelProps}
       >
         {label}
       </InputLabel>
@@ -84,8 +86,9 @@ const MAXIMUM_SIZE = 100000000;
 type UploadImageInputProps = BoxProps & {
   label?: string;
   value?: string;
+  inputLabelProps?: object;
 
-  onChangeImage: (url: string) => void;
+  onChangeImage: (url: File) => void;
 };
 
 export default memo(UploadImageInput);

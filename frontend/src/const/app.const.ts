@@ -6,7 +6,7 @@ export const NOT_AVAILABLE_VALUE = "N/A";
 
 export const DEBOUNCE_TIME_IN_MILLISECOND = 500;
 
-export const SIZE_PAGINATION_DEFAULT = 12;
+export const SIZE_PAGINATION_DEFAULT = 4;
 export const DEFAULT_PAGINATION = {
   page: 1,
   size: SIZE_PAGINATION_DEFAULT,
@@ -41,4 +41,13 @@ export const JOB_TYPE = {
   partTime: 2,
   internship: 3,
   temporary: 4,
+};
+
+export const COMPANY_SIZE = {
+  0: "1-10",
+  1: "11-50",
+  2: "51-100",
+  3: "101-200",
+  4: "201-500",
+  5: "500+",
 };

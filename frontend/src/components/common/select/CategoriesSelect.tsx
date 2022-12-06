@@ -1,19 +1,52 @@
-import React, { memo, useState } from "react";
+import { ApiConstant } from "const";
+import { AppSelectProps } from "models/types";
+import React, { memo, useEffect, useMemo, useState } from "react";
+import { AppService } from "services";
 import AppSelect from "../AppSelect";
 
 const CategoriesSelect = ({ onChangeCategories }: CategoriesSelectProps) => {
-  const [categories, setCategories] = useState(CATEGORIES[0]);
+  const [category, setCategory] = useState<AppSelectProps>(
+    {} as AppSelectProps
+  );
+  const [categories, setCategories] = useState<any[]>([]);
 
   const handleChangeCategory = (item: any) => {
-    setCategories(item);
-    onChangeCategories(item);
+    setCategory(item);
+    onChangeCategories(item.value);
   };
+
+  const dataFormat = useMemo(() => {
+    const newCategories = categories.map((item) => {
+      return {
+        value: item._id,
+        label: item.name,
+      };
+    });
+
+    return newCategories;
+  }, [categories]);
+
+  const handleGetCategories = async () => {
+    try {
+      const res: any = await AppService.getCategories();
+
+      if (res.status === ApiConstant.STT_OK) {
+        setCategories(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    handleGetCategories();
+  }, []);
 
   return (
     <AppSelect
-      selectedIndex={categories.value}
+      selectedIndex={category.value}
       onSelected={handleChangeCategory}
-      data={CATEGORIES}
+      data={dataFormat}
     />
   );
 };
@@ -23,13 +56,3 @@ type CategoriesSelectProps = {
 };
 
 export default memo(CategoriesSelect);
-
-const CATEGORIES = [
-  { value: 1, label: "Design & Art" },
-  { value: 2, label: "Health Care" },
-  { value: 3, label: "IT Engineer" },
-  { value: 4, label: "Management" },
-  { value: 5, label: "Marketing" },
-  { value: 6, label: "Teaching" },
-  { value: 7, label: "Sales" },
-];

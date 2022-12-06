@@ -1,6 +1,7 @@
 import { Alert, Button, Snackbar, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useAuthContext } from "context";
+import { useHandleUploadFile } from "hooks";
 import { AccountClass } from "models";
 import { ThemeProps } from "models/types";
 import React, { ChangeEvent, useEffect, useState } from "react";
@@ -14,6 +15,7 @@ const ProfilePanel = () => {
   const classes = useStyles();
   const { accountInfo } = useAuthContext();
   const handleUpdateUserService = useUpdateUser();
+  const handleUploadFile = useHandleUploadFile();
 
   const [account, setAccount] = useState<AccountClass>({} as AccountClass);
 
@@ -21,9 +23,10 @@ const ProfilePanel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMsg, setIsOpenMsg] = useState(false);
   const [error, setError] = useState("");
+  const [localImage, setLocalImage] = useState<File>();
 
-  const handelChangeImage = () => {
-    return;
+  const handelChangeImage = (file: File) => {
+    setLocalImage(file);
   };
 
   const handleChangeInfo =
@@ -36,17 +39,25 @@ const ProfilePanel = () => {
 
   const handleUpdateUser = async () => {
     setIsLoading(true);
-    const { message } = await handleUpdateUserService({
-      id: account._id,
-      name: account.name,
-      image: account.image,
-      phone: account.phone,
-      email: account.email,
-    });
+    let newImage;
+    try {
+      if (localImage) {
+        newImage = await handleUploadFile(localImage);
+      }
+      const { message } = await handleUpdateUserService({
+        id: account._id,
+        name: account.name,
+        image: (newImage as string) || account.image,
+        phone: account.phone,
+        email: account.email,
+      });
 
-    setError(message);
-    setIsOpenMsg(true);
-    setIsLoading(false);
+      setError(message);
+      setIsOpenMsg(true);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
