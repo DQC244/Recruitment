@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NextPage } from "next";
-import { Box, Button, Container, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { SideBar } from "components/common/sn-dashboard";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
@@ -8,17 +8,21 @@ import {
   BannerCompany,
   CompanyDetailDescription,
 } from "components/common/sn-company";
-import {
-  CategoryIcon,
-  ExperienceIcon,
-  LocationIcon,
-  TeamSizeIcon,
-  TimeCloseIcon,
-} from "components/icons";
-import { ImageConstant } from "const";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { CompanyActions, CompanySelector } from "redux-store";
+import { useAuthContext } from "context";
 
 const MyCompany: NextPage = () => {
-  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { accountInfo } = useAuthContext();
+  const company = useSelector(CompanySelector.getCompanyInfo, shallowEqual);
+
+  useEffect(() => {
+    if (accountInfo.company) {
+      dispatch(CompanyActions.getCompany(accountInfo.company));
+    }
+  }, [accountInfo.company]);
 
   return (
     <Stack direction="row" pl={37.5} spacing={3}>
@@ -27,31 +31,13 @@ const MyCompany: NextPage = () => {
         <Button sx={{ width: 148, mt: 3 }} variant="contained">
           Edit
         </Button>
-        <BannerCompany data={DATA} />
-        <CompanyDetailDescription />
+        <Stack>
+          <BannerCompany data={company} />
+          <CompanyDetailDescription />
+        </Stack>
       </Stack>
     </Stack>
   );
 };
 
 export default MyCompany;
-
-const DATA = {
-  name: "Codecanyon",
-  imageUrl: ImageConstant.Banner,
-  phone: "329947238",
-  email: "company@gmail.com",
-  website: {
-    web: "href",
-    facebook: "href",
-    linkedin: "href",
-    twitter: "href",
-  },
-};
-
-const useStyles = makeStyles((theme: ThemeProps) => ({
-  root: {
-    minHeight: "100vh",
-    height: "100vh",
-  },
-}));

@@ -86,7 +86,7 @@ const palette: TPalette = {
   },
   text: {
     primary: black,
-    secondary: "rgba(255, 255, 255, 0.9)",
+    secondary: black,
     disabled: "rgba(255, 255, 255, 0.6)",
     light8: "rgba(255, 255, 255, 0.8)",
     light7: "rgba(255, 255, 255, 0.7)",
@@ -95,7 +95,7 @@ const palette: TPalette = {
   background: {
     default:
       "linear-gradient(90deg, #09245B 0%, #1B3271 36.25%, #1B3271 59.17%, #09245B 100%)",
-    paper: "#8C8C8C",
+    paper: "white",
   },
   gradient: {
     default: "linear-gradient(266.5deg, #6626CF 0%, #8C53EF 100%)",

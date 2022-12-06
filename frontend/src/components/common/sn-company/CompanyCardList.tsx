@@ -1,51 +1,64 @@
-import { Stack } from "@mui/material";
+import { Box, Pagination, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { LocationIcon } from "components/icons";
-import { ImageConstant, PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
 import { ThemeProps } from "models/types";
-import React, { useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-import AppImage from "../AppImage";
+import React, { useEffect, useState } from "react";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { CompanyActions, CompanySelector } from "redux-store";
 import AppLink from "../AppLink";
 import AppTypography from "../AppTypography";
 
 const CompanyCardList = () => {
   const classes = useStyles();
-  const [isMoreList, setIsMoreList] = useState(true);
-  let currentPage = 1;
-  const totalPage = 4;
+  const dispatch = useDispatch();
 
-  const handleGetListJob = () => {
-    if (currentPage >= totalPage) {
-      setIsMoreList(false);
-    }
-    currentPage + 1;
+  const queryParams = useSelector(CompanySelector.getQueryParams, shallowEqual);
+  const pagination = useSelector(CompanySelector.getPagination, shallowEqual);
+  const companyList = useSelector(CompanySelector.getCompanyList, shallowEqual);
+
+  const handleGetCompanyList = (page: number) => {
+    const newQueryParams = {
+      ...queryParams,
+      page,
+    };
+
+    dispatch(CompanyActions.getCompanyList(newQueryParams));
   };
 
+  const handleChangePage = (_: React.ChangeEvent<unknown>, value: number) => {
+    handleGetCompanyList(value);
+  };
+
+  useEffect(() => {
+    const newQueryParams = {
+      ...AppConstant.DEFAULT_PAGINATION,
+    };
+
+    dispatch(
+      CompanyActions.getCompanyList({
+        ...newQueryParams,
+      })
+    );
+  }, []);
+
   return (
-    <Stack className={classes.root}>
-      <InfiniteScroll
-        hasMore={isMoreList}
-        next={handleGetListJob}
-        loader={<h4>Loading...</h4>}
-        dataLength={COMPANY_LIST.length}
-      >
-        {COMPANY_LIST.map((item, index) => (
-          <AppLink href={`${PathConstant.COMPANY}/${item.id}`} key={index}>
+    <>
+      <Stack className={classes.root}>
+        {companyList.listItems?.map((item, index) => (
+          <AppLink href={`${PathConstant.COMPANY}/${item._id}`} key={index}>
             <Stack className={classes.item} spacing={5} direction="row">
-              <AppImage
-                className={classes.logo}
-                src={item.logo}
-                imageProps={{
-                  objectFit: "cover",
-                }}
-              />
+              <Box component="img" className={classes.logo} src={item.logo} />
               <Stack direction="row" className="space-between-root" flex={1}>
                 <Stack spacing={2}>
                   <AppTypography variant="h5">{item.name}</AppTypography>
                   <Stack direction="row">
                     <LocationIcon />
-                    <AppTypography variant="subtitle2" color="grey.500">
+                    <AppTypography
+                      variant="subtitle2"
+                      sx={{ textTransform: "capitalize" }}
+                      color="grey.500"
+                    >
                       {item.location}
                     </AppTypography>
                   </Stack>
@@ -57,57 +70,20 @@ const CompanyCardList = () => {
             </Stack>
           </AppLink>
         ))}
-      </InfiniteScroll>
-    </Stack>
+      </Stack>
+      <Stack spacing={2} alignItems="center" my={5}>
+        <Pagination
+          page={pagination?.page || AppConstant.DEFAULT_PAGINATION.page}
+          count={pagination?.totalPages || 0}
+          shape="rounded"
+          onChange={handleChangePage}
+        />
+      </Stack>
+    </>
   );
 };
 
 export default CompanyCardList;
-
-const COMPANY_LIST = [
-  {
-    id: 1,
-    name: "facebook",
-    location: "hanoi",
-    logo: ImageConstant.Banner,
-    totalJob: 6,
-  },
-  {
-    id: 1,
-    name: "facebook",
-    location: "hanoi",
-    logo: ImageConstant.Banner,
-    totalJob: 6,
-  },
-  {
-    id: 1,
-    name: "facebook",
-    location: "hanoi",
-    logo: ImageConstant.Banner,
-    totalJob: 6,
-  },
-  {
-    id: 1,
-    name: "facebook",
-    location: "hanoi",
-    logo: ImageConstant.Banner,
-    totalJob: 6,
-  },
-  {
-    id: 1,
-    name: "facebook",
-    location: "hanoi",
-    logo: ImageConstant.Banner,
-    totalJob: 6,
-  },
-  {
-    id: 1,
-    name: "facebook",
-    location: "hanoi",
-    logo: ImageConstant.Banner,
-    totalJob: 6,
-  },
-];
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
@@ -127,6 +103,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   logo: {
     width: 100,
     height: 100,
+    objectFit: "cover",
   },
   totalJob: {
     padding: theme.spacing(0.25, 1),

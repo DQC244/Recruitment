@@ -88,3 +88,7 @@ export type AppSelectProps = {
   value: string | number;
   label: ReactNode;
 };
+
+export interface KeyAbleProps {
+  [key: string]: unknown;
+}

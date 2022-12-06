@@ -13,7 +13,14 @@ const OverviewItem = ({ icon, description, label }: OverviewProps) => {
       </IconButton>
       <Stack>
         <AppTypography>{label}</AppTypography>
-        <AppTypography color="grey.300">{description}</AppTypography>
+        <AppTypography
+          color="grey.300"
+          sx={{
+            textTransform: "capitalize",
+          }}
+        >
+          {description}
+        </AppTypography>
       </Stack>
     </Stack>
   );
@@ -21,7 +28,7 @@ const OverviewItem = ({ icon, description, label }: OverviewProps) => {
 
 type OverviewProps = {
   icon: ReactNode;
-  description: string;
+  description?: string;
   label: string;
 };
 

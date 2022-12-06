@@ -11,32 +11,49 @@ import {
   TeamSizeIcon,
   TimeCloseIcon,
 } from "components/icons";
+import { shallowEqual, useSelector } from "react-redux";
+import { CompanySelector } from "redux-store";
+import dayjs from "dayjs";
 
 const CompanyDetailDescription = () => {
   const classes = useStyles();
+
+  const company = useSelector(CompanySelector.getCompanyInfo, shallowEqual);
+
   return (
-    <Stack className={classes.root} direction="row" spacing={3}>
+    <Stack direction="row" spacing={3}>
       <Stack spacing={2}>
         <AppTypography variant="h5">About the Company</AppTypography>
-        <AppTypography>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-          quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-          exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex.
-        </AppTypography>
+        <Box dangerouslySetInnerHTML={{ __html: company.description }}></Box>
       </Stack>
       <Stack spacing={2}>
         <AppTypography variant="h5">Company Overview</AppTypography>
         <Stack className={classes.overView} spacing={3}>
-          {OVERVIEW_DATA.map((item, index) => (
-            <OverviewItem key={index} {...item} />
-          ))}
+          <OverviewItem
+            label="Posted Jobs"
+            description={`${MOCK_TOTAL_JOB} jobs`}
+            icon={<ExperienceIcon />}
+          />
+          <OverviewItem
+            label="Location"
+            description={company.location}
+            icon={<LocationIcon />}
+          />
+          <OverviewItem
+            label="Category"
+            description={company?.categoryName}
+            icon={<CategoryIcon />}
+          />
+          <OverviewItem
+            label="Since"
+            description={dayjs(company.since).format("DD-MM-YYYY")}
+            icon={<TimeCloseIcon />}
+          />
+          <OverviewItem
+            label="Team Size"
+            description={company.teamSize}
+            icon={<TeamSizeIcon />}
+          />
         </Stack>
       </Stack>
     </Stack>
@@ -45,39 +62,9 @@ const CompanyDetailDescription = () => {
 
 export default CompanyDetailDescription;
 
-const OVERVIEW_DATA = [
-  {
-    label: "Posted Jobs",
-    description: "1 job",
-    icon: <ExperienceIcon />,
-  },
-  {
-    label: "Location",
-    description: "hanoi",
-    icon: <LocationIcon />,
-  },
-  {
-    label: "Category",
-    description: "Technology",
-    icon: <CategoryIcon />,
-  },
-  {
-    label: "Since",
-    description: "June 13, 2024",
-    icon: <TimeCloseIcon />,
-  },
-
-  {
-    label: "Team Size",
-    description: "101-200",
-    icon: <TeamSizeIcon />,
-  },
-];
+const MOCK_TOTAL_JOB = 4;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
-  root: {
-    paddingTop: 80,
-  },
   overView: {
     width: 300,
     border: `1px solid ${theme.palette.grey[200]}`,
