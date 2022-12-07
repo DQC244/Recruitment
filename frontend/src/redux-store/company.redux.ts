@@ -11,11 +11,13 @@ import {
 import { CompanyClass, CompanyListClass } from "models";
 import { AppService } from "services";
 import { AppConstant } from "const";
+import { KeyAbleProps } from "models/types";
 
 /* ------------- Types and Action Creators ------------- */
 export const { Types, Creators } = createActions({
   getCompany: ["data"],
   getCompanyList: ["data"],
+  setQueryParams: ["data"],
 
   companySuccess: ["data"],
   companyFailure: ["error", "data"],
@@ -65,10 +67,16 @@ const failure = (state = INITIAL_STATE, action: object) =>
 
 const reset = () => resetReducerFunc(INITIAL_STATE);
 
+const setQueryParams = (state = INITIAL_STATE, action: KeyAbleProps) => {
+  const data = action.data || {};
+  return { ...state, queryParams: { ...state.queryParams, ...data } };
+};
+
 /* ------------- Mapping ------------- */
 const HANDLERS = {
   [Types.GET_COMPANY]: request,
   [Types.GET_COMPANY_LIST]: request,
+  [Types.SET_QUERY_PARAMS]: setQueryParams,
 
   [Types.COMPANY_SUCCESS]: success,
   [Types.COMPANY_FAILURE]: failure,

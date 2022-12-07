@@ -4,7 +4,7 @@ export const COOKIE_EXPIRED_DATE = 7;
 export const NOT_HAVE_VALUE_LABEL = "- -";
 export const NOT_AVAILABLE_VALUE = "N/A";
 
-export const DEBOUNCE_TIME_IN_MILLISECOND = 500;
+export const DEBOUNCE_TIME_IN_MILLISECOND = 1000;
 
 export const SIZE_PAGINATION_DEFAULT = 4;
 export const DEFAULT_PAGINATION = {

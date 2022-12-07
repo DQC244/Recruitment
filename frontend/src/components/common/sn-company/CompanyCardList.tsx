@@ -1,9 +1,9 @@
+import React from "react";
 import { Box, Pagination, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { LocationIcon } from "components/icons";
-import { AppConstant, PathConstant } from "const";
+import { AppConstant, ImageConstant, PathConstant } from "const";
 import { ThemeProps } from "models/types";
-import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { CompanyActions, CompanySelector } from "redux-store";
 import AppLink from "../AppLink";
@@ -30,46 +30,57 @@ const CompanyCardList = () => {
     handleGetCompanyList(value);
   };
 
-  useEffect(() => {
-    const newQueryParams = {
-      ...AppConstant.DEFAULT_PAGINATION,
-    };
-
-    dispatch(
-      CompanyActions.getCompanyList({
-        ...newQueryParams,
-      })
-    );
-  }, []);
-
   return (
     <>
       <Stack className={classes.root}>
-        {companyList.listItems?.map((item, index) => (
-          <AppLink href={`${PathConstant.COMPANY}/${item._id}`} key={index}>
-            <Stack className={classes.item} spacing={5} direction="row">
-              <Box component="img" className={classes.logo} src={item.logo} />
-              <Stack direction="row" className="space-between-root" flex={1}>
-                <Stack spacing={2}>
-                  <AppTypography variant="h5">{item.name}</AppTypography>
-                  <Stack direction="row">
-                    <LocationIcon />
-                    <AppTypography
-                      variant="subtitle2"
-                      sx={{ textTransform: "capitalize" }}
-                      color="grey.500"
-                    >
-                      {item.location}
+        {companyList.listItems?.length !== 0 ? (
+          <>
+            {companyList.listItems?.map((item, index) => (
+              <AppLink href={`${PathConstant.COMPANY}/${item._id}`} key={index}>
+                <Stack className={classes.item} spacing={5} direction="row">
+                  <Box
+                    component="img"
+                    className={classes.logo}
+                    src={item.logo}
+                  />
+                  <Stack
+                    direction="row"
+                    className="space-between-root"
+                    flex={1}
+                  >
+                    <Stack spacing={2}>
+                      <AppTypography variant="h5">{item.name}</AppTypography>
+                      <Stack direction="row">
+                        <LocationIcon />
+                        <AppTypography
+                          variant="subtitle2"
+                          sx={{ textTransform: "capitalize" }}
+                          color="grey.500"
+                        >
+                          {item.location}
+                        </AppTypography>
+                      </Stack>
+                    </Stack>
+                    <AppTypography variant="body2" className={classes.totalJob}>
+                      {item.totalJob + " jobs"}
                     </AppTypography>
                   </Stack>
                 </Stack>
-                <AppTypography variant="body2" className={classes.totalJob}>
-                  {item.totalJob + " jobs"}
-                </AppTypography>
-              </Stack>
-            </Stack>
-          </AppLink>
-        ))}
+              </AppLink>
+            ))}
+          </>
+        ) : (
+          <Stack className="center-root">
+            <Box
+              component="img"
+              sx={{ width: 80, height: 80 }}
+              src={ImageConstant.EmptyImage}
+            />
+            <AppTypography sx={{ textAlign: "center", mt: 5 }}>
+              Company Not Found
+            </AppTypography>
+          </Stack>
+        )}
       </Stack>
       <Stack spacing={2} alignItems="center" my={5}>
         <Pagination
@@ -89,7 +100,6 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
     marginTop: theme.spacing(7),
     border: `1px solid ${theme.palette.grey[300]}`,
-    borderBottom: "unset",
   },
   item: {
     alignItems: "center",

@@ -1,35 +1,75 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { NextPage } from "next";
 import { Box, Button, Container, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
-import { AppInput, AppSelect, AppTypography } from "components/common";
+import { AppInput, AppTypography } from "components/common";
 import clsx from "clsx";
 import { LocationIcon, SearchIcon } from "components/icons";
-import { COMPANY_LOCATION_DATA } from "components/common/sn-register/EmployerForm";
-import { CATEGORIES, company } from "components/common/sn-home/Banner";
+import { company } from "components/common/sn-home/Banner";
 import { CompanyCardList } from "components/common/sn-company";
+import { CategoriesSelect } from "components/common/select";
+import { useDispatch, useSelector } from "react-redux";
+import { CompanyActions, CompanySelector } from "redux-store";
+import { AppConstant } from "const";
+import { CommonUtils } from "utils";
 
 const Companies: NextPage = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const [companyLocation, setCompanyLocation] = useState<company>(
-    COMPANY_LOCATION_DATA[0]
-  );
-  const [categories, setCategories] = useState<company>(CATEGORIES[0]);
+  const queryParams = useSelector(CompanySelector.getQueryParams);
   const [search, setSearch] = useState("");
 
-  const handleSearch = () => {
-    return;
-  };
+  const handleDebounce = CommonUtils.debounce((queryParams: any) => {
+    dispatch(
+      CompanyActions.setQueryParams({
+        ...queryParams,
+      })
+    );
+  }, AppConstant.DEBOUNCE_TIME_IN_MILLISECOND);
 
-  const handleChangeLocationCompany = (item: company) => {
-    setCompanyLocation(item);
+  const handleChangeLocationCompany = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = event.currentTarget.value;
+
+    const newQuery = {
+      ...queryParams,
+      location: value,
+    };
+
+    handleDebounce(newQuery);
   };
 
   const handleChangeCategory = (item: company) => {
-    setCategories(item);
+    dispatch(
+      CompanyActions.setQueryParams({
+        ...queryParams,
+        categoryId: item,
+      })
+    );
   };
+
+  const handleSearch = () => {
+    dispatch(
+      CompanyActions.setQueryParams({
+        ...queryParams,
+        search,
+      })
+    );
+    return;
+  };
+
+  useEffect(() => {
+    if (!queryParams) return;
+
+    dispatch(
+      CompanyActions.getCompanyList({
+        ...queryParams,
+      })
+    );
+  }, [queryParams]);
 
   return (
     <Container className={classes.root}>
@@ -37,7 +77,7 @@ const Companies: NextPage = () => {
         <Box className={clsx("center-root", classes.titleWrapper)}>
           <AppTypography variant="h4">Company List</AppTypography>
         </Box>
-        <Stack direction="row">
+        <Stack direction="row" mt={2}>
           <AppInput
             fullWidth
             value={search}
@@ -52,20 +92,21 @@ const Companies: NextPage = () => {
             Search
           </Button>
         </Stack>
-        <Stack direction="row">
-          <AppSelect
-            selectedIndex={companyLocation.value}
-            onSelected={handleChangeLocationCompany}
-            data={COMPANY_LOCATION_DATA}
-            buttonProps={{
-              startIcon: <LocationIcon />,
+        <Stack direction="row" mt={2} justifyContent="space-between">
+          <AppInput
+            label="Location"
+            onChange={handleChangeLocationCompany}
+            InputProps={{
+              startAdornment: <LocationIcon />,
             }}
+            sx={{ width: 200 }}
           />
-          <AppSelect
-            selectedIndex={categories.value}
-            onSelected={handleChangeCategory}
-            data={CATEGORIES}
-          />
+          <Stack alignItems="flex-end">
+            <AppTypography variant="subtitle2" sx={{ mb: 0.5 }}>
+              Category
+            </AppTypography>
+            <CategoriesSelect onChangeCategories={handleChangeCategory} />
+          </Stack>
         </Stack>
         <CompanyCardList />
       </Stack>
