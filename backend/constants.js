@@ -8,10 +8,10 @@ export const COMPANY_SIZE = {
 };
 
 export const QUALIFICATION = {
-  0: "Bachelor Degree",
-  1: "Doctorate Degree",
-  2: "High School",
-  3: "Master Degree",
+  bachelorDegree: 0,
+  doctorateDegree: 1,
+  highSchool: 2,
+  masterDegree: 3,
 };
 
 export const JOB_TYPE = {
@@ -24,15 +24,16 @@ export const JOB_TYPE = {
 
 export const EXPERIENCE_TYPE = {
   0: "1-2",
-  2: "3-5",
+  1: "3-5",
   2: "6-9",
-  4: "10+",
+  3: "10+",
 };
 
 export const STATUS = {
   pending: 0,
   published: 1,
   expired: 2,
+  reject: 3,
 };
 
 export const PAGINATION_SETTING = {

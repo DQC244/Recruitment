@@ -1,19 +1,20 @@
+import { AppConstant } from "const";
 import React, { useState } from "react";
 import AppSelect from "../AppSelect";
 
 const QualificationSelect = ({
   onChangeQualification,
 }: QualificationSelectProps) => {
-  const [qualification, setQualification] = useState(QUALIFICATION[0]);
+  const [qualification, setQualification] = useState();
 
   const handleChangeCategory = (item: any) => {
-    setQualification(item);
-    onChangeQualification(item);
+    setQualification(item.value);
+    onChangeQualification(item.value);
   };
 
   return (
     <AppSelect
-      selectedIndex={qualification.value}
+      selectedIndex={qualification}
       onSelected={handleChangeCategory}
       data={QUALIFICATION}
     />
@@ -27,7 +28,20 @@ type QualificationSelectProps = {
 export default QualificationSelect;
 
 const QUALIFICATION = [
-  { value: 1, label: "Master Degree" },
-  { value: 2, label: "Master Degree" },
-  { value: 3, label: "Master Degree" },
+  {
+    value: AppConstant.QUALIFICATION.bachelorDegree,
+    label: "Master Degree",
+  },
+  {
+    value: AppConstant.QUALIFICATION.doctorateDegree,
+    label: "Doctorate Degree",
+  },
+  {
+    value: AppConstant.QUALIFICATION.highSchool,
+    label: "High School",
+  },
+  {
+    value: AppConstant.QUALIFICATION.masterDegree,
+    label: "Master Degree",
+  },
 ];

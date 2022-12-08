@@ -26,3 +26,4 @@ export const GET_CATEGORIES = "/api/category/get";
 export const POST_CREATE_COMPANY = "/api/company/add";
 export const GET_COMPANY_DETAIL = "/api/company/get/{id}";
 export const GET_COMPANY_LIST = "/api/company/get";
+export const POST_CREATE_JOB = "/api/job/add";

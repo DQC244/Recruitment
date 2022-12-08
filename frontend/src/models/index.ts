@@ -2,13 +2,14 @@
 import AccountClass from "./classes/Account";
 import CompanyClass from "./classes/Company";
 import CompanyListClass from "./classes/CompanyList";
+import JobClass from "./classes/Job";
 
 // Defined type
 import { IProps, IIconProps } from "./types";
 
 // Defined type
 
-export { AccountClass, CompanyClass, CompanyListClass };
+export { AccountClass, CompanyClass, CompanyListClass, JobClass };
 export type {
   // Interface
 

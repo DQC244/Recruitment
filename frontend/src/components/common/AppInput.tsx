@@ -88,7 +88,7 @@ const useStyles = makeStyles<ThemeProps>((theme) => ({
       borderRadius: 8,
       "& [class*='notchedOutline']": {
         padding: 0,
-        borderColor: theme.palette.grey[200],
+        borderColor: theme.palette.grey[400],
         borderRadius: 8,
         boxShadow: "unset",
         "& legend": {

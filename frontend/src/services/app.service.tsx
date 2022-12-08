@@ -28,6 +28,22 @@ export type CompanyListProps = {
   search?: string;
 };
 
+type JobProps = {
+  title: string;
+  location: string;
+  description: string;
+  type: number;
+  closeDate: Date;
+  qualification: number;
+  experience: number;
+  tag: string;
+  image: string;
+  salary: {
+    min: number;
+    max: number;
+  };
+};
+
 export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
 
 export const createCompany = (data: companyType) =>
@@ -38,3 +54,6 @@ export const getCompanyDetail = (id: string) =>
 
 export const getCompanyList = (data: CompanyListProps) =>
   createApi().get(ApiConstant.GET_COMPANY_LIST, data);
+
+export const createJob = (data: JobProps) =>
+  createApi().post(ApiConstant.POST_CREATE_JOB, data);

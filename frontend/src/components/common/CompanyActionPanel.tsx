@@ -247,7 +247,7 @@ const CompanyActionPanel = ({
 };
 
 type CompanyActionPanelProps = {
-  handleSubmit: (data: any) => void;
+  handleSubmit: (data: any) => Promise<void>;
   labelButton?: string;
 };
 

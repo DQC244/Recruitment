@@ -51,3 +51,24 @@ export const COMPANY_SIZE = {
   4: "201-500",
   5: "500+",
 };
+
+export const QUALIFICATION = {
+  bachelorDegree: 0,
+  doctorateDegree: 1,
+  highSchool: 2,
+  masterDegree: 3,
+};
+
+export const EXPERIENCE_TYPE = {
+  fresher: 0,
+  junior: 1,
+  middle: 2,
+  senior: 3,
+};
+
+export enum STATUS {
+  pending = 0,
+  published,
+  expired,
+  reject,
+}

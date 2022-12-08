@@ -7,6 +7,7 @@ import AppInput from "./AppInput";
 export default function BasicDatePicker({
   value,
   onChangeDate,
+  inputProps = {},
 }: BasicDatePickerProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -15,7 +16,7 @@ export default function BasicDatePicker({
         onChange={(newValue) => {
           onChangeDate(newValue);
         }}
-        renderInput={(params: any) => <AppInput {...params} />}
+        renderInput={(params: any) => <AppInput {...params} {...inputProps} />}
       />
     </LocalizationProvider>
   );
@@ -24,4 +25,5 @@ export default function BasicDatePicker({
 type BasicDatePickerProps = {
   value: any;
   onChangeDate: (value: any) => void;
+  inputProps?: object;
 };
