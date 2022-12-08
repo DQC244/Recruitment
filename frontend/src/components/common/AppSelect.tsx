@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     padding: theme.spacing(1.25, 2),
     justifyContent: "space-between",
     color: theme.palette.common.black,
-    border: `1px solid ${theme.palette.grey[200]}`,
+    border: `1px solid ${theme.palette.grey[400]}`,
   },
   endIcon: {
     stroke: theme.palette.common.black,

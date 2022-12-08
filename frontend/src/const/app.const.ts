@@ -4,7 +4,7 @@ export const COOKIE_EXPIRED_DATE = 7;
 export const NOT_HAVE_VALUE_LABEL = "- -";
 export const NOT_AVAILABLE_VALUE = "N/A";
 
-export const DEBOUNCE_TIME_IN_MILLISECOND = 500;
+export const DEBOUNCE_TIME_IN_MILLISECOND = 1000;
 
 export const SIZE_PAGINATION_DEFAULT = 4;
 export const DEFAULT_PAGINATION = {
@@ -51,3 +51,24 @@ export const COMPANY_SIZE = {
   4: "201-500",
   5: "500+",
 };
+
+export const QUALIFICATION = {
+  bachelorDegree: 0,
+  doctorateDegree: 1,
+  highSchool: 2,
+  masterDegree: 3,
+};
+
+export const EXPERIENCE_TYPE = {
+  fresher: 0,
+  junior: 1,
+  middle: 2,
+  senior: 3,
+};
+
+export enum STATUS {
+  pending = 0,
+  published,
+  expired,
+  reject,
+}

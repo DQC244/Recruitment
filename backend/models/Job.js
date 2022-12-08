@@ -1,24 +1,25 @@
 import mongoose from "mongoose";
+import { STATUS } from "../constants";
 
 const Job = new mongoose.Schema(
   {
-    id: { type: String, unique: true, require: true },
     title: { type: String, require: true },
     description: { type: String, require: true },
-    categoryId: { type: String, require: true },
-    type: { type: String, require: true },
-    tag: { type: String },
-    location: { type: String, require: true },
-    closeDate: { type: Date, require: true },
-    qualificationId: String,
-    experienceId: String,
-    salary: {
-      min: Number,
-      max: Number,
-    },
-    companyId: { type: String, require: true },
-    experience: { type: String },
     image: { type: String, require: true },
+    type: { type: Number, require: true },
+    location: { type: String, require: true },
+    closeDate: { type: String, require: true },
+    companyId: { type: String, require: true },
+    tag: { type: String },
+    qualification: Number,
+    experience: Number,
+    salary: {
+      min: { type: Number, required: true },
+      max: { type: Number, required: true },
+    },
+    status: { type: Number, default: STATUS.pending, require: true },
   },
   { timestamps: true }
 );
+
+export default mongoose.model("Job", Job);

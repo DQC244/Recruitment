@@ -68,7 +68,7 @@ export const getCompany = async (req, res, next) => {
   } = req.query;
 
   const params = {
-    ...req.body,
+    ...req.query,
     page,
     size,
   };
@@ -78,14 +78,19 @@ export const getCompany = async (req, res, next) => {
     0
   );
 
-  const filter = {
-    categoryId: params.categoryId,
-    location: params.location,
-  };
+  let filter;
+  if (params.search) {
+    filter = { $text: { $search: params.search } };
+  } else {
+    filter = {
+      categoryId: params.categoryId,
+      location: params.location,
+    };
 
-  Object.keys(filter).forEach((key) =>
-    filter[key] === undefined ? delete filter[key] : {}
-  );
+    Object.keys(filter).forEach((key) =>
+      Boolean(filter[key]) === false ? delete filter[key] : {}
+    );
+  }
 
   try {
     const companyList = await Company.find(filter)

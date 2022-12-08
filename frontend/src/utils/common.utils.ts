@@ -1,3 +1,5 @@
+import { debounce as lodashDebounce } from "lodash";
+
 /**
  * Check if a value is greater than or equal 0
  *
@@ -112,4 +114,8 @@ export const checkValidPhoneNumber = (number: string): boolean => {
   const isStartWithZero = number.charAt(0) == "0";
 
   return isStartWithZero;
+};
+
+export const debounce = (func: any, wait: number) => {
+  return lodashDebounce(func, wait);
 };

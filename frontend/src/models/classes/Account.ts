@@ -8,7 +8,6 @@ class Account {
   permission: AppConstant.USER_TYPE;
   company?: string;
   image?: string;
-  job?: string[];
   package?: string;
 
   constructor(data: Account) {
@@ -19,7 +18,6 @@ class Account {
     this.permission = data.permission;
     this.company = data.company;
     this.image = data.image;
-    this.job = data.job;
     this.package = data.package;
   }
 }
