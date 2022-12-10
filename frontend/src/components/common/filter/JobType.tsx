@@ -37,6 +37,8 @@ const JobType = ({
   useEffect(() => {
     if (Array.isArray(data)) {
       setFilters(data);
+    } else {
+      setFilters([]);
     }
   }, [data]);
 

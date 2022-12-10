@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 import { PAGINATION_SETTING, STATUS } from "../constants";
 import { createError } from "../error";
-import Category from "../models/Category";
+import Company from "../models/Company";
 import Job from "../models/Job";
-import User from "../models/User";
 
 export const addJob = async (req, res, next) => {
   const user = req.user;
@@ -45,77 +44,86 @@ export const deleteJob = async (req, res, next) => {
   }
 };
 
-// export const getJobList = async (req, res, next) => {
-//   const {
-//     page = PAGINATION_SETTING.DEFAULT_PAGE,
-//     size = PAGINATION_SETTING.PAGE_SIZE,
-//   } = req.query;
+export const getJobList = async (req, res, next) => {
+  const {
+    page = PAGINATION_SETTING.DEFAULT_PAGE,
+    size = PAGINATION_SETTING.PAGE_SIZE,
+  } = req.query;
 
-//   const params = {
-//     ...req.query,
-//     page,
-//     size,
-//   };
+  const params = {
+    ...req.query,
+    page,
+    size,
+  };
 
-//   const skipItem = Math.max(
-//     Number(params.size) * Number(params.page) - Number(params.size),
-//     0
-//   );
+  const skipItem = Math.max(
+    Number(params.size) * Number(params.page) - Number(params.size),
+    0
+  );
 
-//   let filter;
-//   if (params.search) {
-//     filter = { $text: { $search: params.search } };
-//   } else {
-//     filter = {
-//       categoryId: params.categoryId,
-//       location: params.location,
-//     };
+  let filter = {
+    location: { $text: params.location },
+    type: params.type,
+    experience: params.experience,
+  };
 
-//     Object.keys(filter).forEach((key) =>
-//       Boolean(filter[key]) === false ? delete filter[key] : {}
-//     );
-//   }
+  if (!isNaN(params.salary)) {
+    filter = {
+      ...filter,
+      "salary.min": { $lte: params.salary },
+      "salary.max": { $gte: params.salary },
+    };
+  }
 
-//   try {
-//     const companyList = await Job.find(filter)
-//       .skip(skipItem)
-//       .limit(Number(params.size) * Number(params.page))
-//       .sort({ createdAt: -1 });
+  Object.keys(filter).forEach((key) =>
+    Boolean(filter[key]) === false ||
+    (Array.isArray(filter[key]) && Boolean(filter[key].length === false))
+      ? delete filter[key]
+      : {}
+  );
 
-//     const countCompany = await Job.count(filter);
+  try {
+    const jobList = await Job.find(filter)
+      .skip(skipItem)
+      .limit(Number(params.size))
+      .sort({ createdAt: -1 });
 
-//     const companyData =
-//       companyList.length > 0
-//         ? {
-//             pagination: {
-//               page: Number(params.page),
-//               size: Number(params.size),
-//               totalItem: countCompany,
-//               totalPages: Math.ceil(countCompany / params.size),
-//             },
-//             listItems: companyList,
-//           }
-//         : {
-//             pagination: {
-//               page: Number(params.page),
-//               size: Number(params.size),
-//               totalItem: 0,
-//               totalPages: 0,
-//             },
-//             listItems: [],
-//           };
+    const countJob = await Job.count(filter);
 
-//     res.status(200).json(companyData);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    const jobData =
+      jobList.length > 0
+        ? {
+            pagination: {
+              page: Number(params.page),
+              size: Number(params.size),
+              totalItem: countJob,
+              totalPages: Math.ceil(countJob / params.size),
+            },
+            listItems: jobList,
+          }
+        : {
+            pagination: {
+              page: Number(params.page),
+              size: Number(params.size),
+              totalItem: 0,
+              totalPages: 0,
+            },
+            listItems: [],
+          };
+
+    res.status(200).json(jobData);
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const getJobDetail = async (req, res, next) => {
   try {
-    const company = await Job.findById(req.params.id);
-    const { name } = await Category.findById(company.categoryId);
-    res.status(200).json({ ...company._doc, categoryName: name });
+    const job = await Job.findById(req.params.id);
+
+    const company = await Company.findById(job.companyId);
+
+    res.status(200).json({ job, company });
   } catch (error) {
     next(error);
   }

@@ -1,9 +1,7 @@
 import React from "react";
-import { Box, Container, IconButton, Stack } from "@mui/material";
+import { Box, BoxProps, IconButton, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
-import { ImageConstant } from "const";
-import AppImage from "../AppImage";
 import AppTypography from "../AppTypography";
 import AppLink from "../AppLink";
 import {
@@ -16,103 +14,83 @@ import {
 } from "components/icons";
 import { CompanyClass } from "models";
 
-const BannerCompany = ({ data }: BannerCompanyProps) => {
+const BannerCompany = ({ data, ...otherProps }: BannerCompanyProps) => {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <Box className={classes.overlay}>
-        <Container className={classes.container}>
-          <Stack className={classes.wrapper} spacing={3} direction="row">
-            <Box
-              component="img"
-              className={classes.logoCompany}
-              src={data?.logo}
-            />
-            <Stack spacing={2} flex={1}>
-              <AppTypography variant="h4">{data?.name}</AppTypography>
-              <Stack direction="row" spacing={2}>
-                <Stack spacing={0.5} direction="row" alignItems="center">
-                  {data?.website?.web && (
-                    <>
-                      <NetworkIcon className={classes.icon} />
-                      <AppLink color="grey.500" href={"heft"}>
-                        {data?.website?.web}
-                      </AppLink>
-                    </>
-                  )}
-                </Stack>
-                <Stack spacing={0.5} direction="row" alignItems="center">
-                  <PhoneIcon className={classes.icon} />
-                  <AppLink color="grey.500" href={`tel:${data?.phone}`}>
-                    {data?.phone}
+    <Box {...otherProps}>
+      <Stack className={classes.wrapper} spacing={3} direction="row">
+        <Box component="img" className={classes.logoCompany} src={data?.logo} />
+        <Stack spacing={2} flex={1}>
+          <AppTypography variant="h4">{data?.name}</AppTypography>
+          <Stack direction="row" spacing={2}>
+            <Stack spacing={0.5} direction="row" alignItems="center">
+              {data?.website?.web && (
+                <>
+                  <NetworkIcon className={classes.icon} />
+                  <AppLink color="grey.500" href={"heft"}>
+                    {data?.website?.web}
                   </AppLink>
-                </Stack>
-                <Stack spacing={0.5} direction="row" alignItems="center">
-                  <EmailIcon className={classes.icon} />
-                  <AppLink color="grey.500" href={`mailto:${data?.email}`}>
-                    {data?.email}
-                  </AppLink>
-                </Stack>
-              </Stack>
+                </>
+              )}
             </Stack>
-            <Stack spacing={2}>
-              <Stack direction="row" justifyContent="space-between" spacing={1}>
-                {data?.website?.facebook && (
-                  <IconButton
-                    href={data?.website?.facebook}
-                    target="_blank"
-                    className={classes.socialButton}
-                  >
-                    <FacebookIcon />
-                  </IconButton>
-                )}
-                {data?.website?.twitter && (
-                  <IconButton
-                    href={data?.website?.twitter}
-                    target="_blank"
-                    className={classes.socialButton}
-                  >
-                    <TwitterIcon />
-                  </IconButton>
-                )}
-                {data?.website?.linkedin && (
-                  <IconButton
-                    href={data?.website?.linkedin}
-                    target="_blank"
-                    className={classes.socialButton}
-                  >
-                    <LinkedinIcon />
-                  </IconButton>
-                )}
-              </Stack>
+            <Stack spacing={0.5} direction="row" alignItems="center">
+              <PhoneIcon className={classes.icon} />
+              <AppLink color="grey.500" href={`tel:${data?.phone}`}>
+                {data?.phone}
+              </AppLink>
+            </Stack>
+            <Stack spacing={0.5} direction="row" alignItems="center">
+              <EmailIcon className={classes.icon} />
+              <AppLink color="grey.500" href={`mailto:${data?.email}`}>
+                {data?.email}
+              </AppLink>
             </Stack>
           </Stack>
-        </Container>
-      </Box>
+        </Stack>
+        <Stack spacing={2}>
+          <Stack direction="row" justifyContent="space-between" spacing={1}>
+            {data?.website?.facebook && (
+              <IconButton
+                href={data?.website?.facebook}
+                target="_blank"
+                className={classes.socialButton}
+              >
+                <FacebookIcon />
+              </IconButton>
+            )}
+            {data?.website?.twitter && (
+              <IconButton
+                href={data?.website?.twitter}
+                target="_blank"
+                className={classes.socialButton}
+              >
+                <TwitterIcon />
+              </IconButton>
+            )}
+            {data?.website?.linkedin && (
+              <IconButton
+                href={data?.website?.linkedin}
+                target="_blank"
+                className={classes.socialButton}
+              >
+                <LinkedinIcon />
+              </IconButton>
+            )}
+          </Stack>
+        </Stack>
+      </Stack>
     </Box>
   );
 };
 
-type BannerCompanyProps = {
+type BannerCompanyProps = BoxProps & {
   data?: CompanyClass;
 };
 
 export default BannerCompany;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
-  root: {
-    position: "relative",
-    width: "100%",
-    height: 500,
-    background: `center url(${ImageConstant.CompanyBanner})`,
-    marginBottom: 150,
-  },
-  overlay: {
-    width: "100%",
-    height: "100%",
-    background: "rgba(0,0,0,.4)",
-  },
   container: {
     position: "absolute",
     bottom: -100,
@@ -122,17 +100,17 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     height: 200,
     width: "100%",
     background: theme.palette.common.white,
-    boxShadow: "0 0 40px rgb(0 0 0 / 15%)",
-    borderRadius: 4,
+    border: `1px solid ${theme.palette.grey[300]}`,
+    borderRadius: 12,
     alignItems: "center",
     padding: theme.spacing(5),
   },
   logoCompany: {
     width: 120,
     height: 120,
-    background: theme.palette.grey[200],
     borderRadius: 4,
     objectFit: "contain",
+    border: `1px solid ${theme.palette.grey[300]}`,
   },
   icon: {
     color: theme.palette.primary.main,

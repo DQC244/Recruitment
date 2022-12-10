@@ -8,33 +8,35 @@ import {
   successReducerFunc,
   resetReducerFunc,
 } from "./redux-structure";
-import { CompanyClass, CompanyListClass } from "models";
+import { JobClass, JobListClass } from "models";
 import { AppService } from "services";
 import { AppConstant } from "const";
 import { KeyAbleProps } from "models/types";
 
 /* ------------- Types and Action Creators ------------- */
 export const { Types, Creators } = createActions({
-  getCompany: ["data"],
-  getCompanyList: ["data"],
+  getJob: ["data"],
+  getJobList: ["data"],
   setQueryParams: ["data"],
+  resetQueryParams: [],
 
-  companySuccess: ["data"],
-  companyFailure: ["error", "data"],
-  companySet: ["data"],
-  companyReset: [],
+  jobSuccess: ["data"],
+  jobFailure: ["error", "data"],
+  jobSet: ["data"],
+  jobReset: [],
 });
 
 /* ------------- Initial State ------------- */
-export interface ICompanyRedux extends IReduxStateCommon {
-  company: CompanyClass;
-  companyList: CompanyListClass;
-  queryParams: AppService.CompanyListProps;
+export interface IJobRedux extends IReduxStateCommon {
+  job: JobClass;
+  queryParams: AppService.JobListProps;
+  jobList: JobListClass;
 }
-export const INITIAL_STATE: ICompanyRedux = {
+export const INITIAL_STATE: IJobRedux = {
   ...REDUX_STATE,
-  company: {} as CompanyClass,
-  companyList: {} as CompanyListClass,
+  job: {} as JobClass,
+  jobList: {} as JobListClass,
+
   queryParams: {
     ...AppConstant.DEFAULT_PAGINATION,
   },
@@ -42,18 +44,17 @@ export const INITIAL_STATE: ICompanyRedux = {
 
 /* ------------- Selector ------------- */
 export const Selector = {
-  // Get company info
-  getCompanyInfo: (state: IAppReduxState) => state.companyRedux.company,
+  // Get job info
+  getJobInfo: (state: IAppReduxState) => state.jobRedux.job,
 
-  // Get company List
-  getCompanyList: (state: IAppReduxState) => state.companyRedux.companyList,
+  // Get job List
+  getJobList: (state: IAppReduxState) => state.jobRedux.jobList,
 
   // get pagination
-  getPagination: (state: IAppReduxState) =>
-    state.companyRedux.companyList?.pagination,
+  getPagination: (state: IAppReduxState) => state.jobRedux.jobList?.pagination,
 
   // get query params
-  getQueryParams: (state: IAppReduxState) => state.companyRedux.queryParams,
+  getQueryParams: (state: IAppReduxState) => state.jobRedux.queryParams,
 };
 
 /* ------------- Reducers ------------- */
@@ -72,16 +73,26 @@ const setQueryParams = (state = INITIAL_STATE, action: KeyAbleProps) => {
   return { ...state, queryParams: { ...state.queryParams, ...data } };
 };
 
+const resetQueryParams = (state = INITIAL_STATE, action: KeyAbleProps) => {
+  return {
+    ...state,
+    queryParams: {
+      ...AppConstant.DEFAULT_PAGINATION,
+    },
+  };
+};
+
 /* ------------- Mapping ------------- */
 const HANDLERS = {
-  [Types.GET_COMPANY]: request,
-  [Types.GET_COMPANY_LIST]: request,
+  [Types.GET_JOB]: request,
+  [Types.GET_JOB_LIST]: request,
   [Types.SET_QUERY_PARAMS]: setQueryParams,
+  [Types.RESET_QUERY_PARAMS]: resetQueryParams,
 
-  [Types.COMPANY_SUCCESS]: success,
-  [Types.COMPANY_FAILURE]: failure,
-  [Types.COMPANY_SET]: success,
-  [Types.COMPANY_RESET]: reset,
+  [Types.JOB_SUCCESS]: success,
+  [Types.JOB_FAILURE]: failure,
+  [Types.JOB_SET]: success,
+  [Types.JOB_RESET]: reset,
 };
 
 /* ------------- Hookup Reducers To Types ------------- */

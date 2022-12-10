@@ -44,6 +44,16 @@ type JobProps = {
   };
 };
 
+export type JobListProps = {
+  page: number;
+  size: number;
+  location?: string;
+  search?: string;
+  salary?: number;
+  type?: number[];
+  experience?: number[];
+};
+
 export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
 
 export const createCompany = (data: companyType) =>
@@ -57,3 +67,9 @@ export const getCompanyList = (data: CompanyListProps) =>
 
 export const createJob = (data: JobProps) =>
   createApi().post(ApiConstant.POST_CREATE_JOB, data);
+
+export const getJobDetail = (id: string) =>
+  createApi().get(stringFormat(ApiConstant.GET_JOB_DETAIL, { id }));
+
+export const getJobList = (data: JobListProps) =>
+  createApi().get(ApiConstant.GET_JOB_LIST, data);

@@ -1,6 +1,7 @@
-import { Button, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { EmailIcon } from "components/icons";
+import { CompanyClass } from "models";
 import { ThemeProps } from "models/types";
 import React from "react";
 import AppImage from "../AppImage";
@@ -11,9 +12,9 @@ const CompanyPanel = ({ data }: CompanyPanelProps) => {
 
   return (
     <Stack className={classes.root} direction="row" spacing={3}>
-      <AppImage className={classes.image} src={data?.companyLogo} />
+      <Box component="img" className={classes.image} src={data?.logo} />
       <Stack spacing={3} justifyContent="center">
-        <AppTypography variant="h4">{data?.companyName}</AppTypography>
+        <AppTypography variant="h4">{data?.name}</AppTypography>
         <Button
           startIcon={<EmailIcon className={classes.emailIcon} />}
           className={classes.emailButton}
@@ -27,11 +28,7 @@ const CompanyPanel = ({ data }: CompanyPanelProps) => {
 };
 
 type CompanyPanelProps = {
-  data?: {
-    companyName?: string;
-    companyLogo?: string;
-    email?: string;
-  };
+  data?: CompanyClass;
 };
 
 export default CompanyPanel;
@@ -46,7 +43,8 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   image: {
     width: 120,
     height: 120,
-    backgroundColor: theme.palette.grey[200],
+    objectFit: "contain",
+    backgroundColor: theme.palette.grey[100],
     border: `1px solid ${theme.palette.grey[300]}`,
   },
   emailButton: {

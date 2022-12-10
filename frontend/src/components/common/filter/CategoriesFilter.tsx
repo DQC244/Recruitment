@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { AppAccordion, AppCheckbox } from "components/common";
 import { ThemeProps } from "models/types";
 import React, { memo, useEffect, useState } from "react";
-import { CATEGORIES } from "../sn-home/Banner";
+import { Job_Experience } from "../select/JobExperienceSelect";
 
 const CategoriesFilter = ({
   data,
@@ -29,18 +29,20 @@ const CategoriesFilter = ({
   useEffect(() => {
     if (data?.length) {
       setFilter(data);
+    } else {
+      setFilter([]);
     }
   }, [data]);
 
   return (
     <AppAccordion
       labelProps={{
-        label: "Categories",
+        label: "Experience",
       }}
       {...otherProps}
     >
       <FormGroup>
-        {CATEGORIES.map((item, index) => (
+        {Job_Experience.map((item, index) => (
           <FormControlLabel
             className={classes.item}
             key={index}

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { NextPage } from "next";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import {
@@ -29,8 +29,12 @@ const CompanyDetail: NextPage = () => {
 
   return (
     <>
-      <BannerCompany data={company} />
-      <Container className={classes.root}>
+      <Box className={classes.banner}>
+        <Box className={classes.overlay}>
+          <BannerCompany data={company} className={classes.container} />
+        </Box>
+      </Box>
+      <Container>
         <CompanyDetailDescription />
         <JobPositionsList />
       </Container>
@@ -40,19 +44,24 @@ const CompanyDetail: NextPage = () => {
 
 export default CompanyDetail;
 
-const DATA = {
-  name: "Codecanyon",
-  imageUrl: ImageConstant.Banner,
-  phone: "329947238",
-  email: "company@gmail.com",
-  website: {
-    web: "href",
-    facebook: "href",
-    linkedin: "href",
-    twitter: "href",
-  },
-};
-
 const useStyles = makeStyles((theme: ThemeProps) => ({
-  root: {},
+  banner: {
+    position: "relative",
+    width: "100%",
+    height: 500,
+    background: `center url(${ImageConstant.CompanyBanner})`,
+    marginBottom: 150,
+  },
+  overlay: {
+    width: "100%",
+    height: "100%",
+    background: "rgba(0,0,0,.4)",
+  },
+  container: {
+    position: "absolute",
+    bottom: -100,
+    width: "80%",
+    left: "50%",
+    transform: "translateX(-50%)",
+  },
 }));
