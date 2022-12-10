@@ -75,7 +75,7 @@ const Companies: NextPage = () => {
     <Container className={classes.root}>
       <Stack width="100%">
         <Box className={clsx("center-root", classes.titleWrapper)}>
-          <AppTypography variant="h4">Company List</AppTypography>
+          <AppTypography variant="h3">Company List</AppTypography>
         </Box>
         <Stack direction="row" mt={2}>
           <AppInput
@@ -124,8 +124,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   titleWrapper: {
     height: 200,
     width: "100%",
-    backgroundColor: "#f6f6f6",
+    boxShadow: "5px 5px 25px rgb(0 0 0 / 8%)",
     textAlign: "center",
-    color: theme.palette.grey[600],
   },
 }));

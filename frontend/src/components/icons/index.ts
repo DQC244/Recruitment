@@ -23,6 +23,7 @@ import TeamSizeIcon from "./TeamSizeIcon";
 import CategoryIcon from "./CategoryIcon";
 import RadioIcon from "./RadioIcon";
 import ImageIcon from "./ImageIcon";
+import TelegramIcon from "./TelegramIcon";
 
 export {
   UserIcon,
@@ -50,4 +51,5 @@ export {
   CategoryIcon,
   RadioIcon,
   ImageIcon,
+  TelegramIcon,
 };

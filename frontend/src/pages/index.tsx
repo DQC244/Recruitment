@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { Container } from "@mui/material";
 import {
   Banner,
+  GetStarted,
   CategoryList,
   FeaturedEmployers,
   LatestJobList,
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
         <FeaturedEmployers />
         <LatestJobList />
       </Container>
+      <GetStarted />
     </>
   );
 };

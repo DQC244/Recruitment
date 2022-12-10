@@ -17,12 +17,7 @@ const JobCard = ({ data }: JobCardProps) => {
   return (
     <Stack spacing={3} direction="row" className={classes.root}>
       <Box className={classes.imageWrapper}>
-        <Image
-          src={ImageConstant.LogoImage}
-          layout="fill"
-          objectFit="contain"
-          draggable={false}
-        />
+        <Box className={classes.image} component="img" src={data?.image} />
         <Box className={classes.jobType}>
           <AppTypography variant="body2">{jobTypeLabel}</AppTypography>
         </Box>
@@ -76,6 +71,11 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     height: 200,
     backgroundColor: theme.palette.grey[100],
     borderRadius: 4,
+    boxShadow: "5px 5px 25px rgb(0 0 0 / 8%)",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
   },
   content: {
     flex: 1,
