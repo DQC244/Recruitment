@@ -50,20 +50,23 @@ const CompanyCardList = () => {
                   >
                     <Stack spacing={2}>
                       <AppTypography variant="h5">{item.name}</AppTypography>
-                      <Stack direction="row">
-                        <LocationIcon />
-                        <AppTypography
-                          variant="subtitle2"
-                          sx={{ textTransform: "capitalize" }}
-                          color="grey.500"
-                        >
-                          {item.location}
-                        </AppTypography>
-                      </Stack>
+                      <Box
+                        sx={{ color: "black" }}
+                        dangerouslySetInnerHTML={{
+                          __html: `${item?.description.substring(0, 100)}...`,
+                        }}
+                      ></Box>
                     </Stack>
-                    <AppTypography variant="body2" className={classes.totalJob}>
-                      {item.totalJob + " jobs"}
-                    </AppTypography>
+                    <Stack direction="row">
+                      <LocationIcon />
+                      <AppTypography
+                        variant="subtitle2"
+                        sx={{ textTransform: "capitalize" }}
+                        color="grey.500"
+                      >
+                        {item.location}
+                      </AppTypography>
+                    </Stack>
                   </Stack>
                 </Stack>
               </AppLink>

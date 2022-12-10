@@ -1,46 +1,96 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Box, Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { AppTypography } from "components/common";
+import { AppInput, AppTypography } from "components/common";
 import JobType from "components/common/filter/JobType";
 import clsx from "clsx";
-import Location from "components/common/filter/Location";
 import CategoriesFilter from "../filter/CategoriesFilter";
 import SalaryFilter from "../filter/SalaryFilter";
+import FilterLayout from "../filter/FilterLayout";
+import { CommonUtils } from "utils";
+import { useDispatch, useSelector } from "react-redux";
+import { JobActions, JobSelector } from "redux-store";
+import { AppConstant } from "const";
 
 const FilterJob = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const queryParams = useSelector(JobSelector.getQueryParams);
 
-  const handleChangeJob = (value?: any) => {
-    console.log(value);
-    return;
+  const [location, setLocation] = useState("");
+
+  const handleDebounce = CommonUtils.debounce((queryParams: any) => {
+    dispatch(
+      JobActions.setQueryParams({
+        ...queryParams,
+      })
+    );
+  }, AppConstant.DEBOUNCE_TIME_IN_MILLISECOND);
+
+  const handleChangeJobType = (value?: any) => {
+    const newQuery = {
+      ...queryParams,
+      type: value,
+    };
+    handleDebounce(newQuery);
   };
-  const handleChangeCategories = (value?: any) => {
-    console.log(value);
-    return;
+
+  const handleChangeExperience = (value?: any) => {
+    const newQuery = {
+      ...queryParams,
+      experience: value,
+    };
+    handleDebounce(newQuery);
   };
-  const handleChangeLocation = (value?: any) => {
-    console.log(value);
-    return;
+
+  const handleChangeLocation = (event: ChangeEvent<HTMLInputElement>) => {
+    setLocation(event.currentTarget.value);
+    const newQuery = {
+      ...queryParams,
+      location: event.currentTarget.value,
+    };
+    handleDebounce(newQuery);
   };
+
   const handleChangeSalary = (value?: any) => {
-    console.log(value);
-    return;
+    if (!value) return;
+    const newQuery = {
+      ...queryParams,
+      salary: value,
+    };
+    handleDebounce(newQuery);
+  };
+
+  const handleResetParams = () => {
+    setLocation("");
+    dispatch(JobActions.resetQueryParams());
   };
 
   return (
     <Box className={classes.root}>
-      <Button className={classes.headerButton}>
+      <Button className={classes.headerButton} onClick={handleResetParams}>
         <AppTypography color="error.main">Clear all filters</AppTypography>
       </Button>
       <Stack
         spacing={3}
         className={clsx("hidden-scrollbar", classes.filterWrapper)}
       >
-        <SalaryFilter onChangeValue={handleChangeSalary} />
-        <JobType className={classes.job} onChange={handleChangeJob} />
-        <CategoriesFilter onChangeCategories={handleChangeCategories} />
-        <Location onChangeLocation={handleChangeLocation} />
+        <SalaryFilter
+          onChangeValue={handleChangeSalary}
+          data={queryParams?.salary}
+        />
+        <FilterLayout title="Location">
+          <AppInput onChange={handleChangeLocation} value={location} />
+        </FilterLayout>
+        <JobType
+          data={queryParams?.type}
+          className={classes.job}
+          onChange={handleChangeJobType}
+        />
+        <CategoriesFilter
+          data={queryParams?.experience}
+          onChangeCategories={handleChangeExperience}
+        />
       </Stack>
     </Box>
   );

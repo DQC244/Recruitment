@@ -24,7 +24,7 @@ const CompanyDetailDescription = () => {
     <Stack direction="row" spacing={3}>
       <Stack spacing={2}>
         <AppTypography variant="h5">About the Company</AppTypography>
-        <Box dangerouslySetInnerHTML={{ __html: company.description }}></Box>
+        <Box dangerouslySetInnerHTML={{ __html: company?.description }}></Box>
       </Stack>
       <Stack spacing={2}>
         <AppTypography variant="h5">Company Overview</AppTypography>
@@ -36,7 +36,7 @@ const CompanyDetailDescription = () => {
           />
           <OverviewItem
             label="Location"
-            description={company.location}
+            description={company?.location}
             icon={<LocationIcon />}
           />
           <OverviewItem
@@ -46,12 +46,12 @@ const CompanyDetailDescription = () => {
           />
           <OverviewItem
             label="Since"
-            description={dayjs(company.since).format("DD-MM-YYYY")}
+            description={dayjs(company?.since).format("DD-MM-YYYY")}
             icon={<TimeCloseIcon />}
           />
           <OverviewItem
             label="Team Size"
-            description={company.teamSize}
+            description={company?.teamSize}
             icon={<TeamSizeIcon />}
           />
         </Stack>

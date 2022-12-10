@@ -19,7 +19,7 @@ const OverviewItem = ({ icon, description, label }: OverviewProps) => {
             textTransform: "capitalize",
           }}
         >
-          {description}
+          {description || "- -"}
         </AppTypography>
       </Stack>
     </Stack>

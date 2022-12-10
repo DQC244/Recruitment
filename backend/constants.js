@@ -38,5 +38,5 @@ export const STATUS = {
 
 export const PAGINATION_SETTING = {
   DEFAULT_PAGE: 1,
-  PAGE_SIZE: 2,
+  PAGE_SIZE: 12,
 };

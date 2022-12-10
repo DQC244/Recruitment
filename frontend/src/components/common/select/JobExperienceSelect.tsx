@@ -27,7 +27,7 @@ type JobExperienceSelectSelectProps = {
 
 export default memo(JobExperienceSelect);
 
-const Job_Experience = [
+export const Job_Experience = [
   { value: AppConstant.EXPERIENCE_TYPE.fresher, label: "1-2 years" },
   { value: AppConstant.EXPERIENCE_TYPE.junior, label: "2-3 years" },
   { value: AppConstant.EXPERIENCE_TYPE.middle, label: "3-5 years" },

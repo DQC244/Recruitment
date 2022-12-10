@@ -7,14 +7,12 @@ import { AppTypography } from "components/common";
 import { UnHiddenIcon } from "components/icons";
 import { getLabelJobType } from "./helper";
 import Image from "next/image";
+import { JobClass } from "models";
 
 const JobCard = ({ data }: JobCardProps) => {
   const classes = useStyles();
 
-  const jobTypeLabel = useMemo(
-    () => getLabelJobType(data?.jobType),
-    [data?.jobType]
-  );
+  const jobTypeLabel = useMemo(() => getLabelJobType(data?.type), [data?.type]);
 
   return (
     <Stack spacing={3} direction="row" className={classes.root}>
@@ -30,26 +28,18 @@ const JobCard = ({ data }: JobCardProps) => {
         </Box>
       </Box>
       <Stack spacing={1.5} className={classes.content}>
-        <AppTypography variant="h5">{data?.jobName}</AppTypography>
-        <AppTypography variant="body2" color="grey.500">
-          Company: {data?.companyName}
-        </AppTypography>
+        <AppTypography variant="h5">{data?.title}</AppTypography>
         <AppTypography variant="body2" color="grey.500">
           Location: {data?.location}
         </AppTypography>
-        {data?.rate && (
-          <AppTypography variant="body2" color="grey.500">
-            Rate: {data.rate}
-          </AppTypography>
-        )}
         {data?.salary && (
           <AppTypography variant="body2" color="grey.500">
-            Salary: {data.salary}
+            Salary: {`$${data?.salary?.min} - $${data?.salary?.max}`}
           </AppTypography>
         )}
         <Stack direction="row" spacing={1} alignItems="center">
           <Button
-            href={`${PathConstant.JOBS}/${data?.jobId}`}
+            href={`${PathConstant.JOBS}/${data?._id}`}
             className={classes.button}
             variant="contained"
             endIcon={<UnHiddenIcon />}
@@ -57,7 +47,7 @@ const JobCard = ({ data }: JobCardProps) => {
             View Details
           </Button>
           <AppTypography variant="body2" color="grey.300">
-            {data?.postedDate}
+            {data?.updatedAt}
           </AppTypography>
         </Stack>
       </Stack>
@@ -66,16 +56,7 @@ const JobCard = ({ data }: JobCardProps) => {
 };
 
 type JobCardProps = {
-  data?: {
-    jobId?: number;
-    jobType?: typeof AppConstant.JOB_TYPE[keyof typeof AppConstant.JOB_TYPE];
-    jobName?: string;
-    companyName?: string;
-    location?: string;
-    rate?: string;
-    salary?: string;
-    postedDate?: string;
-  };
+  data?: JobClass;
 };
 
 export default JobCard;

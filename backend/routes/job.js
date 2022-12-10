@@ -15,8 +15,8 @@ router.post("/add", verifyToken, addJob);
 // delete
 router.delete("/delete/:id", verifyToken, deleteJob);
 
-// // get all
-// router.get("/get", getJobList);
+// get all
+router.get("/get", getJobList);
 
 // // get detail
 router.get("/get/:id", getJobDetail);

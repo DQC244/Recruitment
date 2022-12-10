@@ -3,6 +3,7 @@ import { PAGINATION_SETTING } from "../constants";
 import { createError } from "../error";
 import Category from "../models/Category";
 import Company from "../models/Company";
+import Job from "../models/Job";
 import User from "../models/User";
 
 export const addCompany = async (req, res, next) => {
@@ -95,7 +96,7 @@ export const getCompany = async (req, res, next) => {
   try {
     const companyList = await Company.find(filter)
       .skip(skipItem)
-      .limit(Number(params.size) * Number(params.page))
+      .limit(Number(params.size))
       .sort({ createdAt: -1 });
 
     const countCompany = await Company.count(filter);
@@ -131,6 +132,7 @@ export const getCompanyDetail = async (req, res, next) => {
   try {
     const company = await Company.findById(req.params.id);
     const { name } = await Category.findById(company.categoryId);
+
     res.status(200).json({ ...company._doc, categoryName: name });
   } catch (error) {
     next(error);
