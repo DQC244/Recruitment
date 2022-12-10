@@ -178,6 +178,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   },
   menuItemRoot: {
     padding: theme.spacing(0.75, 2),
+    textTransform: "capitalize",
     borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
     "&:last-child": {
       border: "unset",

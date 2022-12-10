@@ -62,7 +62,7 @@ export const getJobList = async (req, res, next) => {
   );
 
   let filter = {
-    location: { $text: params.location },
+    location: params.location,
     type: params.type,
     experience: params.experience,
   };

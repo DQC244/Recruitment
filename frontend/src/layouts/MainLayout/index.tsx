@@ -7,6 +7,7 @@ import { IProps } from "models";
 import MLHeader, { HEADER_HEIGHT_IN_PX } from "./components/MLHeader";
 import { makeStyles } from "@mui/styles";
 import { useCalcSizeDevice } from "hooks";
+import Footer from "./components/Footer";
 
 const MainLayout = ({
   className,
@@ -23,6 +24,7 @@ const MainLayout = ({
         <MLHeader />
         <Box className={clsx(classesDefault.main, className)} {...otherProps}>
           {children}
+          <Footer />
         </Box>
       </NoSsr>
     </>
