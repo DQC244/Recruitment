@@ -4,6 +4,7 @@ import { Alert, Container, Snackbar, Stack } from "@mui/material";
 import { HorizontalLinearStepper, JobActionPanel } from "components/common";
 import { AppService } from "services";
 import { ApiConstant } from "const";
+import { CommonUtils } from "utils";
 
 const Create: NextPage = () => {
   const [isOpenMsg, setIsOpenMsg] = useState(false);
@@ -61,3 +62,6 @@ const Create: NextPage = () => {
 };
 
 export default Create;
+
+export const getServerSideProps = async (context: any) =>
+  CommonUtils.handleRedirectUnauthorized(context);

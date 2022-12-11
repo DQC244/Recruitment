@@ -8,10 +8,10 @@ import {
   CompanyDetailDescription,
   JobPositionsList,
 } from "components/common/sn-company";
-import { ImageConstant } from "const";
+import { AppConstant, ImageConstant } from "const";
 import { useRouter } from "next/router";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { CompanyActions, CompanySelector } from "redux-store";
+import { CompanyActions, CompanySelector, JobActions } from "redux-store";
 
 const CompanyDetail: NextPage = () => {
   const classes = useStyles();
@@ -24,6 +24,12 @@ const CompanyDetail: NextPage = () => {
   useEffect(() => {
     if (companyId) {
       dispatch(CompanyActions.getCompany(companyId));
+      dispatch(
+        JobActions.getJobList({
+          page: AppConstant.DEFAULT_PAGINATION.page,
+          size: 5,
+        })
+      );
     }
   }, [companyId]);
 

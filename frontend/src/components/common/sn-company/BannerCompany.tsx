@@ -28,7 +28,11 @@ const BannerCompany = ({ data, ...otherProps }: BannerCompanyProps) => {
               {data?.website?.web && (
                 <>
                   <NetworkIcon className={classes.icon} />
-                  <AppLink color="grey.500" href={"heft"}>
+                  <AppLink
+                    color="grey.500"
+                    href={data?.website?.web}
+                    target="_blank"
+                  >
                     {data?.website?.web}
                   </AppLink>
                 </>

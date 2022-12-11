@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Pagination, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { LocationIcon } from "components/icons";
+import { LocationIcon, CategoryIcon } from "components/icons";
 import { AppConstant, ImageConstant, PathConstant } from "const";
 import { ThemeProps } from "models/types";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ const CompanyCardList = () => {
   const queryParams = useSelector(CompanySelector.getQueryParams, shallowEqual);
   const pagination = useSelector(CompanySelector.getPagination, shallowEqual);
   const companyList = useSelector(CompanySelector.getCompanyList, shallowEqual);
+  const categories = useSelector(CompanySelector.getCategoryList, shallowEqual);
 
   const handleGetCompanyList = (page: number) => {
     const newQueryParams = {
@@ -36,7 +37,15 @@ const CompanyCardList = () => {
         {companyList.listItems?.length !== 0 ? (
           <>
             {companyList.listItems?.map((item, index) => (
-              <AppLink href={`${PathConstant.COMPANY}/${item._id}`} key={index}>
+              <AppLink
+                href={`${PathConstant.COMPANY}/${item._id}`}
+                key={index}
+                sx={{
+                  "&:hover": {
+                    textDecoration: "none",
+                  },
+                }}
+              >
                 <Stack className={classes.item} spacing={5} direction="row">
                   <Box
                     component="img"
@@ -50,22 +59,25 @@ const CompanyCardList = () => {
                   >
                     <Stack spacing={2}>
                       <AppTypography variant="h5">{item.name}</AppTypography>
-                      <Box
-                        sx={{ color: "black" }}
-                        dangerouslySetInnerHTML={{
-                          __html: `${item?.description.substring(0, 100)}...`,
-                        }}
-                      ></Box>
-                    </Stack>
-                    <Stack direction="row">
-                      <LocationIcon />
-                      <AppTypography
-                        variant="subtitle2"
-                        sx={{ textTransform: "capitalize" }}
-                        color="grey.500"
-                      >
-                        {item.location}
-                      </AppTypography>
+                      <Stack direction="row" spacing={0.5}>
+                        <CategoryIcon />
+                        <AppTypography
+                          className={classes.category}
+                          variant="body2"
+                        >
+                          {getCategoryLabel(categories, item.categoryId)}
+                        </AppTypography>
+                      </Stack>
+                      <Stack direction="row" spacing={0.5}>
+                        <LocationIcon />
+                        <AppTypography
+                          variant="body2"
+                          sx={{ textTransform: "capitalize" }}
+                          color="grey.400"
+                        >
+                          {item.location}
+                        </AppTypography>
+                      </Stack>
                     </Stack>
                   </Stack>
                 </Stack>
@@ -99,6 +111,17 @@ const CompanyCardList = () => {
 
 export default CompanyCardList;
 
+const getCategoryLabel = (data: any[], id: string) => {
+  let label = "- -";
+  data.map((item) => {
+    if (item._id === id) {
+      label = item.name;
+    }
+  });
+
+  return label;
+};
+
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
     marginTop: theme.spacing(7),
@@ -117,11 +140,10 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     width: 100,
     height: 100,
     objectFit: "cover",
+    border: `1px solid ${theme.palette.grey[200]}`,
   },
-  totalJob: {
-    padding: theme.spacing(0.25, 1),
-    border: `1px solid ${theme.palette.primary.main}`,
-    borderRadius: 2,
-    color: theme.palette.primary.main,
+  category: {
+    textTransform: "capitalize",
+    color: theme.palette.grey[400],
   },
 }));

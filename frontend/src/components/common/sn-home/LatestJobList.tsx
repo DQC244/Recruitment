@@ -1,14 +1,23 @@
 import React from "react";
 import { Stack } from "@mui/material";
-import { ImageConstant } from "const";
+import { ImageConstant, PathConstant } from "const";
 import AppTypography from "../AppTypography";
 import CardJob from "../CardJob";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import PrimarySlider from "../PrimarySlider";
+import { shallowEqual, useSelector } from "react-redux";
+import { JobSelector } from "redux-store";
+import { useRouter } from "next/router";
 
 const LatestJobList = () => {
   const classes = useStyles();
+  const router = useRouter();
+  const jobList = useSelector(JobSelector.getJobList, shallowEqual);
+
+  const handleClickJob = (id?: string) => {
+    router.push(`${PathConstant.JOBS}/${id}`);
+  };
 
   return (
     <Stack className={classes.root} spacing={3}>
@@ -16,8 +25,12 @@ const LatestJobList = () => {
         Latest Jobs
       </AppTypography>
       <PrimarySlider {...SETTINGS}>
-        {JOB_LIST.map((item, index) => (
-          <CardJob key={index} data={item} />
+        {jobList?.listItems?.map((item, index) => (
+          <CardJob
+            key={index}
+            data={item}
+            onClick={() => handleClickJob(item._id)}
+          />
         ))}
       </PrimarySlider>
     </Stack>

@@ -5,6 +5,7 @@ import CompanyActionPanel from "components/common/CompanyActionPanel";
 import { AppService } from "services";
 import { ApiConstant, PathConstant } from "const";
 import { useRouter } from "next/router";
+import { CommonUtils } from "utils";
 
 const Create: NextPage = () => {
   const router = useRouter();
@@ -54,3 +55,6 @@ const Create: NextPage = () => {
 };
 
 export default Create;
+
+export const getServerSideProps = async (context: any) =>
+  CommonUtils.handleRedirectUnauthorized(context);

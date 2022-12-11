@@ -1,3 +1,4 @@
+import { AppConstant, PathConstant } from "const";
 import { debounce as lodashDebounce } from "lodash";
 
 /**
@@ -118,4 +119,25 @@ export const checkValidPhoneNumber = (number: string): boolean => {
 
 export const debounce = (func: any, wait: number) => {
   return lodashDebounce(func, wait);
+};
+
+/**
+ * @param  {object} context  - An object argument of getServerSideProps function
+ * @returns The redirect object allows redirecting to specific screen if unauthorized, stay current page if authorized
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handleRedirectUnauthorized = (context: any) => {
+  const isAuthorized = Boolean(context.req?.cookies?.[AppConstant.KEY_TOKEN]);
+  const currentPath = PathConstant.ROOT;
+
+  if (!isAuthorized) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: currentPath,
+      },
+    };
+  }
+
+  return { props: {} };
 };

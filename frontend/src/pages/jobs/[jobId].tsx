@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { NextPage } from "next";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Chip, Container, Grid, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import { JobPanel, JobOverview } from "components/common/sn-job-detail";
@@ -20,6 +20,13 @@ const JobsDetail: NextPage = () => {
   const jobInfo = useSelector(JobSelector.getJobInfo, shallowEqual);
   const companyInfo = useSelector(CompanySelector.getCompanyInfo, shallowEqual);
 
+  const chipList = useMemo(() => {
+    if (jobInfo.tag) {
+      return jobInfo.tag.split(" ");
+    }
+    return [];
+  }, [jobInfo.tag]);
+
   useEffect(() => {
     if (jobId) {
       dispatch(JobActions.getJob(jobId));
@@ -32,7 +39,14 @@ const JobsDetail: NextPage = () => {
       <Stack direction="row" sx={{ my: 10 }} spacing={3}>
         <Stack flex={1} maxWidth="calc(100% - 300px)" overflow="hidden">
           <BannerCompany data={companyInfo} />
-          <Stack mt={5}>
+          <Stack mt={2}>
+            <Grid container direction="row" spacing={0.5} mb={5}>
+              {chipList.map((item, index) => (
+                <Grid item key={index}>
+                  <Chip label={item} variant="outlined" />
+                </Grid>
+              ))}
+            </Grid>
             <AppTypography variant="h4" color="black">
               Job Description
             </AppTypography>

@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { SearchIcon, TelegramIcon, UserIcon } from "components/icons";
 import { ThemeProps } from "models/types";
@@ -11,8 +11,8 @@ const GetStarted = () => {
   return (
     <Stack className={classes.root} my={20} direction="row">
       <Stack className="center-root" spacing={2}>
-        <AppTypography textAlign="center" variant="h1">
-          Start now
+        <AppTypography textAlign="center" variant="h1" fontWeight={700}>
+          Start now!
         </AppTypography>
         <AppTypography textAlign="center" variant="h4" color="primary.main">
           Tips and Tricks on how to succeed

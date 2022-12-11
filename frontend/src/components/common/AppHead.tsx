@@ -35,7 +35,7 @@ export type AppHeadProps = {
 };
 
 AppHead.defaultProps = {
-  title: "React App",
+  title: "DQC",
   description: "React Application",
 };
 

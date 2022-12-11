@@ -1,5 +1,4 @@
 import React from "react";
-import { NextPage } from "next";
 import { Box, Stack } from "@mui/material";
 import { ActivePackages, SideBar } from "components/common/sn-dashboard";
 import { makeStyles } from "@mui/styles";
@@ -7,6 +6,8 @@ import { ThemeProps } from "models/types";
 import { AppTypography } from "components/common";
 import clsx from "clsx";
 import { useAuthContext } from "context";
+import { NextPage } from "next";
+import { CommonUtils } from "utils";
 
 const Dashboard: NextPage = () => {
   const classes = useStyles();
@@ -74,3 +75,6 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     background: "#d04747",
   },
 }));
+
+export const getServerSideProps = async (context: any) =>
+  CommonUtils.handleRedirectUnauthorized(context);

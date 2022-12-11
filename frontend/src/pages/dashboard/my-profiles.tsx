@@ -6,6 +6,7 @@ import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import { AppTypography } from "components/common";
 import { ProfilePanel } from "components/common/sn-profile-dashboard";
+import { CommonUtils } from "utils";
 
 const MyProfiles: NextPage = () => {
   const classes = useStyles();
@@ -31,3 +32,6 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     height: "100vh",
   },
 }));
+
+export const getServerSideProps = async (context: any) =>
+  CommonUtils.handleRedirectUnauthorized(context);

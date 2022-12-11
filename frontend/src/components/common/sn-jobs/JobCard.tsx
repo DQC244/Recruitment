@@ -6,8 +6,8 @@ import { ThemeProps } from "models/types";
 import { AppTypography } from "components/common";
 import { UnHiddenIcon } from "components/icons";
 import { getLabelJobType } from "./helper";
-import Image from "next/image";
 import { JobClass } from "models";
+import dayjs from "dayjs";
 
 const JobCard = ({ data }: JobCardProps) => {
   const classes = useStyles();
@@ -42,7 +42,7 @@ const JobCard = ({ data }: JobCardProps) => {
             View Details
           </Button>
           <AppTypography variant="body2" color="grey.300">
-            {data?.updatedAt}
+            {handleConvertDate(data?.updatedAt)}
           </AppTypography>
         </Stack>
       </Stack>
@@ -55,6 +55,20 @@ type JobCardProps = {
 };
 
 export default JobCard;
+
+export const handleConvertDate = (value?: string) => {
+  if (!value) return "--";
+
+  const newDate = dayjs(value).unix() * 1000;
+
+  const now = Date.now();
+
+  let result = ((now - newDate) / (1000 * 60 * 60 * 24)).toFixed();
+  if (Number(result) === 0) {
+    return "Today";
+  }
+  return `Posted ${result} days ago`;
+};
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
