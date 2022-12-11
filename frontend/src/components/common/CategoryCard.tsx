@@ -2,30 +2,41 @@ import React from "react";
 import { Box, Button, Grid, GridProps, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
-import AppImage from "./AppImage";
 import AppTypography from "./AppTypography";
+import { useRouter } from "next/router";
+import { AppConstant, PathConstant } from "const";
+import { useDispatch } from "react-redux";
+import { CompanyActions } from "redux-store";
 
 const CategoryCard = ({ data, ...otherProps }: CardJobProps) => {
   const classes = useStyles();
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleClickCategory = () => {
+    dispatch(
+      CompanyActions.setQueryParams({
+        ...AppConstant.DEFAULT_PAGINATION,
+        categoryId: data._id,
+      })
+    );
+    router.push(PathConstant.COMPANY);
+  };
 
   return (
     <Grid item {...otherProps}>
       <Box className={classes.root}>
         <Stack alignItems="center">
           <Box className={classes.logoWrapper}>
-            {data.image && (
-              <AppImage
-                src={data.image}
-                className={classes.logo}
-                imageProps={{
-                  objectFit: "cover",
-                }}
-              />
-            )}
+            <Box component="img" src={data.image} className={classes.logo} />
           </Box>
-          <Button className={classes.button}>
-            <AppTypography textAlign="center" className="eclipse">
-              {data.category}
+          <Button className={classes.button} onClick={handleClickCategory}>
+            <AppTypography
+              textAlign="center"
+              className="eclipse"
+              textTransform="capitalize"
+            >
+              {data.name}
             </AppTypography>
           </Button>
         </Stack>
@@ -36,7 +47,8 @@ const CategoryCard = ({ data, ...otherProps }: CardJobProps) => {
 
 type CardJobProps = GridProps & {
   data: {
-    category?: string;
+    _id?: string;
+    name?: string;
     image?: string;
   };
 };
@@ -58,6 +70,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     height: "100%",
     overflow: "hidden",
     border: `1px solid ${theme.palette.grey[300]}`,
+    objectFit: "cover",
   },
   button: {
     width: "100%",

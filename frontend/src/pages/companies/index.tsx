@@ -88,6 +88,7 @@ const Companies: NextPage = () => {
             startIcon={<SearchIcon />}
             variant="contained"
             onClick={handleSearch}
+            sx={{ ml: 1 }}
           >
             Search
           </Button>

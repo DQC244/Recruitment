@@ -5,6 +5,22 @@ import { AppService } from "services";
 import { ApiConstant } from "const";
 import { KeyAbleProps } from "models/types";
 
+export function* getCategoryList() {
+  try {
+    const response: ApiResponse<KeyAbleProps> = yield call(
+      AppService.getCategories
+    );
+
+    if (response.status === ApiConstant.STT_OK) {
+      yield put(CompanyActions.companySuccess({ categoryList: response.data }));
+    } else {
+      yield put(CompanyActions.companyFailure(response.data));
+    }
+  } catch (error) {
+    yield put(CompanyActions.companyFailure(error));
+  }
+}
+
 export function* getCompanyDetail(action: { type: string; data: string }) {
   try {
     const id = action.data;
@@ -14,7 +30,7 @@ export function* getCompanyDetail(action: { type: string; data: string }) {
       id
     );
 
-    if ((response.status = ApiConstant.STT_OK)) {
+    if (response.status === ApiConstant.STT_OK) {
       yield put(CompanyActions.companySuccess({ company: response.data }));
     } else {
       yield put(CompanyActions.companyFailure(response.data));

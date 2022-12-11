@@ -8,11 +8,14 @@ import { AppLink } from "components/common";
 import { useTranslation } from "react-i18next";
 import Account from "./Account";
 import { PlusIcon } from "components/icons";
-import { PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
+import Cookies from "js-cookie";
 
 const MLHeader = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+
+  const hasToken = Boolean(Cookies.get(AppConstant.KEY_TOKEN));
 
   return (
     <AppBar className={classes.appBar}>
@@ -30,13 +33,15 @@ const MLHeader = () => {
         <HeaderTabs />
         <Box display="flex">
           <Account className={classes.account} />
-          <Button
-            href={PathConstant.CREATE_JOBS}
-            endIcon={<PlusIcon />}
-            variant="contained"
-          >
-            {getLabel("lPostJob")}
-          </Button>
+          {hasToken && (
+            <Button
+              href={PathConstant.CREATE_JOBS}
+              endIcon={<PlusIcon />}
+              variant="contained"
+            >
+              {getLabel("lPostJob")}
+            </Button>
+          )}
         </Box>
       </Container>
     </AppBar>

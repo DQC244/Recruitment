@@ -5,9 +5,12 @@ import AppTypography from "../AppTypography";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import CategoryCard from "../CategoryCard";
+import { shallowEqual, useSelector } from "react-redux";
+import { CompanySelector } from "redux-store";
 
 const CategoryList = () => {
   const classes = useStyles();
+  const categories = useSelector(CompanySelector.getCategoryList, shallowEqual);
 
   return (
     <Stack className={classes.root} spacing={3}>
@@ -15,8 +18,8 @@ const CategoryList = () => {
         Popular Categories
       </AppTypography>
       <Grid container rowSpacing={4}>
-        {JOB_LIST.map((item, index) => (
-          <CategoryCard xs={3} key={index} data={item} />
+        {categories.map((item, index) => (
+          <CategoryCard xs={4} key={index} data={item} />
         ))}
       </Grid>
     </Stack>
@@ -24,41 +27,6 @@ const CategoryList = () => {
 };
 
 export default CategoryList;
-
-const JOB_LIST = [
-  {
-    category: "Marketing",
-    image: ImageConstant.Banner,
-  },
-  {
-    category: "MarketingProduct Owner (Strong English, Remote/ Hybrid)",
-    image: ImageConstant.Banner,
-  },
-  {
-    category: "Marketing",
-    image: ImageConstant.Banner,
-  },
-  {
-    category: "Marketing",
-    image: ImageConstant.Banner,
-  },
-  {
-    category: "Marketing",
-    image: ImageConstant.Banner,
-  },
-  {
-    category: "Marketing",
-    image: ImageConstant.Banner,
-  },
-  {
-    category: "Marketing",
-    image: ImageConstant.Banner,
-  },
-  {
-    category: "Marketing",
-    image: ImageConstant.Banner,
-  },
-];
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {

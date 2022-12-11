@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Box, NoSsr } from "@mui/material";
 import { Theme } from "@mui/system";
 import clsx from "clsx";
@@ -8,6 +8,8 @@ import MLHeader, { HEADER_HEIGHT_IN_PX } from "./components/MLHeader";
 import { makeStyles } from "@mui/styles";
 import { useCalcSizeDevice } from "hooks";
 import Footer from "./components/Footer";
+import { PathConstant } from "const";
+import { useRouter } from "next/router";
 
 const MainLayout = ({
   className,
@@ -16,15 +18,33 @@ const MainLayout = ({
 }: MainLayoutProps): JSX.Element => {
   useCalcSizeDevice();
   const classesDefault = useStyles();
+  const router = useRouter();
+  const [title, setTitle] = useState("");
+
+  const isDashboard = [
+    PathConstant.DASHBOARD,
+    PathConstant.MY_JOB_DASHBOARD,
+    PathConstant.MY_COMPANY_DASHBOARD,
+    PathConstant.PACKAGES_DASHBOARD,
+    PathConstant.PROFILES_DASHBOARD,
+  ].includes(router.pathname);
+
+  useEffect(() => {
+    if (isDashboard) {
+      setTitle(titlePages[PathConstant.DASHBOARD]);
+    } else {
+      setTitle(titlePages[router.pathname]);
+    }
+  }, [router.pathname]);
 
   return (
     <>
-      <AppHead />
+      <AppHead title={title} />
       <NoSsr>
         <MLHeader />
         <Box className={clsx(classesDefault.main, className)} {...otherProps}>
           {children}
-          <Footer />
+          {!isDashboard && <Footer />}
         </Box>
       </NoSsr>
     </>
@@ -36,6 +56,17 @@ type MainLayoutProps = IProps;
 MainLayout.defaultProps = {};
 
 export default memo(MainLayout);
+
+const titlePages = {
+  [PathConstant.ROOT]: "DQC",
+  [PathConstant.JOBS]: "Job list",
+  [PathConstant.JOBS_DETAIL]: "Job detail",
+  [PathConstant.CREATE_JOBS]: "Create job",
+  [PathConstant.COMPANY]: "Company list",
+  [PathConstant.COMPANY_DETAIL]: "Company detail",
+  [PathConstant.CREATE_COMPANY]: "Create company",
+  [PathConstant.DASHBOARD]: "Dashboard",
+};
 
 export const MAIN_ID = "MAIN_ID";
 

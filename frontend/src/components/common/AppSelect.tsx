@@ -157,6 +157,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     justifyContent: "space-between",
     color: theme.palette.common.black,
     border: `1px solid ${theme.palette.grey[400]}`,
+    textTransform: "capitalize",
   },
   endIcon: {
     stroke: theme.palette.common.black,

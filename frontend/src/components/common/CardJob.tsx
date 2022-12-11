@@ -3,9 +3,10 @@ import { makeStyles } from "@mui/styles";
 import { LocationIcon } from "components/icons";
 import { ThemeProps } from "models/types";
 import React from "react";
-import AppImage from "./AppImage";
 import AppTypography from "./AppTypography";
 import clsx from "clsx";
+import { JobClass } from "models";
+import { handleConvertDate } from "./sn-jobs/JobCard";
 
 const CardJob = ({ data, ...otherProps }: CardJobProps) => {
   const classes = useStyles();
@@ -14,18 +15,12 @@ const CardJob = ({ data, ...otherProps }: CardJobProps) => {
       <Box className={classes.root}>
         <Stack spacing={1} alignItems="center">
           <Box className={classes.logoWrapper}>
-            {data.companyLogo && (
-              <AppImage
-                src={data.companyLogo}
-                className={classes.logo}
-                imageProps={{
-                  objectFit: "cover",
-                }}
-              />
+            {data?.image && (
+              <Box component="img" src={data.image} className={classes.logo} />
             )}
           </Box>
           <AppTypography textAlign="center" variant="h5" className="eclipse">
-            {data.jobName}
+            {data?.title}
           </AppTypography>
           <AppTypography
             color="grey.400"
@@ -33,7 +28,7 @@ const CardJob = ({ data, ...otherProps }: CardJobProps) => {
             variant="subtitle2"
             className="eclipse"
           >
-            {data.companyName}
+            {`$${data?.salary?.min} - $${data?.salary?.max}`}
           </AppTypography>
           <Stack spacing={1} direction="row">
             <LocationIcon />
@@ -42,15 +37,16 @@ const CardJob = ({ data, ...otherProps }: CardJobProps) => {
               textAlign="center"
               variant="subtitle2"
               className="eclipse"
+              textTransform="capitalize"
             >
-              {data.companyLocation}
+              {data?.location}
             </AppTypography>
           </Stack>
           <AppTypography
             variant="caption"
             className={clsx("eclipse", classes.date)}
           >
-            {data.date}
+            {handleConvertDate(data?.updatedAt)}
           </AppTypography>
         </Stack>
       </Box>
@@ -59,13 +55,7 @@ const CardJob = ({ data, ...otherProps }: CardJobProps) => {
 };
 
 type CardJobProps = GridProps & {
-  data: {
-    jobName?: string;
-    companyName?: string;
-    companyLogo?: string;
-    companyLocation?: string;
-    date?: string;
-  };
+  data?: JobClass;
 };
 
 export default CardJob;
@@ -94,6 +84,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     borderRadius: "50%",
     overflow: "hidden",
     border: `1px solid ${theme.palette.grey[400]}`,
+    objectFit: "cover",
   },
   date: {
     position: "absolute",

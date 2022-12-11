@@ -1,9 +1,9 @@
 import { Box, Grid, GridProps, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { LocationIcon } from "components/icons";
+import { CompanyClass } from "models";
 import { ThemeProps } from "models/types";
 import React from "react";
-import AppImage from "./AppImage";
 import AppTypography from "./AppTypography";
 
 const CompanyCard = ({ data, ...otherProps }: CardJobProps) => {
@@ -13,18 +13,12 @@ const CompanyCard = ({ data, ...otherProps }: CardJobProps) => {
       <Box className={classes.root}>
         <Stack spacing={1} alignItems="center">
           <Box className={classes.logoWrapper}>
-            {data.companyLogo && (
-              <AppImage
-                src={data.companyLogo}
-                className={classes.logo}
-                imageProps={{
-                  objectFit: "cover",
-                }}
-              />
+            {data?.logo && (
+              <Box component="img" src={data.logo} className={classes.logo} />
             )}
           </Box>
           <AppTypography textAlign="center" variant="h5" className="eclipse">
-            {data.companyName}
+            {data?.name}
           </AppTypography>
           <Stack spacing={1} direction="row">
             <LocationIcon />
@@ -33,8 +27,9 @@ const CompanyCard = ({ data, ...otherProps }: CardJobProps) => {
               textAlign="center"
               variant="subtitle2"
               className="eclipse"
+              textTransform="capitalize"
             >
-              {data.companyLocation}
+              {data?.location}
             </AppTypography>
           </Stack>
         </Stack>
@@ -44,11 +39,7 @@ const CompanyCard = ({ data, ...otherProps }: CardJobProps) => {
 };
 
 type CardJobProps = GridProps & {
-  data: {
-    companyName?: string;
-    companyLogo?: string;
-    companyLocation?: string;
-  };
+  data?: CompanyClass;
 };
 
 export default CompanyCard;
@@ -74,5 +65,6 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     height: "100%",
     overflow: "hidden",
     border: `1px solid ${theme.palette.grey[300]}`,
+    objectFit: "cover",
   },
 }));

@@ -3,6 +3,7 @@ export const UI_DEMO = "/ui-demo";
 export const REGISTER = "/register";
 export const PROFILE = "/profile";
 export const COMPANY = "/companies";
+export const CREATE_COMPANY = "/companies/create";
 export const COMPANY_DETAIL = `${COMPANY}/[companyId]`;
 export const JOBS = "/jobs";
 export const JOBS_DETAIL = `${JOBS}/[jobId]`;

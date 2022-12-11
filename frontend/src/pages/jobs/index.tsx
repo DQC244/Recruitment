@@ -4,13 +4,11 @@ import { Box, Container, Pagination, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import { FilterJob, JobCard } from "components/common/sn-jobs";
-import InfiniteScroll from "react-infinite-scroll-component";
-import clsx from "clsx";
-import { HEADER_HEIGHT_IN_PX } from "layouts/MainLayout/components/MLHeader";
 import { AppTypography } from "components/common";
 import { useDispatch, useSelector } from "react-redux";
 import { JobActions, JobSelector } from "redux-store";
 import { AppConstant, ImageConstant } from "const";
+import { HEADER_HEIGHT_IN_PX } from "layouts/MainLayout/components/MLHeader";
 
 const Jobs: NextPage = () => {
   const classes = useStyles();
@@ -45,19 +43,17 @@ const Jobs: NextPage = () => {
 
   return (
     <Container className={classes.root}>
-      <Box className={classes.filter}>
-        <FilterJob />
-      </Box>
-      <Box width="100%">
+      <FilterJob />
+      <Box width="100%" ml={4}>
         <AppTypography variant="h3" sx={{ py: 2 }}>
           Job List
         </AppTypography>
         {jobList?.listItems?.length ? (
-          <>
+          <Stack className={classes.jobContainer}>
             {jobList?.listItems?.map((item, index) => (
               <JobCard key={index} data={item} />
             ))}
-          </>
+          </Stack>
         ) : (
           <Stack className="center-root">
             <Box
@@ -89,12 +85,9 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
     display: "flex",
     justifyContent: "center",
-    paddingLeft: 300,
   },
-  filter: {
-    top: HEADER_HEIGHT_IN_PX,
-    position: "fixed",
-    zIndex: 1100,
-    left: 24,
+  jobContainer: {
+    overflowY: "scroll",
+    height: `calc(calc(var(--vh, 1vh) * 100) - ${HEADER_HEIGHT_IN_PX}px)`,
   },
 }));

@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { Button, Stack } from "@mui/material";
 import { SideBar } from "components/common/sn-dashboard";
-import { makeStyles } from "@mui/styles";
-import { ThemeProps } from "models/types";
 import {
   BannerCompany,
   CompanyDetailDescription,
@@ -11,6 +9,7 @@ import {
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { CompanyActions, CompanySelector } from "redux-store";
 import { useAuthContext } from "context";
+import { CommonUtils } from "utils";
 
 const MyCompany: NextPage = () => {
   const dispatch = useDispatch();
@@ -41,3 +40,6 @@ const MyCompany: NextPage = () => {
 };
 
 export default MyCompany;
+
+export const getServerSideProps = async (context: any) =>
+  CommonUtils.handleRedirectUnauthorized(context);

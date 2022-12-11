@@ -82,6 +82,10 @@ export const getJobList = async (req, res, next) => {
       : {}
   );
 
+  if (params.search) {
+    filter = { $text: { $search: params.search } };
+  }
+
   try {
     const jobList = await Job.find(filter)
       .skip(skipItem)

@@ -18,6 +18,7 @@ export const { Types, Creators } = createActions({
   getCompany: ["data"],
   getCompanyList: ["data"],
   setQueryParams: ["data"],
+  getCategoryList: ["data"],
 
   companySuccess: ["data"],
   companyFailure: ["error", "data"],
@@ -30,11 +31,13 @@ export interface ICompanyRedux extends IReduxStateCommon {
   company: CompanyClass;
   companyList: CompanyListClass;
   queryParams: AppService.CompanyListProps;
+  categoryList: any[];
 }
 export const INITIAL_STATE: ICompanyRedux = {
   ...REDUX_STATE,
   company: {} as CompanyClass,
   companyList: {} as CompanyListClass,
+  categoryList: [],
   queryParams: {
     ...AppConstant.DEFAULT_PAGINATION,
   },
@@ -44,6 +47,8 @@ export const INITIAL_STATE: ICompanyRedux = {
 export const Selector = {
   // Get company info
   getCompanyInfo: (state: IAppReduxState) => state.companyRedux.company,
+
+  getCategoryList: (state: IAppReduxState) => state.companyRedux.categoryList,
 
   // Get company List
   getCompanyList: (state: IAppReduxState) => state.companyRedux.companyList,
@@ -77,6 +82,7 @@ const HANDLERS = {
   [Types.GET_COMPANY]: request,
   [Types.GET_COMPANY_LIST]: request,
   [Types.SET_QUERY_PARAMS]: setQueryParams,
+  [Types.GET_CATEGORY_LIST]: request,
 
   [Types.COMPANY_SUCCESS]: success,
   [Types.COMPANY_FAILURE]: failure,

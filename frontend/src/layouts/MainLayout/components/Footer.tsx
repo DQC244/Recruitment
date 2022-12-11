@@ -53,6 +53,7 @@ export default Footer;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
+    marginTop: 160,
     padding: 40,
     minHeight: 300,
     background: "#1c2733",

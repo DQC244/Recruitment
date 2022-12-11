@@ -1,14 +1,16 @@
-import { ApiConstant } from "const";
 import { AppSelectProps } from "models/types";
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { AppService } from "services";
+import { useDispatch, useSelector } from "react-redux";
+import { CompanyActions, CompanySelector } from "redux-store";
 import AppSelect from "../AppSelect";
 
 const CategoriesSelect = ({ onChangeCategories }: CategoriesSelectProps) => {
+  const dispatch = useDispatch();
+  const categories = useSelector(CompanySelector.getCategoryList);
+
   const [category, setCategory] = useState<AppSelectProps>(
     {} as AppSelectProps
   );
-  const [categories, setCategories] = useState<any[]>([]);
 
   const handleChangeCategory = (item: any) => {
     setCategory(item);
@@ -27,15 +29,7 @@ const CategoriesSelect = ({ onChangeCategories }: CategoriesSelectProps) => {
   }, [categories]);
 
   const handleGetCategories = async () => {
-    try {
-      const res: any = await AppService.getCategories();
-
-      if (res.status === ApiConstant.STT_OK) {
-        setCategories(res.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(CompanyActions.getCategoryList());
   };
 
   useEffect(() => {

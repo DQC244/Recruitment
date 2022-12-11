@@ -1,34 +1,35 @@
 import { Box, Button, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { ImageConstant } from "const";
+import { AppConstant, ImageConstant, PathConstant } from "const";
 import { ThemeProps } from "models/types";
 import React, { ReactNode, useState } from "react";
 import AppInput from "../AppInput";
-import AppSelect from "../AppSelect";
 import AppTypography from "../AppTypography";
-import { COMPANY_LOCATION_DATA } from "../sn-register/EmployerForm";
 import clsx from "clsx";
-import { LocationIcon, SearchIcon } from "components/icons";
+import { SearchIcon } from "components/icons";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { JobActions } from "redux-store";
 
 const Banner = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-  const [companyLocation, setCompanyLocation] = useState<company>(
-    COMPANY_LOCATION_DATA[0]
-  );
-  const [categories, setCategories] = useState<company>(CATEGORIES[0]);
   const [keySearch, setKeySearch] = useState("");
 
-  const handleChangeLocationCompany = (item: company) => {
-    setCompanyLocation(item);
-  };
-
-  const handleChangeCategory = (item: company) => {
-    setCategories(item);
-  };
-
   //   TODO:update when has api
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    if (!keySearch) return;
+    dispatch(
+      JobActions.setQueryParams({
+        ...AppConstant.DEFAULT_PAGINATION,
+        search: keySearch,
+      })
+    );
+
+    router.push(PathConstant.JOBS);
+  };
 
   return (
     <Box className={classes.root}>
@@ -44,27 +45,13 @@ const Banner = () => {
             value={keySearch}
             onChange={(e) => setKeySearch(e.currentTarget.value)}
             fullWidth
-            placeholder="keyword skill"
-          />
-          <AppSelect
-            defaultLabel={COMPANY_LOCATION_DATA[0].label}
-            selectedIndex={companyLocation.value}
-            onSelected={handleChangeLocationCompany}
-            data={COMPANY_LOCATION_DATA}
-            buttonProps={{
-              startIcon: <LocationIcon />,
-            }}
-          />
-          <AppSelect
-            defaultLabel={CATEGORIES[0].label}
-            selectedIndex={categories.value}
-            onSelected={handleChangeCategory}
-            data={CATEGORIES}
+            placeholder="Keyword skill (Java, iOS...), Job Title"
           />
           <Button
             startIcon={<SearchIcon />}
             variant="contained"
             onClick={handleSearch}
+            sx={{ ml: 1 }}
           >
             Search
           </Button>

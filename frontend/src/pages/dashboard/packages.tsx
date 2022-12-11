@@ -1,15 +1,11 @@
 import React from "react";
 import { NextPage } from "next";
-import { Box, Container, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { ActivePackages, SideBar } from "components/common/sn-dashboard";
-import { makeStyles } from "@mui/styles";
-import { ThemeProps } from "models/types";
-import { CardPackages } from "components/common/packages";
 import { AppTypography } from "components/common";
+import { CommonUtils } from "utils";
 
 const Packages: NextPage = () => {
-  const classes = useStyles();
-
   return (
     <Stack direction="row" pl={37.5} spacing={3}>
       <SideBar />
@@ -23,9 +19,5 @@ const Packages: NextPage = () => {
 
 export default Packages;
 
-const useStyles = makeStyles((theme: ThemeProps) => ({
-  root: {
-    minHeight: "100vh",
-    height: "100vh",
-  },
-}));
+export const getServerSideProps = async (context: any) =>
+  CommonUtils.handleRedirectUnauthorized(context);
