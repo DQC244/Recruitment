@@ -9,6 +9,7 @@ const User = new mongoose.Schema(
     permission: { type: Number, default: 1 },
     company: String,
     image: String,
+    package: { type: String },
   },
   {
     timestamps: true,

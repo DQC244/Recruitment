@@ -78,8 +78,6 @@ const getHeaderTabArr = (
     { label: objTabs.lHome, path: PathConstant.ROOT },
     { label: objTabs.lJobs, path: PathConstant.JOBS },
     { label: objTabs.lCompanies, path: PathConstant.COMPANY },
-    { label: objTabs.lPages, path: PathConstant.PAGES },
-    { label: objTabs.lBlogs, path: PathConstant.BLOG },
   ];
 };
 

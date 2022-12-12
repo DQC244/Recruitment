@@ -73,3 +73,9 @@ export const getJobDetail = (id: string) =>
 
 export const getJobList = (data: JobListProps) =>
   createApi().get(ApiConstant.GET_JOB_LIST, data);
+
+export const getPackageList = () =>
+  createApi().get(ApiConstant.GET_PACKAGE_LIST);
+
+export const postCheckout = (tokenId: any, amount: number, packageId: string) =>
+  createApi().post(ApiConstant.POST_CHECKOUT, { tokenId, amount, packageId });

@@ -1,4 +1,4 @@
-import { Box, Button, FormHelperText, InputLabel, Stack } from "@mui/material";
+import { Box, Button, ButtonProps, InputLabel, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import dayjs, { Dayjs } from "dayjs";
 import { useHandleUploadFile } from "hooks";
@@ -12,7 +12,7 @@ import JobTypeSelect from "./select/JobTypeSelect";
 import TextEditor from "./TextEditor";
 import UploadImageInput from "./UploadImageInput";
 
-const JobActionPanel = ({ label, onSubmit }: JobActionPanel) => {
+const JobActionPanel = ({ label, onSubmit, buttonProps }: JobActionPanel) => {
   const classes = useStyles();
 
   const handleUploadFile = useHandleUploadFile();
@@ -37,7 +37,6 @@ const JobActionPanel = ({ label, onSubmit }: JobActionPanel) => {
     setCloseDate(newValue);
 
     const closeDateTime = dayjs(newValue).unix() * 1000;
-    console.log(closeDateTime);
 
     if (closeDateTime <= Date.now()) {
       setDateErrorMsg("Closing Date inValid");
@@ -95,8 +94,9 @@ const JobActionPanel = ({ label, onSubmit }: JobActionPanel) => {
       experience,
       salary,
     };
-
-    await onSubmit(data);
+    if (onSubmit instanceof Function) {
+      await onSubmit(data);
+    }
     setIsLoading(false);
   };
 
@@ -214,6 +214,7 @@ const JobActionPanel = ({ label, onSubmit }: JobActionPanel) => {
         disabled={isDisabled}
         sx={{ width: 240 }}
         variant="contained"
+        {...buttonProps}
       >
         {label}
       </Button>
@@ -223,8 +224,9 @@ const JobActionPanel = ({ label, onSubmit }: JobActionPanel) => {
 };
 
 type JobActionPanel = {
-  label: string;
-  onSubmit: (data: any) => void;
+  label?: string;
+  onSubmit?: (data: any) => void;
+  buttonProps?: ButtonProps;
 };
 
 type SalaryProps = {

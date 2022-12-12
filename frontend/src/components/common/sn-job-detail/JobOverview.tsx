@@ -1,29 +1,24 @@
 import { Box, Button, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import {
-  CalenderIcon,
   ExperienceIcon,
   LocationIcon,
   MoneyIcon,
   QualificationIcon,
-  RankIcon,
   TimeCloseIcon,
 } from "components/icons";
-import dayjs from "dayjs";
+import { JobClass } from "models";
 import { ThemeProps } from "models/types";
 import React, { memo, useState } from "react";
-import { shallowEqual, useSelector } from "react-redux";
-import { JobSelector } from "redux-store";
 import AppTypography from "../AppTypography";
 import { getExperienceLabel, getQualificationLabel } from "../helper";
 import ApplyJobModal from "./ApplyJobModal";
 import OverviewItem from "./OverviewItem";
 
-const JobOverview = () => {
+const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
   const classes = useStyles();
 
   const [isOpenApplyModal, setIsOpenApplyModal] = useState(false);
-  const jobInfo = useSelector(JobSelector.getJobInfo, shallowEqual);
 
   return (
     <Box>
@@ -40,11 +35,6 @@ const JobOverview = () => {
           icon={<LocationIcon />}
         />
         <OverviewItem
-          label="Career Level"
-          description={"sl"}
-          icon={<RankIcon />}
-        />
-        <OverviewItem
           label="Experience"
           description={getExperienceLabel(jobInfo?.experience)}
           icon={<ExperienceIcon />}
@@ -56,17 +46,20 @@ const JobOverview = () => {
         />
         <OverviewItem
           label="Salary"
-          description={`$${jobInfo?.salary?.min} - $${jobInfo?.salary?.max}`}
+          description={`$${jobInfo?.salary?.min || "--"} - $${
+            jobInfo?.salary?.max || "--"
+          }`}
           icon={<MoneyIcon />}
         />
-
-        <Button
-          onClick={() => setIsOpenApplyModal(true)}
-          variant="contained"
-          className={classes.applyButton}
-        >
-          <AppTypography>Apply for job</AppTypography>
-        </Button>
+        {!isPreview && (
+          <Button
+            onClick={() => setIsOpenApplyModal(true)}
+            variant="contained"
+            className={classes.applyButton}
+          >
+            <AppTypography>Apply for job</AppTypography>
+          </Button>
+        )}
       </Stack>
       <ApplyJobModal
         open={isOpenApplyModal}
@@ -78,43 +71,10 @@ const JobOverview = () => {
 
 export default memo(JobOverview);
 
-const OVERVIEW_DATA = [
-  {
-    label: "Date Posted",
-    description: "May 5, 2020",
-    icon: <CalenderIcon />,
-  },
-  {
-    label: "Expiration Date",
-    description: "June 13, 2024",
-    icon: <TimeCloseIcon />,
-  },
-  {
-    label: "Location",
-    description: "hanoi",
-    icon: <LocationIcon />,
-  },
-  {
-    label: "Career Level",
-    description: "Director",
-    icon: <RankIcon />,
-  },
-  {
-    label: "Experience",
-    description: "10+ Years",
-    icon: <ExperienceIcon />,
-  },
-  {
-    label: "Qualification",
-    description: "Master Degree",
-    icon: <QualificationIcon />,
-  },
-  {
-    label: "Salary",
-    description: "$35000 - $40000",
-    icon: <MoneyIcon />,
-  },
-];
+type JobOverviewProps = {
+  jobInfo?: JobClass;
+  isPreview?: Boolean;
+};
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   container: {

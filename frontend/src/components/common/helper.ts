@@ -1,6 +1,6 @@
 import { AppConstant } from "const";
 
-export const getExperienceLabel = (type: number) => {
+export const getExperienceLabel = (type?: number) => {
   switch (type) {
     case AppConstant.EXPERIENCE_TYPE.fresher: {
       return "1-2 years";
@@ -11,12 +11,14 @@ export const getExperienceLabel = (type: number) => {
     case AppConstant.EXPERIENCE_TYPE.middle: {
       return "3-5 years";
     }
-    case AppConstant.EXPERIENCE_TYPE.junior: {
+    case AppConstant.EXPERIENCE_TYPE.senior: {
       return "5+ years";
     }
+    default:
+      return "";
   }
 };
-export const getQualificationLabel = (type: number) => {
+export const getQualificationLabel = (type?: number) => {
   switch (type) {
     case AppConstant.QUALIFICATION.bachelorDegree: {
       return "Master Degree";
@@ -30,5 +32,7 @@ export const getQualificationLabel = (type: number) => {
     case AppConstant.QUALIFICATION.masterDegree: {
       return "Master Degree";
     }
+    default:
+      return "";
   }
 };

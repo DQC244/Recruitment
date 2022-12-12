@@ -8,7 +8,7 @@ import {
   successReducerFunc,
   resetReducerFunc,
 } from "./redux-structure";
-import { CompanyClass, CompanyListClass } from "models";
+import { CompanyClass, CompanyListClass, PackageClass } from "models";
 import { AppService } from "services";
 import { AppConstant } from "const";
 import { KeyAbleProps } from "models/types";
@@ -19,6 +19,7 @@ export const { Types, Creators } = createActions({
   getCompanyList: ["data"],
   setQueryParams: ["data"],
   getCategoryList: ["data"],
+  getPackageList: ["data"],
 
   companySuccess: ["data"],
   companyFailure: ["error", "data"],
@@ -32,12 +33,14 @@ export interface ICompanyRedux extends IReduxStateCommon {
   companyList: CompanyListClass;
   queryParams: AppService.CompanyListProps;
   categoryList: any[];
+  packageList: PackageClass[];
 }
 export const INITIAL_STATE: ICompanyRedux = {
   ...REDUX_STATE,
   company: {} as CompanyClass,
   companyList: {} as CompanyListClass,
   categoryList: [],
+  packageList: [] as PackageClass[],
   queryParams: {
     ...AppConstant.DEFAULT_PAGINATION,
   },
@@ -49,6 +52,7 @@ export const Selector = {
   getCompanyInfo: (state: IAppReduxState) => state.companyRedux.company,
 
   getCategoryList: (state: IAppReduxState) => state.companyRedux.categoryList,
+  getPackageList: (state: IAppReduxState) => state.companyRedux.packageList,
 
   // Get company List
   getCompanyList: (state: IAppReduxState) => state.companyRedux.companyList,
@@ -83,6 +87,7 @@ const HANDLERS = {
   [Types.GET_COMPANY_LIST]: request,
   [Types.SET_QUERY_PARAMS]: setQueryParams,
   [Types.GET_CATEGORY_LIST]: request,
+  [Types.GET_PACKAGE_LIST]: request,
 
   [Types.COMPANY_SUCCESS]: success,
   [Types.COMPANY_FAILURE]: failure,

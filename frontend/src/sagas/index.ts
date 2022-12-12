@@ -12,6 +12,7 @@ import {
   getCategoryList,
   getCompanyDetail,
   getCompanyList,
+  getPackageList,
 } from "./company.saga";
 import { getJobDetail, getJobList } from "./job.saga";
 
@@ -21,6 +22,7 @@ function* rootSaga() {
     takeLatest(CompanyTypes.GET_COMPANY, getCompanyDetail),
     takeLatest(CompanyTypes.GET_COMPANY_LIST, getCompanyList),
     takeLatest(CompanyTypes.GET_CATEGORY_LIST, getCategoryList),
+    takeLatest(CompanyTypes.GET_PACKAGE_LIST, getPackageList),
     takeLatest(JobTypes.GET_JOB, getJobDetail),
     takeLatest(JobTypes.GET_JOB_LIST, getJobList),
   ]);

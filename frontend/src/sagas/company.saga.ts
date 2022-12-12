@@ -21,6 +21,22 @@ export function* getCategoryList() {
   }
 }
 
+export function* getPackageList() {
+  try {
+    const response: ApiResponse<KeyAbleProps> = yield call(
+      AppService.getPackageList
+    );
+
+    if (response.status === ApiConstant.STT_OK) {
+      yield put(CompanyActions.companySuccess({ packageList: response.data }));
+    } else {
+      yield put(CompanyActions.companyFailure(response.data));
+    }
+  } catch (error) {
+    yield put(CompanyActions.companyFailure(error));
+  }
+}
+
 export function* getCompanyDetail(action: { type: string; data: string }) {
   try {
     const id = action.data;

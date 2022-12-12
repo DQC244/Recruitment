@@ -6,6 +6,7 @@ import UserRoutes from "./routes/user";
 import CategoryRoutes from "./routes/category";
 import PackageRoutes from "./routes/package";
 import CompanyRoutes from "./routes/company";
+import StripeRoutes from "./routes/stripe";
 import JobRoutes from "./routes/job";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -32,6 +33,7 @@ app.use("/api/category", CategoryRoutes);
 app.use("/api/package", PackageRoutes);
 app.use("/api/company", CompanyRoutes);
 app.use("/api/job", JobRoutes);
+app.use("/api/checkout", StripeRoutes);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

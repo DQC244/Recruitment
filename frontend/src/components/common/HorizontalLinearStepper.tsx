@@ -1,29 +1,37 @@
-import React, { useState } from "react";
-import { Box, Stepper, Step, StepLabel, Button } from "@mui/material";
+import React, { ReactNode } from "react";
+import {
+  Box,
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  BoxProps,
+  ButtonProps,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 
 const HorizontalLinearStepper = ({
   steps,
+  activeStep,
   onNext,
   onBack,
+  nextProps,
+  buttonCheckout,
+  ...otherProps
 }: HorizontalLinearStepperProps) => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
     onBack();
   };
 
   const handleNext = () => {
-    if (activeStep === steps.length - 1) return;
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
     onNext();
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%" }} {...otherProps}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -56,19 +64,20 @@ const HorizontalLinearStepper = ({
             Back
           </Button>
           <Box sx={{ flex: "1 1 auto" }} />
-          <Button variant="contained" onClick={handleNext}>
-            {activeStep === steps.length - 1 ? "Finish" : "Next"}
-          </Button>
+          {buttonCheckout}
         </Box>
       </React.Fragment>
     </Box>
   );
 };
 
-type HorizontalLinearStepperProps = {
+type HorizontalLinearStepperProps = BoxProps & {
   steps: any[];
+  activeStep: number;
   onNext: () => void;
   onBack: () => void;
+  nextProps?: ButtonProps;
+  buttonCheckout: ReactNode;
 };
 
 export default HorizontalLinearStepper;

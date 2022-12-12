@@ -6,7 +6,7 @@ import Job from "../models/Job";
 
 export const addJob = async (req, res, next) => {
   const user = req.user;
-  if (user.company) {
+  if (user.company && user.package) {
     try {
       const newJob = new Job({ ...req.body, companyId: user.company });
 
