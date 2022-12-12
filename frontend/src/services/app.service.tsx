@@ -52,6 +52,7 @@ export type JobListProps = {
   salary?: number;
   type?: number[];
   experience?: number[];
+  companyId?: string;
 };
 
 export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
@@ -73,6 +74,9 @@ export const getJobDetail = (id: string) =>
 
 export const getJobList = (data: JobListProps) =>
   createApi().get(ApiConstant.GET_JOB_LIST, data);
+
+export const getMyJobList = () =>
+  createApi().post(ApiConstant.POST_MY_JOB_LIST);
 
 export const getPackageList = () =>
   createApi().get(ApiConstant.GET_PACKAGE_LIST);

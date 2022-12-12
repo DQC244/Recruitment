@@ -28,7 +28,8 @@ export const GET_COMPANY_DETAIL = "/api/company/get/{id}";
 export const GET_COMPANY_LIST = "/api/company/get";
 export const POST_CREATE_JOB = "/api/job/add";
 export const GET_JOB_DETAIL = "/api/job/get/{id}";
-export const GET_JOB_LIST = "/api/job/get/";
-export const GET_PACKAGE_LIST = "/api/package/get/";
+export const GET_JOB_LIST = "/api/job/get";
+export const POST_MY_JOB_LIST = "/api/job/get/self";
+export const GET_PACKAGE_LIST = "/api/package/get";
 
 export const POST_CHECKOUT = "/api/checkout/payment";

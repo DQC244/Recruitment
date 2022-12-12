@@ -2,7 +2,7 @@ import { Box, Button, InputLabel, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { AppConstant } from "const";
 import { AppSelectProps, ThemeProps } from "models/types";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { CommonUtils } from "utils";
 import AppInput from "./AppInput";
 import AppSelect from "./AppSelect";
@@ -13,30 +13,27 @@ import UploadImageInput from "./UploadImageInput";
 import dayjs, { Dayjs } from "dayjs";
 import TextEditor from "./TextEditor";
 import { useHandleUploadFile } from "hooks";
+import { CompanyClass } from "models";
 
 const CompanyActionPanel = ({
   handleSubmit,
   labelButton,
+  data,
 }: CompanyActionPanelProps) => {
   const classes = useStyles();
 
   const handleUploadFile = useHandleUploadFile();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+  const [name, setName] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [phone, setPhone] = useState<string>();
+  const [categoryId, setCategoryId] = useState<string>();
   const [since, setSince] = useState<Date>();
-  const [location, setLocation] = useState("");
-  const [teamSize, setTeamSize] = useState("");
-  const [description, setDescription] = useState(``);
-  const [logo, setLogo] = useState<File>();
-  const [web, setWeb] = useState({
-    web: "",
-    facebook: "",
-    twitter: "",
-    linkedin: "",
-  });
+  const [location, setLocation] = useState<string>();
+  const [teamSize, setTeamSize] = useState<string>();
+  const [description, setDescription] = useState<string>();
+  const [logo, setLogo] = useState<File | string>();
+  const [web, setWeb] = useState({} as WebsiteProps);
 
   const [errorEmailMsg, setErrorEmailMsg] = useState("");
   const [errorPhoneMsg, setErrorPhoneMsg] = useState("");
@@ -93,7 +90,7 @@ const CompanyActionPanel = ({
   const handleCreateCompany = async () => {
     setIsLoading(true);
     let url;
-    if (logo) {
+    if (logo instanceof File) {
       url = await handleUploadFile(logo);
     }
 
@@ -114,6 +111,26 @@ const CompanyActionPanel = ({
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    if (Object.values(data || {})) {
+      setName(data?.name);
+      setEmail(data?.email);
+      setPhone(data?.phone);
+      setCategoryId(data?.categoryId);
+      setSince(data?.since);
+      setLocation(data?.location);
+      setTeamSize(data?.teamSize);
+      setDescription(data?.description);
+      setLogo(data?.logo);
+      setWeb({
+        web: data?.website?.web,
+        facebook: data?.website?.facebook,
+        twitter: data?.website?.twitter,
+        linkedin: data?.website?.linkedin,
+      });
+    }
+  }, [data]);
+
   return (
     <>
       <Box sx={{ mt: 3 }}>
@@ -125,6 +142,7 @@ const CompanyActionPanel = ({
             <AppInput
               required
               label="Company Name"
+              value={name || ""}
               onChange={(e) => setName(e.currentTarget.value)}
             />
             <AppInput
@@ -133,12 +151,14 @@ const CompanyActionPanel = ({
               onChange={handleChangeEmail}
               error={Boolean(errorEmailMsg)}
               helperText={errorEmailMsg}
+              value={email || ""}
             />
             <Stack>
               <AppInput
                 required
                 label="Location"
                 onChange={(e) => setLocation(e.currentTarget.value)}
+                value={location || ""}
               />
             </Stack>
             <Stack>
@@ -151,13 +171,17 @@ const CompanyActionPanel = ({
               >
                 Company Category
               </InputLabel>
-              <CategoriesSelect onChangeCategories={setCategoryId} />
+              <CategoriesSelect
+                selectedId={categoryId}
+                onChangeCategories={setCategoryId}
+              />
             </Stack>
           </Stack>
           <Stack flex={1} spacing={2}>
             <AppInput
               label="Company Website"
               onChange={handleChangeWebSite("web")}
+              value={web.web || ""}
             />
             <AppInput
               label="Company Contact Phone"
@@ -165,6 +189,7 @@ const CompanyActionPanel = ({
               onChange={handleChangePhone}
               error={Boolean(errorPhoneMsg)}
               helperText={errorPhoneMsg}
+              value={phone || ""}
             />
             <Stack>
               <InputLabel
@@ -211,21 +236,25 @@ const CompanyActionPanel = ({
             <AppInput
               label="Facebook"
               onChange={handleChangeWebSite("facebook")}
+              value={web?.facebook || ""}
             />
             <AppInput
               label="Twitter"
               onChange={handleChangeWebSite("twitter")}
+              value={web?.twitter || ""}
             />
           </Stack>
           <Stack spacing={3} flex={1}>
             <AppInput
               label="Linkedin"
+              value={web?.linkedin || ""}
               onChange={handleChangeWebSite("linkedin")}
             />
           </Stack>
         </Stack>
         <Stack spacing={3}>
           <UploadImageInput
+            value={logo?.toString()}
             onChangeImage={handleChangeLogo}
             label="Logo"
             inputLabelProps={{
@@ -249,13 +278,21 @@ const CompanyActionPanel = ({
 type CompanyActionPanelProps = {
   handleSubmit: (data: any) => Promise<void>;
   labelButton?: string;
+  data?: CompanyClass;
+};
+
+type WebsiteProps = {
+  web?: string;
+  facebook?: string;
+  twitter?: string;
+  linkedin?: string;
 };
 
 export default CompanyActionPanel;
 
-const getSelectedIndex = (label: string, dataArr: AppSelectProps[]) => {
+const getSelectedIndex = (label?: string, dataArr?: AppSelectProps[]) => {
   let id;
-  dataArr.map((item) => {
+  dataArr?.map((item) => {
     if (label === item.label) {
       id = item.value;
     }

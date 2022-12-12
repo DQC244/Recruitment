@@ -17,7 +17,7 @@ const Job = new mongoose.Schema(
       min: { type: Number, required: true },
       max: { type: Number, required: true },
     },
-    status: { type: Number, default: STATUS.pending, require: true },
+    status: { type: Number, default: STATUS.published, require: true },
   },
   { timestamps: true }
 );

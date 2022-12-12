@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NextPage } from "next";
 import { Box, Button, Container, Stack } from "@mui/material";
 import { SideBar } from "components/common/sn-dashboard";
@@ -7,9 +7,18 @@ import { ThemeProps } from "models/types";
 import { AppTypography } from "components/common";
 import { TableJob } from "components/common/sn-job-dashboard";
 import { CommonUtils } from "utils";
+import { JobActions } from "redux-store";
+import { useDispatch } from "react-redux";
+import { PathConstant } from "const";
 
 const MyJobs: NextPage = () => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(JobActions.getMyJobList());
+  }, []);
 
   return (
     <Stack direction="row" pl={37.5} spacing={3}>
@@ -20,7 +29,9 @@ const MyJobs: NextPage = () => {
           <AppTypography color="grey.500">
             Your listings are shown in the table below.
           </AppTypography>
-          <Button variant="contained">ADD JOB</Button>
+          <Button variant="contained" href={PathConstant.CREATE_JOBS}>
+            ADD JOB
+          </Button>
         </Box>
         <TableJob />
       </Stack>

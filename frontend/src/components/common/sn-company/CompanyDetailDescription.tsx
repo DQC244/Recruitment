@@ -31,7 +31,7 @@ const CompanyDetailDescription = () => {
         <Stack className={classes.overView} spacing={3}>
           <OverviewItem
             label="Posted Jobs"
-            description={`${MOCK_TOTAL_JOB} jobs`}
+            description={`${company?.totalJob} jobs`}
             icon={<ExperienceIcon />}
           />
           <OverviewItem

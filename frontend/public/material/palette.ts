@@ -25,7 +25,7 @@ const palette: TPalette = {
   error: {
     dark: "#A93131",
     light: "#FF9F9F",
-    main: "#FF6F6F",
+    main: "#d32f2f",
     contrastText: black,
     1: "#FF7875",
     2: "#FF4D4F",
@@ -34,7 +34,7 @@ const palette: TPalette = {
     5: "#A8071A",
   },
   warning: {
-    main: "#FCFF62",
+    main: "#ed6c02",
     light: "#ff9800",
     dark: "#D3B239",
     contrastText: black,

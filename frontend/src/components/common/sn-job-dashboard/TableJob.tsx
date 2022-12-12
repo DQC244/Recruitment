@@ -8,89 +8,17 @@ import {
   TableRow,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import dayjs from "dayjs";
 import { ThemeProps } from "models/types";
 import React from "react";
-import { DateUtils } from "utils";
+import { shallowEqual, useSelector } from "react-redux";
+import { JobSelector } from "redux-store";
+import { getColorStatus, getStatusLabel } from "../helper";
 
 const TableJob = () => {
   const classes = useStyles();
 
-  const createData = (
-    title: string,
-    filled: number,
-    datePosted: number,
-    closeDate: number,
-    listingExpires: number,
-    status: string
-  ) => {
-    const { date: newDatePosted } =
-      DateUtils.covertTimeStampToDateFormat(datePosted);
-    const { date: newCloseDate } =
-      DateUtils.covertTimeStampToDateFormat(closeDate);
-    const { date: newListingExpires } =
-      DateUtils.covertTimeStampToDateFormat(listingExpires);
-
-    return {
-      title,
-      filled,
-      datePosted: newDatePosted,
-      closeDate: newCloseDate,
-      listingExpires: newListingExpires,
-      status,
-    };
-  };
-
-  const rows = [
-    createData(
-      "Account Manager",
-      4,
-      1669101851,
-      1700637851,
-      1700637851,
-      "pending"
-    ),
-    createData(
-      "Ice cream sandwich",
-      5,
-      1669101851,
-      1700637851,
-      1700637851,
-      "pending"
-    ),
-    createData("Eclair", 4, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Cupcake", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 3, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-    createData("Gingerbread", 5, 1669101851, 1700637851, 1700637851, "pending"),
-  ];
+  const jobList = useSelector(JobSelector.getJobList, shallowEqual);
 
   return (
     <TableContainer component={Paper} className={classes.root}>
@@ -98,27 +26,32 @@ const TableJob = () => {
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
-            <TableCell align="right">Filled</TableCell>
             <TableCell align="right">Date Posted</TableCell>
             <TableCell align="right">Closing Date</TableCell>
-            <TableCell align="right">Listing Expires</TableCell>
             <TableCell align="right">Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {jobList?.listItems?.map((job, index) => (
             <TableRow
               key={index}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.title}
+                {job.title}
               </TableCell>
-              <TableCell align="right">{row.filled}</TableCell>
-              <TableCell align="right">{row.datePosted}</TableCell>
-              <TableCell align="right">{row.closeDate}</TableCell>
-              <TableCell align="right">{row.listingExpires}</TableCell>
-              <TableCell align="right">{row.status}</TableCell>
+              <TableCell align="right">
+                {dayjs(job.updatedAt).format("DD/MM/YYYY")}
+              </TableCell>
+              <TableCell align="right">
+                {dayjs(job.updatedAt).format("DD/MM/YYYY")}
+              </TableCell>
+              <TableCell
+                sx={{ color: getColorStatus(job.status) }}
+                align="right"
+              >
+                {getStatusLabel(job.status)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

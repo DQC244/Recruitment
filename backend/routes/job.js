@@ -4,6 +4,7 @@ import {
   deleteJob,
   getJobList,
   getJobDetail,
+  getMyJob,
 } from "../controllers/job";
 import { verifyToken } from "../verifyToken";
 
@@ -20,5 +21,8 @@ router.get("/get", getJobList);
 
 // // get detail
 router.get("/get/:id", getJobDetail);
+
+// get all my job
+router.post("/get/self", verifyToken, getMyJob);
 
 export default router;

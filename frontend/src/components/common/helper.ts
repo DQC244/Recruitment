@@ -1,4 +1,6 @@
 import { AppConstant } from "const";
+import { STATUS } from "const/app.const";
+import theme from "public/material";
 
 export const getExperienceLabel = (type?: number) => {
   switch (type) {
@@ -32,6 +34,36 @@ export const getQualificationLabel = (type?: number) => {
     case AppConstant.QUALIFICATION.masterDegree: {
       return "Master Degree";
     }
+    default:
+      return "";
+  }
+};
+
+export const getStatusLabel = (id?: STATUS) => {
+  switch (id) {
+    case AppConstant.STATUS.expired:
+      return "Expired";
+    case AppConstant.STATUS.pending:
+      return "Pending";
+    case AppConstant.STATUS.published:
+      return "Published";
+    case AppConstant.STATUS.reject:
+      return "Reject";
+    default:
+      return "";
+  }
+};
+
+export const getColorStatus = (id?: STATUS) => {
+  switch (id) {
+    case AppConstant.STATUS.expired:
+      return theme.palette.error.light;
+    case AppConstant.STATUS.pending:
+      return theme.palette.warning.light;
+    case AppConstant.STATUS.published:
+      return theme.palette.success.main;
+    case AppConstant.STATUS.reject:
+      return theme.palette.error.main;
     default:
       return "";
   }

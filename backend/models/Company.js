@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { STATUS } from "../constants";
 
 const Company = new mongoose.Schema(
   {
@@ -11,7 +12,7 @@ const Company = new mongoose.Schema(
     teamSize: { type: String },
     description: { type: String, require: true },
     logo: { type: String, unique: true, require: true },
-    status: { type: String, default: 0, require: true },
+    status: { type: Number, default: STATUS.pending, require: true },
     website: {
       web: { type: String, unique: true, sparse: true },
       facebook: { type: String, unique: true, sparse: true },

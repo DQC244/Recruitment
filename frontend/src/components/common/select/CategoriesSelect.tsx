@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { CompanyActions, CompanySelector } from "redux-store";
 import AppSelect from "../AppSelect";
 
-const CategoriesSelect = ({ onChangeCategories }: CategoriesSelectProps) => {
+const CategoriesSelect = ({
+  onChangeCategories,
+  selectedId,
+}: CategoriesSelectProps) => {
   const dispatch = useDispatch();
   const categories = useSelector(CompanySelector.getCategoryList);
 
@@ -36,6 +39,13 @@ const CategoriesSelect = ({ onChangeCategories }: CategoriesSelectProps) => {
     handleGetCategories();
   }, []);
 
+  useEffect(() => {
+    if (selectedId && dataFormat.length) {
+      const select = dataFormat.filter((item) => item.value === selectedId)[0];
+      setCategory(select);
+    }
+  }, [selectedId, dataFormat]);
+
   return (
     <AppSelect
       selectedIndex={category.value}
@@ -47,6 +57,7 @@ const CategoriesSelect = ({ onChangeCategories }: CategoriesSelectProps) => {
 
 type CategoriesSelectProps = {
   onChangeCategories: (item: any) => void;
+  selectedId?: string;
 };
 
 export default memo(CategoriesSelect);

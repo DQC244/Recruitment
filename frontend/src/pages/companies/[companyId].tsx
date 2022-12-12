@@ -28,6 +28,7 @@ const CompanyDetail: NextPage = () => {
         JobActions.getJobList({
           page: AppConstant.DEFAULT_PAGINATION.page,
           size: 5,
+          companyId,
         })
       );
     }

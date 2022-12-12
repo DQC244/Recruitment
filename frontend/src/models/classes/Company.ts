@@ -1,4 +1,5 @@
 import { AppConstant } from "const";
+import { STATUS } from "const/app.const";
 
 class Company {
   _id: string;
@@ -12,7 +13,7 @@ class Company {
   teamSize?: typeof AppConstant.COMPANY_SIZE[keyof typeof AppConstant.COMPANY_SIZE];
   description: string;
   logo: string;
-  status: Number;
+  status: STATUS;
   totalJob?: number;
   website?: {
     web?: string;

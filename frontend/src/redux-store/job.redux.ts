@@ -19,6 +19,7 @@ export const { Types, Creators } = createActions({
   getJobList: ["data"],
   setQueryParams: ["data"],
   resetQueryParams: [],
+  getMyJobList: ["data"],
 
   jobSuccess: ["data"],
   jobFailure: ["error", "data"],
@@ -88,6 +89,7 @@ const HANDLERS = {
   [Types.GET_JOB_LIST]: request,
   [Types.SET_QUERY_PARAMS]: setQueryParams,
   [Types.RESET_QUERY_PARAMS]: resetQueryParams,
+  [Types.GET_MY_JOB_LIST]: request,
 
   [Types.JOB_SUCCESS]: success,
   [Types.JOB_FAILURE]: failure,

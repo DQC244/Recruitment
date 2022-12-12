@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { Box, Stack } from "@mui/material";
 import { ActivePackages, SideBar } from "components/common/sn-dashboard";
 import { makeStyles } from "@mui/styles";
@@ -8,35 +8,42 @@ import clsx from "clsx";
 import { useAuthContext } from "context";
 import { NextPage } from "next";
 import { CommonUtils } from "utils";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { CompanyActions, CompanySelector, JobActions } from "redux-store";
 
 const Dashboard: NextPage = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const packageList = useSelector(CompanySelector.getPackageList, shallowEqual);
   const { accountInfo } = useAuthContext();
-  const publishedTotal = 0;
-  const pendingTotal = 1;
-  const expiredTotal = 1;
+
+  const userPackage = useMemo(() => {
+    let packageDetail;
+    if (packageList.length) {
+      packageDetail = packageList.filter(
+        (item) => item._id === accountInfo.package
+      )[0];
+    }
+    return packageDetail;
+  }, [packageList]);
+
+  useEffect(() => {
+    dispatch(CompanyActions.getPackageList());
+  }, []);
 
   return (
     <Stack direction="row" spacing={3} pl={37.5}>
       <SideBar />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
         <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
-        <Box className="space-around-root">
+        {/* <Box className="space-around-root">
           <Box className={clsx("center-root", classes.box)}>
             <AppTypography color="common.white" variant="h1">
               {publishedTotal}
             </AppTypography>
             <AppTypography variant="h5" color="common.white">
               Published Listings
-            </AppTypography>
-          </Box>
-          <Box className={clsx("center-root", classes.box, classes.pendingBox)}>
-            <AppTypography color="common.white" variant="h1">
-              {pendingTotal}
-            </AppTypography>
-            <AppTypography variant="h5" color="common.white">
-              Pending Listings
             </AppTypography>
           </Box>
           <Box className={clsx("center-root", classes.box, classes.expiredBox)}>
@@ -47,8 +54,8 @@ const Dashboard: NextPage = () => {
               Expired Listings
             </AppTypography>
           </Box>
-        </Box>
-        <ActivePackages />
+        </Box> */}
+        <ActivePackages data={userPackage} />
       </Stack>
     </Stack>
   );

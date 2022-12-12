@@ -20,8 +20,6 @@ const SideBar = () => {
         return PathConstant.DASHBOARD;
       case PathConstant.MY_JOB_DASHBOARD:
         return PathConstant.MY_JOB_DASHBOARD;
-      case PathConstant.PACKAGES_DASHBOARD:
-        return PathConstant.PACKAGES_DASHBOARD;
       case PathConstant.MY_COMPANY_DASHBOARD:
         return PathConstant.MY_COMPANY_DASHBOARD;
       case PathConstant.PROFILES_DASHBOARD:
@@ -81,16 +79,6 @@ const SideBar = () => {
                 variant="body2"
               >
                 My Company
-              </AppLink>
-              <AppLink
-                href={PathConstant.PACKAGES_DASHBOARD}
-                className={clsx(
-                  classes.item,
-                  PathConstant.PACKAGES_DASHBOARD === value && classes.checked
-                )}
-                variant="body2"
-              >
-                Packages
               </AppLink>
             </>
           )}

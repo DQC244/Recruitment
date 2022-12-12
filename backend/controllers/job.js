@@ -65,6 +65,8 @@ export const getJobList = async (req, res, next) => {
     location: params.location,
     type: params.type,
     experience: params.experience,
+    companyId: params.companyId,
+    status: STATUS.published,
   };
 
   if (!isNaN(params.salary)) {
@@ -128,6 +130,28 @@ export const getJobDetail = async (req, res, next) => {
     const company = await Company.findById(job.companyId);
 
     res.status(200).json({ job, company });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getMyJob = async (req, res, next) => {
+  try {
+    const job = await Job.find({ companyId: req.user.company }).sort({
+      createdAt: -1,
+    });
+
+    const jobResult = {
+      pagination: {
+        page: 1,
+        size: job.length,
+        totalItem: job.length,
+        totalPages: 1,
+      },
+      listItems: job,
+    };
+
+    res.status(200).json(jobResult);
   } catch (error) {
     next(error);
   }

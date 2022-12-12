@@ -5,8 +5,9 @@ import React from "react";
 import AppTypography from "../AppTypography";
 import clsx from "clsx";
 import { CardPackages } from "../packages";
+import { PackageClass } from "models";
 
-const ActivePackages = () => {
+const ActivePackages = ({ data }: ActivePackagesProps) => {
   const classes = useStyles();
   const isPackages = true;
 
@@ -17,7 +18,7 @@ const ActivePackages = () => {
       </AppTypography>
       <Box className={clsx("center-root", classes.wrapper)}>
         {isPackages ? (
-          <CardPackages data={DATA} />
+          <CardPackages data={data} />
         ) : (
           <AppTypography>
             No packages have been bought or all packages have been used.
@@ -26,6 +27,10 @@ const ActivePackages = () => {
       </Box>
     </Stack>
   );
+};
+
+type ActivePackagesProps = {
+  data?: PackageClass;
 };
 
 export default ActivePackages;

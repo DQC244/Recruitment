@@ -132,8 +132,9 @@ export const getCompanyDetail = async (req, res, next) => {
   try {
     const company = await Company.findById(req.params.id);
     const { name } = await Category.findById(company.categoryId);
+    const totalJob = await Job.find({ companyId: req.params.id }).count();
 
-    res.status(200).json({ ...company._doc, categoryName: name });
+    res.status(200).json({ ...company._doc, categoryName: name, totalJob });
   } catch (error) {
     next(error);
   }
