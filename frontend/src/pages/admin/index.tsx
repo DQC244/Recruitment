@@ -9,26 +9,27 @@ import { NextPage } from "next";
 import { CommonUtils } from "utils";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { CompanyActions, CompanySelector } from "redux-store";
+import { useRouter } from "next/router";
+import useVerifyAdmin from "hooks/useVerifyAdmin";
+import { PathConstant } from "const";
 
-const Dashboard: NextPage = () => {
-  const classes = useStyles();
+const DashboardAdmin: NextPage = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
-  const packageList = useSelector(CompanySelector.getPackageList, shallowEqual);
+  const handleVerifyAdmin = useVerifyAdmin();
   const { accountInfo } = useAuthContext();
 
-  const userPackage = useMemo(() => {
-    let packageDetail;
-    if (packageList.length) {
-      packageDetail = packageList.filter(
-        (item) => item._id === accountInfo.package
-      )[0];
+  const handleRedirect = async () => {
+    const isAdmin = await handleVerifyAdmin();
+    if (!isAdmin) {
+      router.replace(PathConstant.ROOT);
     }
-    return packageDetail;
-  }, [packageList]);
+  };
 
   useEffect(() => {
     dispatch(CompanyActions.getPackageList());
+    handleRedirect();
   }, []);
 
   return (
@@ -36,13 +37,12 @@ const Dashboard: NextPage = () => {
       <SideBar />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
         <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
-        <ActivePackages data={userPackage} />
       </Stack>
     </Stack>
   );
 };
 
-export default Dashboard;
+export default DashboardAdmin;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {

@@ -33,3 +33,7 @@ export const POST_MY_JOB_LIST = "/api/job/get/self";
 export const GET_PACKAGE_LIST = "/api/package/get";
 
 export const POST_CHECKOUT = "/api/checkout/payment";
+export const PUT_UPDATE_COMPANY = "/api/company/update/{id}";
+export const DELETE_MY_JOB = "/api/job/delete/{id}";
+
+export const POST_VERIFY_ADMIN = "/api/user/verify-admin";

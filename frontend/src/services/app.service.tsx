@@ -1,5 +1,6 @@
 import { createApi } from "api";
 import { ApiConstant, AppConstant } from "const";
+import { CompanyClass } from "models";
 import stringFormat from "string-format";
 
 export type companyType = {
@@ -57,15 +58,20 @@ export type JobListProps = {
 
 export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
 
+// company
 export const createCompany = (data: companyType) =>
   createApi().post(ApiConstant.POST_CREATE_COMPANY, data);
 
 export const getCompanyDetail = (id: string) =>
   createApi().get(stringFormat(ApiConstant.GET_COMPANY_DETAIL, { id }));
 
+export const updateCompanyDetail = (id: string, data: CompanyClass) =>
+  createApi().put(stringFormat(ApiConstant.PUT_UPDATE_COMPANY, { id }), data);
+
 export const getCompanyList = (data: CompanyListProps) =>
   createApi().get(ApiConstant.GET_COMPANY_LIST, data);
 
+// job
 export const createJob = (data: JobProps) =>
   createApi().post(ApiConstant.POST_CREATE_JOB, data);
 
@@ -78,6 +84,10 @@ export const getJobList = (data: JobListProps) =>
 export const getMyJobList = () =>
   createApi().post(ApiConstant.POST_MY_JOB_LIST);
 
+export const deleteJob = (id: string) =>
+  createApi().delete(stringFormat(ApiConstant.DELETE_MY_JOB, { id }));
+
+// package
 export const getPackageList = () =>
   createApi().get(ApiConstant.GET_PACKAGE_LIST);
 

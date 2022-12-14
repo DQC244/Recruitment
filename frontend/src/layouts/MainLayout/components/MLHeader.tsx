@@ -8,14 +8,14 @@ import { AppLink } from "components/common";
 import { useTranslation } from "react-i18next";
 import Account from "./Account";
 import { PlusIcon } from "components/icons";
-import { AppConstant, PathConstant } from "const";
-import Cookies from "js-cookie";
+import { PathConstant } from "const";
+import { useAuthContext } from "context";
 
 const MLHeader = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
 
-  const hasToken = Boolean(Cookies.get(AppConstant.KEY_TOKEN));
+  const { hasAccount } = useAuthContext();
 
   return (
     <AppBar className={classes.appBar}>
@@ -33,7 +33,7 @@ const MLHeader = () => {
         <HeaderTabs />
         <Box display="flex">
           <Account className={classes.account} />
-          {hasToken && (
+          {hasAccount && (
             <Button
               href={PathConstant.CREATE_JOBS}
               endIcon={<PlusIcon />}

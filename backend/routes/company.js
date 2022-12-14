@@ -4,6 +4,7 @@ import {
   deleteCompany,
   getCompany,
   getCompanyDetail,
+  updateCompanyDetail,
 } from "../controllers/company";
 import { verifyToken } from "../verifyToken";
 
@@ -20,5 +21,8 @@ router.get("/get", getCompany);
 
 // get detail
 router.get("/get/:id", getCompanyDetail);
+
+// update
+router.put("/update/:id", verifyToken, updateCompanyDetail);
 
 export default router;

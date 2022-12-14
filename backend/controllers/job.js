@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { PAGINATION_SETTING, STATUS } from "../constants";
+import { PAGINATION_SETTING, ROLE, STATUS } from "../constants";
 import { createError } from "../error";
 import Company from "../models/Company";
 import Job from "../models/Job";
@@ -8,6 +8,11 @@ export const addJob = async (req, res, next) => {
   const user = req.user;
   if (user.company && user.package) {
     try {
+      if (user.permission === ROLE.candidate) {
+        return res(
+          createError(400, "You must be an employer to take this action")
+        );
+      }
       const newJob = new Job({ ...req.body, companyId: user.company });
 
       await newJob.save();
@@ -24,23 +29,6 @@ export const addJob = async (req, res, next) => {
     }
   } else {
     next(createError(400, "You must have company first"));
-  }
-};
-
-export const deleteJob = async (req, res, next) => {
-  try {
-    const job = await Job.findById(req.params.id);
-    if (job.companyId !== req.user.company) {
-      return next(createError(403, "you can delete only your Job"));
-    }
-    if (job.status === STATUS.published) {
-      return next(createError(400, "you can't delete posted jobs"));
-    }
-    await Job.deleteOne(job);
-
-    res.status(200).json("Job has been deleted.");
-  } catch (error) {
-    next(error);
   }
 };
 
@@ -102,7 +90,7 @@ export const getJobList = async (req, res, next) => {
             pagination: {
               page: Number(params.page),
               size: Number(params.size),
-              totalItem: countJob,
+              totalItems: countJob,
               totalPages: Math.ceil(countJob / params.size),
             },
             listItems: jobList,
@@ -111,7 +99,7 @@ export const getJobList = async (req, res, next) => {
             pagination: {
               page: Number(params.page),
               size: Number(params.size),
-              totalItem: 0,
+              totalItems: 0,
               totalPages: 0,
             },
             listItems: [],
@@ -145,13 +133,28 @@ export const getMyJob = async (req, res, next) => {
       pagination: {
         page: 1,
         size: job.length,
-        totalItem: job.length,
+        totalItems: job.length,
         totalPages: 1,
       },
       listItems: job,
     };
 
     res.status(200).json(jobResult);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const handleDeleteJob = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const jobDelete = await Job.findById(req.params.id);
+    if (user.company !== jobDelete.companyId) {
+      return next(createError(403, "you can delete only your Job"));
+    }
+    await Job.findByIdAndDelete(req.params.id);
+
+    res.status(200).json("Job has been deleted.");
   } catch (error) {
     next(error);
   }
