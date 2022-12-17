@@ -15,3 +15,5 @@ export const getUserList = (params: OrderListParams) =>
 
 export const deleteUser = (id: string) =>
   createApi().delete(stringFormat(ApiConstant.DELETE_USER, { id }));
+
+export const getIncome = () => createApi().post(ApiConstant.GET_ORDER_INCOME);

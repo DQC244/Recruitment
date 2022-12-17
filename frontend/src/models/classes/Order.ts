@@ -5,6 +5,7 @@ class Order {
   amount: Number;
   paymentId: string;
   updatedAt: string;
+  createdAt: string;
 
   constructor(data: Order) {
     this._id = data._id;
@@ -13,6 +14,8 @@ class Order {
     this.amount = data.amount;
     this.paymentId = data.paymentId;
     this.updatedAt = data.updatedAt;
+    this.updatedAt = data.updatedAt;
+    this.createdAt = data.createdAt;
   }
 }
 

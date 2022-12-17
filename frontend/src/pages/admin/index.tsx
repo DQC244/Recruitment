@@ -11,6 +11,7 @@ import useVerifyAdmin from "hooks/useVerifyAdmin";
 import { PathConstant } from "const";
 import HistoryOrder from "components/common/sn-admin/HistoryOrder";
 import SideBarAdmin from "components/common/sn-admin/SideBarAdmin";
+import OrderChart from "components/common/sn-admin/OrderChart";
 
 const DashboardAdmin: NextPage = () => {
   const router = useRouter();
@@ -34,6 +35,7 @@ const DashboardAdmin: NextPage = () => {
       <SideBarAdmin />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
         <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
+        <OrderChart />
         <Stack spacing={1}>
           <AppTypography variant="h5">Recent Transactions</AppTypography>
           <HistoryOrder />

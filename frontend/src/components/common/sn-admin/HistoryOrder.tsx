@@ -57,11 +57,11 @@ const HistoryOrder = () => {
       </Grid>
 
       <InfiniteScroll
-        className={clsx("scrollbar", classes.scroll)}
+        className={clsx("scrollbar")}
         dataLength={orderList.listItems?.length || 0}
         hasMore={isMoreList}
         next={handleGetList}
-        height={500}
+        height={300}
         loader={<Fragment />}
       >
         {orderList.listItems?.map((item, index) => (
@@ -87,7 +87,7 @@ const HistoryOrder = () => {
             </Grid>
             <Grid xs={3} item alignItems="center">
               <AppTypography className="eclipse" textAlign="center">
-                {dayjs(item.updatedAt).format("h:mm A DD/MM/YYYY")}
+                {dayjs(item.createdAt).format("h:mm A DD/MM/YYYY")}
               </AppTypography>
             </Grid>
           </Grid>
@@ -107,7 +107,6 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     boxShadow: "10px 10px 30px 10px rgb(0 0 0 / 10%)",
     padding: "8px 0px",
   },
-  scroll: {},
   header: {
     borderBottom: `2px solid ${theme.palette.grey[300]}`,
   },
