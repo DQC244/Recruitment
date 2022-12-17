@@ -5,7 +5,8 @@
 import { takeLatest, all } from "redux-saga/effects";
 
 /* ------------- Types ------------- */
-import { CompanyTypes, JobTypes } from "redux-store";
+import { AdminTypes, CompanyTypes, JobTypes } from "redux-store";
+import { getOrderList } from "./admin.saga";
 
 /* ------------- Sagas ------------- */
 import {
@@ -26,6 +27,7 @@ function* rootSaga() {
     takeLatest(JobTypes.GET_JOB, getJobDetail),
     takeLatest(JobTypes.GET_JOB_LIST, getJobList),
     takeLatest(JobTypes.GET_MY_JOB_LIST, getMyJobList),
+    takeLatest(AdminTypes.GET_ORDER_LIST, getOrderList),
   ]);
 }
 

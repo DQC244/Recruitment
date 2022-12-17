@@ -46,7 +46,7 @@ const NoticeModal = ({
 
 export type ConfirmModalProps = CommonModalProps & {
   labelAction: string;
-  buttonProps: ButtonProps;
+  buttonProps?: ButtonProps;
 
   onSubmit: () => void;
 };

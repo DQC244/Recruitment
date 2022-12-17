@@ -20,6 +20,7 @@ import StripeCheckout from "react-stripe-checkout";
 import useCheckout from "hooks/useCheckout";
 import { useRouter } from "next/router";
 import { AppService } from "services";
+import useCheckExpirePackage from "hooks/useCheckExpirePackage";
 
 const Create: NextPage = () => {
   const classes = useStyles();
@@ -27,6 +28,7 @@ const Create: NextPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const handleCheckout = useCheckout();
+  const handleCheckExpirePackage = useCheckExpirePackage();
 
   const STRIPS_KEY = EnvConstant.STRIPS_KEY;
   const SECRET_KEY = EnvConstant.SECRET_KEY;
@@ -38,6 +40,7 @@ const Create: NextPage = () => {
   const [jobInfo, setJobInfo] = useState<JobClass>();
   const [packageId, setPackageId] = useState<PackageClass>();
   const [stripToken, setStripToken] = useState<any>(null);
+  const [verify, setVerify] = useState(false);
 
   const companyInfo = useSelector(CompanySelector.getCompanyInfo, shallowEqual);
 
@@ -94,7 +97,7 @@ const Create: NextPage = () => {
 
   const handleNextStep = () => {
     if (step === STEP_LIST.length - 1) {
-      if (accountInfo.package) {
+      if (accountInfo.package && verify) {
         handleCreateJobService(jobInfo);
         router.replace(PathConstant.SUCCESS);
       }
@@ -103,6 +106,14 @@ const Create: NextPage = () => {
     }
 
     setStep((step) => step + 1);
+  };
+
+  const verifyPackage = async () => {
+    const verify = await handleCheckExpirePackage();
+    if (accountInfo.package && verify) {
+      setStep(1);
+      setVerify(true);
+    }
   };
 
   const onToken = (token: any) => {
@@ -119,10 +130,6 @@ const Create: NextPage = () => {
   }, [accountInfo.company]);
 
   useEffect(() => {
-    if (accountInfo.package) {
-      setStep(1);
-    }
-
     if (packageId?.price && stripToken) {
       const total = packageId.price * 100;
 
@@ -131,7 +138,11 @@ const Create: NextPage = () => {
         router.replace(PathConstant.SUCCESS);
       });
     }
-  }, [packageId?.price, stripToken, jobInfo, accountInfo.package]);
+  }, [packageId?.price, stripToken, jobInfo]);
+
+  useEffect(() => {
+    verifyPackage();
+  }, [accountInfo.package]);
 
   return (
     <Container>

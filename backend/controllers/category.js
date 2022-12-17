@@ -7,7 +7,7 @@ export const addCategory = async (req, res, next) => {
     if (!name) {
       return next(createError(400, "Filed name is required"));
     }
-    const newCategory = new Category({ name });
+    const newCategory = new Category({ name, image: req.body.image });
     await newCategory.save();
 
     res.status(200).send("Category is created");
@@ -27,6 +27,17 @@ export const deleteCategory = async (req, res, next) => {
     await Category.findByIdAndDelete(req.params.id);
 
     res.status(200).json("Category has been deleted.");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateCategory = async (req, res, next) => {
+  try {
+    const category = await Category.findByIdAndUpdate(req.params.id, {
+      $set: { ...req.body },
+    });
+    res.status(200).json(category);
   } catch (error) {
     next(error);
   }

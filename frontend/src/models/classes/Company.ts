@@ -21,6 +21,8 @@ class Company {
     twitter?: string;
     linkedin?: string;
   };
+  updatedAt: string;
+  createdAt: string;
 
   constructor(data: Company) {
     this._id = data._id;
@@ -36,6 +38,8 @@ class Company {
     this.logo = data.logo;
     this.status = data.status;
     this.website = data.website;
+    this.updatedAt = data.updatedAt;
+    this.createdAt = data.createdAt;
   }
 }
 

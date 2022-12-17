@@ -61,16 +61,6 @@ const SideBar = () => {
                 Dashboard
               </AppLink>
               <AppLink
-                href={PathConstant.MY_JOB_DASHBOARD}
-                className={clsx(
-                  classes.item,
-                  PathConstant.MY_JOB_DASHBOARD === value && classes.checked
-                )}
-                variant="body2"
-              >
-                My Job
-              </AppLink>
-              <AppLink
                 href={PathConstant.MY_COMPANY_DASHBOARD}
                 className={clsx(
                   classes.item,
@@ -79,6 +69,16 @@ const SideBar = () => {
                 variant="body2"
               >
                 My Company
+              </AppLink>
+              <AppLink
+                href={PathConstant.MY_JOB_DASHBOARD}
+                className={clsx(
+                  classes.item,
+                  PathConstant.MY_JOB_DASHBOARD === value && classes.checked
+                )}
+                variant="body2"
+              >
+                My Job
               </AppLink>
             </>
           )}

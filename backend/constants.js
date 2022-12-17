@@ -40,3 +40,11 @@ export const PAGINATION_SETTING = {
   DEFAULT_PAGE: 1,
   PAGE_SIZE: 12,
 };
+
+export const ROLE = {
+  admin: 0,
+  employer: 1,
+  candidate: 2,
+};
+
+export const DAY_BY_TIMESTAMP = 86400;

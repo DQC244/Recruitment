@@ -1,10 +1,8 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { NextPage } from "next";
-import { Box, Chip, Container, Grid, Stack } from "@mui/material";
+import { Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
-import { JobPanel, JobOverview } from "components/common/sn-job-detail";
-import { AppTypography } from "components/common";
 import { useRouter } from "next/router";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { CompanySelector, JobActions, JobSelector } from "redux-store";

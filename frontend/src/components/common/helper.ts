@@ -48,7 +48,7 @@ export const getStatusLabel = (id?: STATUS) => {
     case AppConstant.STATUS.published:
       return "Published";
     case AppConstant.STATUS.reject:
-      return "Reject";
+      return "Rejected";
     default:
       return "";
   }

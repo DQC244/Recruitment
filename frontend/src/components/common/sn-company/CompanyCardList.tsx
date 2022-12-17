@@ -21,6 +21,7 @@ const CompanyCardList = () => {
   const handleGetCompanyList = (page: number) => {
     const newQueryParams = {
       ...queryParams,
+      status: AppConstant.STATUS.published,
       page,
     };
 

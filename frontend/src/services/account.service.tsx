@@ -41,3 +41,6 @@ export const handleUpdateUser = (data: UpdateUSerProps) =>
     stringFormat(ApiConstant.PUT_UPDATE_USER, { id: data.id }),
     data
   );
+
+export const verifyAdmin = () =>
+  createApi().post(ApiConstant.POST_VERIFY_ADMIN);

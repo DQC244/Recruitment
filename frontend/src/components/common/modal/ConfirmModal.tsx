@@ -20,8 +20,10 @@ const ConfirmModal = ({
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
 
-  const { className: cancelClassName, ...otherButtonCancelProps } = cancelButtonProps;
-  const { className: confirmClassName, ...otherButtonConfirmProps } = confirmButtonProps;
+  const { className: cancelClassName, ...otherButtonCancelProps } =
+    cancelButtonProps;
+  const { className: confirmClassName, ...otherButtonConfirmProps } =
+    confirmButtonProps;
 
   const { closeGlobalModal } = useGlobalModalContext();
 
@@ -61,8 +63,8 @@ const ConfirmModal = ({
 export type ConfirmModalProps = CommonModalProps & {
   labelCancel: string;
   labelConfirm: string;
-  cancelButtonProps: ButtonProps;
-  confirmButtonProps: ButtonProps;
+  cancelButtonProps?: ButtonProps;
+  confirmButtonProps?: ButtonProps;
 
   onCancel: () => void;
   onConfirm: () => void;

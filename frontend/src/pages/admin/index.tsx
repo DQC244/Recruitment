@@ -1,48 +1,49 @@
 import React, { useEffect, useMemo } from "react";
 import { Stack } from "@mui/material";
-import { ActivePackages, SideBar } from "components/common/sn-dashboard";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import { AppTypography } from "components/common";
 import { useAuthContext } from "context";
 import { NextPage } from "next";
 import { CommonUtils } from "utils";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { CompanyActions, CompanySelector } from "redux-store";
+import { useRouter } from "next/router";
+import useVerifyAdmin from "hooks/useVerifyAdmin";
+import { PathConstant } from "const";
+import HistoryOrder from "components/common/sn-admin/HistoryOrder";
+import SideBarAdmin from "components/common/sn-admin/SideBarAdmin";
 
-const Dashboard: NextPage = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
+const DashboardAdmin: NextPage = () => {
+  const router = useRouter();
 
-  const packageList = useSelector(CompanySelector.getPackageList, shallowEqual);
+  const handleVerifyAdmin = useVerifyAdmin();
   const { accountInfo } = useAuthContext();
 
-  const userPackage = useMemo(() => {
-    let packageDetail;
-    if (packageList.length) {
-      packageDetail = packageList.filter(
-        (item) => item._id === accountInfo.package
-      )[0];
+  const handleRedirect = async () => {
+    const isAdmin = await handleVerifyAdmin();
+    if (!isAdmin) {
+      router.replace(PathConstant.ROOT);
     }
-    return packageDetail;
-  }, [packageList]);
+  };
 
   useEffect(() => {
-    dispatch(CompanyActions.getPackageList());
+    handleRedirect();
   }, []);
 
   return (
     <Stack direction="row" spacing={3} pl={37.5}>
-      <SideBar />
+      <SideBarAdmin />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
         <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
-        <ActivePackages data={userPackage} />
+        <Stack spacing={1}>
+          <AppTypography variant="h5">Recent Transactions</AppTypography>
+          <HistoryOrder />
+        </Stack>
       </Stack>
     </Stack>
   );
 };
 
-export default Dashboard;
+export default DashboardAdmin;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {

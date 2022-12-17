@@ -1,5 +1,6 @@
 import { createApi } from "api";
 import { ApiConstant, AppConstant } from "const";
+import { CompanyClass } from "models";
 import stringFormat from "string-format";
 
 export type companyType = {
@@ -55,17 +56,36 @@ export type JobListProps = {
   companyId?: string;
 };
 
-export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
+export type CategoryProps = {
+  name: string;
+  image: string;
+};
 
+export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
+export const updateCategory = (id: string, data: CategoryProps) =>
+  createApi().put(stringFormat(ApiConstant.UPDATE_CATEGORY, { id }), data);
+export const deleteCategory = (id: string) =>
+  createApi().delete(stringFormat(ApiConstant.DELETE_CATEGORY, { id }));
+export const createCategory = (data: any) =>
+  createApi().post(ApiConstant.CREATE_CATEGORY, data);
+
+// company
 export const createCompany = (data: companyType) =>
   createApi().post(ApiConstant.POST_CREATE_COMPANY, data);
 
 export const getCompanyDetail = (id: string) =>
   createApi().get(stringFormat(ApiConstant.GET_COMPANY_DETAIL, { id }));
 
+export const updateCompanyDetail = (id: string, data: CompanyClass) =>
+  createApi().put(stringFormat(ApiConstant.PUT_UPDATE_COMPANY, { id }), data);
+
 export const getCompanyList = (data: CompanyListProps) =>
   createApi().get(ApiConstant.GET_COMPANY_LIST, data);
 
+export const approveCompany = (id: string, data: { status: number }) =>
+  createApi().put(stringFormat(ApiConstant.APPROVE_COMPANY, { id }), data);
+
+// job
 export const createJob = (data: JobProps) =>
   createApi().post(ApiConstant.POST_CREATE_JOB, data);
 
@@ -78,8 +98,15 @@ export const getJobList = (data: JobListProps) =>
 export const getMyJobList = () =>
   createApi().post(ApiConstant.POST_MY_JOB_LIST);
 
+export const deleteJob = (id: string) =>
+  createApi().delete(stringFormat(ApiConstant.DELETE_MY_JOB, { id }));
+
+// package
 export const getPackageList = () =>
   createApi().get(ApiConstant.GET_PACKAGE_LIST);
 
 export const postCheckout = (tokenId: any, amount: number, packageId: string) =>
   createApi().post(ApiConstant.POST_CHECKOUT, { tokenId, amount, packageId });
+
+export const checkExpirePackage = () =>
+  createApi().post(ApiConstant.VERIFY_PACKAGE);

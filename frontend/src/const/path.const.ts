@@ -18,3 +18,8 @@ export const PROFILES_DASHBOARD = "/dashboard/my-profiles";
 export const CREATE_JOBS = "/jobs/create";
 
 export const SUCCESS = "/success";
+export const ADMIN = "/admin";
+export const ADMIN_COMPANY_DASHBOARD = "/admin/company";
+export const ADMIN_PROFILE_DASHBOARD = "/admin/profile";
+export const ADMIN_CATEGORY_DASHBOARD = "/admin/category";
+export const ADMIN_PACKAGE_DASHBOARD = "/admin/package";

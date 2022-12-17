@@ -21,8 +21,8 @@ const CompanyDetailDescription = () => {
   const company = useSelector(CompanySelector.getCompanyInfo, shallowEqual);
 
   return (
-    <Stack direction="row" spacing={3}>
-      <Stack spacing={2}>
+    <Stack direction="row" spacing={3} flex={1}>
+      <Stack spacing={2} flex={1}>
         <AppTypography variant="h5">About the Company</AppTypography>
         <Box dangerouslySetInnerHTML={{ __html: company?.description }}></Box>
       </Stack>
