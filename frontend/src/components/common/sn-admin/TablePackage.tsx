@@ -13,37 +13,31 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ApiConstant } from "const";
-import { useHandleUploadFile } from "hooks";
 import { ThemeProps } from "models/types";
 import React, { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { CompanySelector } from "redux-store";
 import { AppService } from "services";
 import { ConfirmModal } from "../modal";
-import EditCategoryModal from "./EditCategoryModal";
+import EditPackageModal from "./EditPackageModal";
 
-const TableCategory = ({ onGetCategory }: TableProps) => {
+const TablePackage = ({ onGetPackage }: TableProps) => {
   const classes = useStyles();
 
-  const handleUploadFile = useHandleUploadFile();
-
-  const categoryList = useSelector(
-    CompanySelector.getCategoryList,
-    shallowEqual
-  );
-  const [category, setCategory] = useState<any>();
+  const packageList = useSelector(CompanySelector.getPackageList);
+  const [packageData, setPackageData] = useState<any>();
   const [isOpenActionModal, setIsOpenActionModal] = useState(false);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [selected, setSelected] = useState("");
   const [isOpenMsg, setIsOpenMsg] = useState(false);
   const [error, setError] = useState("");
 
-  const updateCategoryService = async (
+  const updateCategoryPackage = async (
     id: string,
     data: AppService.CategoryProps
   ) => {
     try {
-      const res: any = await AppService.updateCategory(id, data);
+      const res: any = await AppService.updatePackage(id, data);
       if (res.status === ApiConstant.STT_OK) {
         setError("");
       } else {
@@ -56,19 +50,15 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
     }
   };
 
-  const handleEditCategory = async (newData: any) => {
-    let url = newData.image;
-    if (newData.image instanceof File) {
-      url = await handleUploadFile(newData.image);
-    }
-    updateCategoryService(newData._id, { ...newData, image: url });
+  const handleEditPackage = async (newData: any) => {
+    await updateCategoryPackage(newData._id, { ...newData });
     setIsOpenEditModal(false);
-    onGetCategory();
+    onGetPackage();
   };
 
-  const deleteCategoryService = async (id: string) => {
+  const deletePackageService = async (id: string) => {
     try {
-      const res: any = await AppService.deleteCategory(id);
+      const res: any = await AppService.deletePackage(id);
       if (res.status === ApiConstant.STT_OK) {
         setError("");
       } else {
@@ -81,9 +71,8 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
     }
   };
 
-  const handleOpenEditModal = (selector: string) => {
-    setCategory(selector);
-    onGetCategory();
+  const handleOpenEditModal = (selector: any) => {
+    setPackageData(selector);
     setIsOpenEditModal(true);
   };
 
@@ -92,11 +81,11 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
     setIsOpenActionModal(true);
   };
 
-  const handleDeleteCategory = async () => {
+  const handleDeletePackage = async () => {
     if (!selected) return;
 
-    await deleteCategoryService(selected);
-    onGetCategory();
+    await deletePackageService(selected);
+    onGetPackage();
     setIsOpenActionModal(false);
   };
 
@@ -107,14 +96,16 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell align="center">Thumbnail</TableCell>
+              <TableCell align="center">Description</TableCell>
+              <TableCell align="center">Price</TableCell>
+              <TableCell align="center">Expire(day)</TableCell>
               <TableCell align="center" width={300}>
-                Action
+                Actions
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {categoryList?.map((category, index) => (
+            {packageList?.map((packageItem, index) => (
               <TableRow
                 key={index}
                 sx={{
@@ -126,25 +117,25 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
                   scope="row"
                   sx={{ textTransform: "capitalize" }}
                 >
-                  {category.name}
+                  {packageItem.name}
                 </TableCell>
-                <TableCell align="center">
-                  <Box
-                    component="img"
-                    src={category.image}
-                    className={classes.image}
-                  />
+                <TableCell component="th" scope="row">
+                  {packageItem.description}
                 </TableCell>
+                <TableCell component="th" scope="row">
+                  {packageItem.price}
+                </TableCell>
+                <TableCell align="center">{packageItem.expireDay}</TableCell>
                 <TableCell align="center">
                   <Button
                     className={classes.buttonApprove}
-                    onClick={() => handleOpenEditModal(category)}
+                    onClick={() => handleOpenEditModal(packageItem)}
                   >
                     Edit
                   </Button>
                   <Button
                     className={classes.buttonReject}
-                    onClick={() => handleOpenModal(category._id)}
+                    onClick={() => handleOpenModal(packageItem._id)}
                   >
                     Delete
                   </Button>
@@ -157,23 +148,23 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
       <ConfirmModal
         labelCancel="Cancel"
         labelConfirm="Ok"
-        onSubmit={handleDeleteCategory}
+        onSubmit={handleDeletePackage}
         open={isOpenActionModal}
         onClose={() => setIsOpenActionModal(false)}
         onCancel={() => setIsOpenActionModal(false)}
-        onConfirm={handleDeleteCategory}
+        onConfirm={handleDeletePackage}
         modalContentProps={{
-          content: "Are you sure you want to Delete this category?",
+          content: "Are you sure you want to Delete this package?",
         }}
         modalTitleProps={{
           title: "Delete",
         }}
       />
-      <EditCategoryModal
-        data={category}
+      <EditPackageModal
+        data={packageData}
         open={isOpenEditModal}
         onClose={() => setIsOpenEditModal(false)}
-        onSubmit={handleEditCategory}
+        onSubmit={handleEditPackage}
       />
       <Snackbar
         open={isOpenMsg}
@@ -194,10 +185,10 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
 };
 
 type TableProps = {
-  onGetCategory: () => void;
+  onGetPackage: () => void;
 };
 
-export default TableCategory;
+export default TablePackage;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
@@ -223,11 +214,5 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     "&:hover": {
       backgroundColor: theme.palette.error.dark,
     },
-  },
-  image: {
-    width: 100,
-    height: 100,
-    objectFit: "cover",
-    border: `1px solid ${theme.palette.grey[500]}`,
   },
 }));

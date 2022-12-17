@@ -61,7 +61,7 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
     if (newData.image instanceof File) {
       url = await handleUploadFile(newData.image);
     }
-    updateCategoryService(newData._id, { ...newData, image: url });
+    await updateCategoryService(newData._id, { ...newData, image: url });
     setIsOpenEditModal(false);
     onGetCategory();
   };
@@ -83,7 +83,6 @@ const TableCategory = ({ onGetCategory }: TableProps) => {
 
   const handleOpenEditModal = (selector: string) => {
     setCategory(selector);
-    onGetCategory();
     setIsOpenEditModal(true);
   };
 

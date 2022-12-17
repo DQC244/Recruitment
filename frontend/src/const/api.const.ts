@@ -46,3 +46,6 @@ export const POST_GET_ORDER = "/api/order/get";
 export const VERIFY_PACKAGE = "/api/package/verify-package";
 
 export const APPROVE_COMPANY = "/api/company/approve/{id}";
+export const DELETE_PACKAGE = "/api/package/delete/{id}";
+export const UPDATE_PACKAGE = "/api/package/update/{id}";
+export const CREATE_PACKAGE = "/api/package/add";

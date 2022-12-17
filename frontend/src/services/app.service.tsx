@@ -61,6 +61,7 @@ export type CategoryProps = {
   image: string;
 };
 
+// category
 export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
 export const updateCategory = (id: string, data: CategoryProps) =>
   createApi().put(stringFormat(ApiConstant.UPDATE_CATEGORY, { id }), data);
@@ -104,6 +105,12 @@ export const deleteJob = (id: string) =>
 // package
 export const getPackageList = () =>
   createApi().get(ApiConstant.GET_PACKAGE_LIST);
+export const deletePackage = (id: string) =>
+  createApi().delete(stringFormat(ApiConstant.DELETE_PACKAGE, { id }));
+export const updatePackage = (id: string, data: any) =>
+  createApi().put(stringFormat(ApiConstant.UPDATE_PACKAGE, { id }), data);
+export const createPackage = (data: any) =>
+  createApi().post(ApiConstant.CREATE_PACKAGE, data);
 
 export const postCheckout = (tokenId: any, amount: number, packageId: string) =>
   createApi().post(ApiConstant.POST_CHECKOUT, { tokenId, amount, packageId });

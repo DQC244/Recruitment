@@ -41,6 +41,17 @@ export const getPackage = async (req, res, next) => {
   }
 };
 
+export const updatePackage = async (req, res, next) => {
+  try {
+    const category = await Package.findByIdAndUpdate(req.params.id, {
+      $set: { ...req.body },
+    });
+    res.status(200).json(category);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const verifyPackage = async (req, res, next) => {
   try {
     const orderList = await Order.find({

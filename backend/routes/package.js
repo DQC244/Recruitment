@@ -3,6 +3,7 @@ import {
   addPackage,
   deletePackage,
   getPackage,
+  updatePackage,
   verifyPackage,
 } from "../controllers/package";
 import { verifyToken } from "../verifyToken";
@@ -19,6 +20,9 @@ router.delete("/delete/:id", verifyTokenAdmin, deletePackage);
 
 // get all
 router.get("/get", getPackage);
+
+// update all
+router.put("/update/:id", verifyTokenAdmin, updatePackage);
 
 router.post("/verify-package", verifyToken, verifyPackage);
 
