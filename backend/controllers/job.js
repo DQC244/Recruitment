@@ -8,6 +8,11 @@ export const addJob = async (req, res, next) => {
   const user = req.user;
   if (user.company && user.package) {
     try {
+      const company = await Company.findById(user.company);
+      if (company.status !== STATUS.published) {
+        return res(createError(400, "Your company has not been approved"));
+      }
+
       if (user.permission === ROLE.candidate) {
         return res(
           createError(400, "You must be an employer to take this action")

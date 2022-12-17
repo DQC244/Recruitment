@@ -1,15 +1,33 @@
 import { Box, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppTypography from "../AppTypography";
 import clsx from "clsx";
 import { CardPackages } from "../packages";
 import { PackageClass } from "models";
+import useCheckExpirePackage from "hooks/useCheckExpirePackage";
+import { useAuthContext } from "context";
 
 const ActivePackages = ({ data }: ActivePackagesProps) => {
   const classes = useStyles();
-  const isPackages = true;
+  const [isPackage, setIsPackage] = useState(PACKAGE_STATUS.no);
+
+  const { accountInfo } = useAuthContext();
+  const handleCheckExpirePackage = useCheckExpirePackage();
+
+  const handleCheckPackage = async () => {
+    const result = await handleCheckExpirePackage();
+    if (!result && accountInfo.package) {
+      setIsPackage(PACKAGE_STATUS.expire);
+    } else {
+      setIsPackage(PACKAGE_STATUS.has);
+    }
+  };
+
+  useEffect(() => {
+    handleCheckPackage();
+  }, []);
 
   return (
     <Stack className={classes.root}>
@@ -17,11 +35,13 @@ const ActivePackages = ({ data }: ActivePackagesProps) => {
         Active Packages
       </AppTypography>
       <Box className={clsx("center-root", classes.wrapper)}>
-        {isPackages ? (
+        {isPackage === PACKAGE_STATUS.has ? (
           <CardPackages data={data} />
         ) : (
           <AppTypography>
-            No packages have been bought or all packages have been used.
+            {isPackage === PACKAGE_STATUS.expire
+              ? "Your package has expired"
+              : "No packages have been bought or all packages have been used."}
           </AppTypography>
         )}
       </Box>
@@ -35,14 +55,11 @@ type ActivePackagesProps = {
 
 export default ActivePackages;
 
-const DATA = {
-  name: "Corporate Package",
-  description:
-    "With the Corporate Job Package you will be able to post up to 10 jobs that will be visible for 60 days.",
-  price: 39.99,
-  dayPayment: 60,
+const PACKAGE_STATUS = {
+  no: 0,
+  expire: 1,
+  has: 2,
 };
-
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {
     backgroundColor: theme.palette.common.white,
