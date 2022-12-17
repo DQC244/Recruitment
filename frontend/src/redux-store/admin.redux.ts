@@ -8,7 +8,7 @@ import {
   successReducerFunc,
   resetReducerFunc,
 } from "./redux-structure";
-import { OrderListClass } from "models";
+import { AccountListClass, OrderListClass } from "models";
 import { AppConstant } from "const";
 import { KeyAbleProps } from "models/types";
 
@@ -16,6 +16,7 @@ import { KeyAbleProps } from "models/types";
 export const { Types, Creators } = createActions({
   getOrderList: ["data"],
   setQueryParams: ["data"],
+  getUserList: ["data"],
 
   adminSuccess: ["data"],
   adminFailure: ["error", "data"],
@@ -26,6 +27,7 @@ export const { Types, Creators } = createActions({
 /* ------------- Initial State ------------- */
 export interface IAdminRedux extends IReduxStateCommon {
   orderList: OrderListClass;
+  userList: AccountListClass;
   queryParams: {
     page: number;
     size: number;
@@ -34,6 +36,7 @@ export interface IAdminRedux extends IReduxStateCommon {
 export const INITIAL_STATE: IAdminRedux = {
   ...REDUX_STATE,
   orderList: {} as OrderListClass,
+  userList: {} as AccountListClass,
   queryParams: {
     ...AppConstant.DEFAULT_PAGINATION,
   },
@@ -46,6 +49,12 @@ export const Selector = {
 
   // get query params
   getQueryParams: (state: IAppReduxState) => state.adminRedux.queryParams,
+
+  // get user list
+  getUserList: (state: IAppReduxState) => state.adminRedux.userList,
+  // get pagination
+  getPagination: (state: IAppReduxState) =>
+    state.adminRedux.userList?.pagination,
 };
 
 /* ------------- Reducers ------------- */
@@ -68,6 +77,7 @@ const setQueryParams = (state = INITIAL_STATE, action: KeyAbleProps) => {
 const HANDLERS = {
   [Types.GET_ORDER_LIST]: request,
   [Types.SET_QUERY_PARAMS]: setQueryParams,
+  [Types.GET_USER_LIST]: request,
 
   [Types.ADMIN_SUCCESS]: success,
   [Types.ADMIN_FAILURE]: failure,

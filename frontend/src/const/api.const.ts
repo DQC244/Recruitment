@@ -22,6 +22,7 @@ export const POST_REGISTER = "api/auth/signup";
 export const PUT_CHANGE_PASSWORD = "api/user/change-password";
 export const PUT_UPDATE_USER = "/api/user/update/{id}";
 export const GET_PROFILE = "/api/user/self";
+export const DELETE_USER = "/api/user/delete/{id}";
 
 export const GET_CATEGORIES = "/api/category/get";
 export const UPDATE_CATEGORY = "/api/category/update/{id}";
@@ -43,6 +44,7 @@ export const DELETE_MY_JOB = "/api/job/delete/{id}";
 
 export const POST_VERIFY_ADMIN = "/api/user/verify-admin";
 export const POST_GET_ORDER = "/api/order/get";
+export const POST_GET_USER = "/api/user/get-list";
 export const VERIFY_PACKAGE = "/api/package/verify-package";
 
 export const APPROVE_COMPANY = "/api/company/approve/{id}";

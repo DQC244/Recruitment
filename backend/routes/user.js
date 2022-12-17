@@ -3,6 +3,7 @@ import {
   changePassword,
   deleteUser,
   getUser,
+  getUserList,
   selfUser,
   updateUser,
 } from "../controllers/user";
@@ -18,10 +19,13 @@ router.put("/update/:id", verifyToken, updateUser);
 router.put("/change-password", verifyToken, changePassword);
 
 // delete user
-router.post("/delete/:id", verifyToken, deleteUser);
+router.delete("/delete/:id", verifyTokenAdmin, deleteUser);
 
 // get user
 router.get("/find/:id", getUser);
+
+// get user list
+router.post("/get-list/", verifyTokenAdmin, getUserList);
 
 // get user with token
 router.post("/self", verifyToken, selfUser);

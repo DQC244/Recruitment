@@ -1,6 +1,7 @@
 import { createError } from "../error";
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import { PAGINATION_SETTING, ROLE } from "../constants";
 
 export const updateUser = async (req, res, next) => {
   if (req.params.id === req.user.id) {
@@ -34,17 +35,77 @@ export const getUser = async (req, res, next) => {
   }
 };
 
-export const deleteUser = async (req, res, next) => {
-  if (req.params.id === req.user.id) {
-    try {
-      await User.findByIdAndDelete(req.params.id);
+export const getUserList = async (req, res, next) => {
+  const {
+    page = PAGINATION_SETTING.DEFAULT_PAGE,
+    size = PAGINATION_SETTING.PAGE_SIZE,
+  } = req.body;
 
-      res.status(200).json("User has been deleted.");
-    } catch (error) {
-      next(error);
-    }
-  } else {
-    return next(createError(403, "you can delete only your account"));
+  const params = {
+    ...req.body,
+    page,
+    size,
+  };
+
+  const skipItem = Math.max(
+    Number(params.size) * Number(params.page) - Number(params.size),
+    0
+  );
+
+  try {
+    const userList = await User.find(
+      { permission: { $ne: ROLE.admin } },
+      {
+        _id: 1,
+        name: 1,
+        phone: 1,
+        email: 1,
+        permission: 1,
+        company: 1,
+        image: 1,
+        package: 1,
+      }
+    )
+      .skip(skipItem)
+      .limit(Number(params.size))
+      .sort({ createdAt: -1 });
+
+    const countUser = await User.count({ permission: { $ne: ROLE.admin } });
+
+    const userData =
+      userList.length > 0
+        ? {
+            pagination: {
+              page: Number(params.page),
+              size: Number(params.size),
+              totalItems: countUser,
+              totalPages: Math.ceil(countUser / params.size),
+            },
+            listItems: userList,
+          }
+        : {
+            pagination: {
+              page: Number(params.page),
+              size: Number(params.size),
+              totalItems: 0,
+              totalPages: 0,
+            },
+            listItems: [],
+          };
+
+    res.status(200).json(userData);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+
+    res.status(200).json("User has been deleted.");
+  } catch (error) {
+    next(error);
   }
 };
 

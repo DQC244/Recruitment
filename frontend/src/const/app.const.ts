@@ -6,7 +6,7 @@ export const NOT_AVAILABLE_VALUE = "N/A";
 
 export const DEBOUNCE_TIME_IN_MILLISECOND = 1000;
 
-export const SIZE_PAGINATION_DEFAULT = 4;
+export const SIZE_PAGINATION_DEFAULT = 2;
 export const DEFAULT_PAGINATION = {
   page: 1,
   size: SIZE_PAGINATION_DEFAULT,

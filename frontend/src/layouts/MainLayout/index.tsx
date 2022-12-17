@@ -32,6 +32,7 @@ const MainLayout = ({
     PathConstant.ADMIN_PROFILE_DASHBOARD,
     PathConstant.ADMIN_CATEGORY_DASHBOARD,
     PathConstant.ADMIN_PACKAGE_DASHBOARD,
+    PathConstant.ADMIN_USERS_DASHBOARD,
   ].includes(router.pathname);
 
   useEffect(() => {

@@ -26,6 +26,8 @@ const SideBarAdmin = () => {
         return PathConstant.ADMIN_CATEGORY_DASHBOARD;
       case PathConstant.ADMIN_PACKAGE_DASHBOARD:
         return PathConstant.ADMIN_PACKAGE_DASHBOARD;
+      case PathConstant.ADMIN_USERS_DASHBOARD:
+        return PathConstant.ADMIN_USERS_DASHBOARD;
 
       default:
         return false;
@@ -88,6 +90,16 @@ const SideBarAdmin = () => {
             variant="body2"
           >
             Package List
+          </AppLink>
+          <AppLink
+            href={PathConstant.ADMIN_USERS_DASHBOARD}
+            className={clsx(
+              classes.item,
+              PathConstant.ADMIN_USERS_DASHBOARD === value && classes.checked
+            )}
+            variant="body2"
+          >
+            User List
           </AppLink>
 
           <AppLink
