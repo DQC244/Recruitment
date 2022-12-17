@@ -103,7 +103,7 @@ const TableJob = () => {
                   {dayjs(job.updatedAt).format("DD/MM/YYYY")}
                 </TableCell>
                 <TableCell align="right">
-                  {dayjs(job.updatedAt).format("DD/MM/YYYY")}
+                  {dayjs(job.closeDate).format("DD/MM/YYYY")}
                 </TableCell>
                 <TableCell
                   sx={{ color: getColorStatus(job.status) }}
@@ -133,10 +133,10 @@ const TableJob = () => {
         onCancel={() => setIsOpenRejectModal(false)}
         onConfirm={handleRejectJob}
         modalContentProps={{
-          content: "Are you sure you want to reject this job?",
+          content: "Are you sure you want to delete this job?",
         }}
         modalTitleProps={{
-          title: "Reject",
+          title: "Delete",
         }}
       />
       <Snackbar

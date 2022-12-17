@@ -5,6 +5,8 @@ import CompanyListClass from "./classes/CompanyList";
 import JobClass from "./classes/Job";
 import JobListClass from "./classes/JobList";
 import PackageClass from "./classes/Package";
+import OrderClass from "./classes/Order";
+import OrderListClass from "./classes/OrderList";
 // Defined type
 import { IProps, IIconProps } from "./types";
 
@@ -17,6 +19,8 @@ export {
   JobClass,
   JobListClass,
   PackageClass,
+  OrderClass,
+  OrderListClass,
 };
 export type {
   // Interface

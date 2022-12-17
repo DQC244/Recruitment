@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, Stack } from "@mui/material";
-import { ImageConstant } from "const";
 import AppTypography from "../AppTypography";
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";

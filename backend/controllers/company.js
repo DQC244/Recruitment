@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { PAGINATION_SETTING, STATUS } from "../constants";
+import { PAGINATION_SETTING, ROLE, STATUS } from "../constants";
 import { createError } from "../error";
 import Category from "../models/Category";
 import Company from "../models/Company";
@@ -86,11 +86,13 @@ export const getCompany = async (req, res, next) => {
     filter = {
       categoryId: params.categoryId,
       location: params.location,
-      status: STATUS.published,
+      status: params.status,
     };
 
     Object.keys(filter).forEach((key) =>
-      Boolean(filter[key]) === false ? delete filter[key] : {}
+      Boolean(filter[key]) === false && typeof filter[key] !== "number"
+        ? delete filter[key]
+        : {}
     );
   }
 
@@ -132,10 +134,12 @@ export const getCompany = async (req, res, next) => {
 export const getCompanyDetail = async (req, res, next) => {
   try {
     const company = await Company.findById(req.params.id);
-    const { name } = await Category.findById(company.categoryId);
+    const category = await Category.findById(company.categoryId);
     const totalJob = await Job.find({ companyId: req.params.id }).count();
 
-    res.status(200).json({ ...company._doc, categoryName: name, totalJob });
+    res
+      .status(200)
+      .json({ ...company._doc, categoryName: category?.name, totalJob });
   } catch (error) {
     next(error);
   }
@@ -152,6 +156,23 @@ export const updateCompanyDetail = async (req, res, next) => {
       req.params.id,
       {
         $set: { ...req.body, status: STATUS.pending },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(company);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Approve
+export const approveCompany = async (req, res, next) => {
+  try {
+    const company = await Company.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: { status: req.body.status },
       },
       { new: true }
     );

@@ -12,11 +12,10 @@ import { PathConstant } from "const";
 import HistoryOrder from "components/common/sn-admin/HistoryOrder";
 import SideBarAdmin from "components/common/sn-admin/SideBarAdmin";
 
-const DashboardAdmin: NextPage = () => {
+const Package: NextPage = () => {
   const router = useRouter();
 
   const handleVerifyAdmin = useVerifyAdmin();
-  const { accountInfo } = useAuthContext();
 
   const handleRedirect = async () => {
     const isAdmin = await handleVerifyAdmin();
@@ -33,17 +32,14 @@ const DashboardAdmin: NextPage = () => {
     <Stack direction="row" spacing={3} pl={37.5}>
       <SideBarAdmin />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
-        <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
-        <Stack spacing={1}>
-          <AppTypography variant="h5">Recent Transactions</AppTypography>
-          <HistoryOrder />
-        </Stack>
+        <AppTypography variant="h3">Package List</AppTypography>
+        <Stack spacing={1}></Stack>
       </Stack>
     </Stack>
   );
 };
 
-export default DashboardAdmin;
+export default Package;
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   root: {

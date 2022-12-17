@@ -3,6 +3,7 @@ import {
   addCategory,
   deleteCategory,
   getCategory,
+  updateCategory,
 } from "../controllers/category";
 
 import { verifyTokenAdmin } from "../verifyTokenAdmin";
@@ -14,6 +15,9 @@ router.post("/add", verifyTokenAdmin, addCategory);
 
 // delete
 router.delete("/delete/:id", verifyTokenAdmin, deleteCategory);
+
+// delete
+router.put("/update/:id", verifyTokenAdmin, updateCategory);
 
 // get all
 router.get("/get", getCategory);

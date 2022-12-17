@@ -1,5 +1,11 @@
 import express from "express";
-import { addPackage, deletePackage, getPackage } from "../controllers/package";
+import {
+  addPackage,
+  deletePackage,
+  getPackage,
+  verifyPackage,
+} from "../controllers/package";
+import { verifyToken } from "../verifyToken";
 
 import { verifyTokenAdmin } from "../verifyTokenAdmin";
 
@@ -13,5 +19,7 @@ router.delete("/delete/:id", verifyTokenAdmin, deletePackage);
 
 // get all
 router.get("/get", getPackage);
+
+router.post("/verify-package", verifyToken, verifyPackage);
 
 export default router;

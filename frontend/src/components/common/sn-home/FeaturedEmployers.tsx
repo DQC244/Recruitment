@@ -24,6 +24,7 @@ const FeaturedEmployers = () => {
   useEffect(() => {
     dispatch(
       CompanyActions.getCompanyList({
+        status: AppConstant.STATUS.published,
         page: AppConstant.DEFAULT_PAGINATION.page,
         size: 6,
       })
@@ -57,57 +58,6 @@ const SETTINGS = {
   autoplay: true,
   autoplaySpeed: 2000,
 };
-
-const JOB_LIST = [
-  {
-    jobName: "CEO",
-    companyName: "Facebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-  {
-    jobName: "Product Owner (Strong English, Remote/ Hybrid)",
-    companyName: "Facebook Faceboo kFacebo okFacebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-  {
-    jobName: "CEO",
-    companyName: "Facebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-  {
-    jobName: "CEO",
-    companyName: "Facebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-  {
-    jobName: "CEO",
-    companyName: "Facebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-  {
-    jobName: "CEO",
-    companyName: "Facebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-  {
-    jobName: "CEO",
-    companyName: "Facebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-  {
-    jobName: "CEO",
-    companyName: "Facebook",
-    companyLogo: ImageConstant.Banner,
-    companyLocation: "hanoi",
-  },
-];
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   slide: {

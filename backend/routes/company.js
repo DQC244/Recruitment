@@ -1,12 +1,14 @@
 import express from "express";
 import {
   addCompany,
+  approveCompany,
   deleteCompany,
   getCompany,
   getCompanyDetail,
   updateCompanyDetail,
 } from "../controllers/company";
 import { verifyToken } from "../verifyToken";
+import { verifyTokenAdmin } from "../verifyTokenAdmin";
 
 const router = express.Router();
 
@@ -24,5 +26,8 @@ router.get("/get/:id", getCompanyDetail);
 
 // update
 router.put("/update/:id", verifyToken, updateCompanyDetail);
+
+// approve
+router.put("/approve/:id", verifyTokenAdmin, approveCompany);
 
 export default router;

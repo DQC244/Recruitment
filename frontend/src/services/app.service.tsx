@@ -56,7 +56,18 @@ export type JobListProps = {
   companyId?: string;
 };
 
+export type CategoryProps = {
+  name: string;
+  image: string;
+};
+
 export const getCategories = () => createApi().get(ApiConstant.GET_CATEGORIES);
+export const updateCategory = (id: string, data: CategoryProps) =>
+  createApi().put(stringFormat(ApiConstant.UPDATE_CATEGORY, { id }), data);
+export const deleteCategory = (id: string) =>
+  createApi().delete(stringFormat(ApiConstant.DELETE_CATEGORY, { id }));
+export const createCategory = (data: any) =>
+  createApi().post(ApiConstant.CREATE_CATEGORY, data);
 
 // company
 export const createCompany = (data: companyType) =>
@@ -70,6 +81,9 @@ export const updateCompanyDetail = (id: string, data: CompanyClass) =>
 
 export const getCompanyList = (data: CompanyListProps) =>
   createApi().get(ApiConstant.GET_COMPANY_LIST, data);
+
+export const approveCompany = (id: string, data: { status: number }) =>
+  createApi().put(stringFormat(ApiConstant.APPROVE_COMPANY, { id }), data);
 
 // job
 export const createJob = (data: JobProps) =>
@@ -93,3 +107,6 @@ export const getPackageList = () =>
 
 export const postCheckout = (tokenId: any, amount: number, packageId: string) =>
   createApi().post(ApiConstant.POST_CHECKOUT, { tokenId, amount, packageId });
+
+export const checkExpirePackage = () =>
+  createApi().post(ApiConstant.VERIFY_PACKAGE);

@@ -24,10 +24,19 @@ import {
   IJobRedux,
 } from "./job.redux";
 
+import {
+  Creators as AdminActions,
+  Types as AdminTypes,
+  reducer as AdminReducer,
+  Selector as AdminSelector,
+  IAdminRedux,
+} from "./admin.redux";
+
 /* ------------- Assemble The Reducers ------------- */
 const appReducer = combineReducers({
   companyRedux: CompanyReducer,
   jobRedux: JobReducer,
+  adminRedux: AdminReducer,
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,6 +63,7 @@ sagaMiddleware.run(rootSaga);
 interface IAppReduxState {
   companyRedux: ICompanyRedux;
   jobRedux: IJobRedux;
+  adminRedux: IAdminRedux;
 }
 
 /* ------------- Redux Actions ------------- */
@@ -64,7 +74,10 @@ export {
   JobActions,
   JobTypes,
   JobSelector,
+  AdminActions,
+  AdminTypes,
+  AdminSelector,
 };
-export type { IAppReduxState, ICompanyRedux };
+export type { IAppReduxState, ICompanyRedux, IAdminRedux };
 
 export default store;

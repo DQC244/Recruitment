@@ -46,3 +46,5 @@ export const ROLE = {
   employer: 1,
   candidate: 2,
 };
+
+export const DAY_BY_TIMESTAMP = 86400;

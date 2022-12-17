@@ -67,6 +67,7 @@ const Companies: NextPage = () => {
     dispatch(
       CompanyActions.getCompanyList({
         ...queryParams,
+        status: AppConstant.STATUS.published,
       })
     );
   }, [queryParams]);
