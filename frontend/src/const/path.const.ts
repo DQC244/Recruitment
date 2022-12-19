@@ -24,3 +24,5 @@ export const ADMIN_PROFILE_DASHBOARD = "/admin/profile";
 export const ADMIN_CATEGORY_DASHBOARD = "/admin/category";
 export const ADMIN_PACKAGE_DASHBOARD = "/admin/package";
 export const ADMIN_USERS_DASHBOARD = "/admin/users";
+
+export const CREATE_CV = "/create-cv";

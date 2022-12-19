@@ -141,3 +141,10 @@ export const handleRedirectUnauthorized = (context: any) => {
 
   return { props: {} };
 };
+
+export const getElementById = (id: string) => {
+  if (typeof window !== "undefined" && id) {
+    return document.getElementById(id);
+  }
+};
+

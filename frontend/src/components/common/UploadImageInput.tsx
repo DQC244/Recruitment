@@ -10,6 +10,9 @@ const UploadImageInput = ({
   onChangeImage,
   value,
   inputLabelProps,
+  wrapperClassName,
+  iconClassName,
+  imageClassName,
   ...otherProps
 }: UploadImageInputProps) => {
   const classes = useStyles();
@@ -47,7 +50,7 @@ const UploadImageInput = ({
         {label}
       </InputLabel>
       <InputLabel
-        className={clsx("center-root", classes.wrapper)}
+        className={clsx("center-root", classes.wrapper, wrapperClassName)}
         htmlFor="input-file"
       >
         {localImageUrl ? (
@@ -55,7 +58,7 @@ const UploadImageInput = ({
             <Box
               src={localImageUrl}
               component="img"
-              className={clsx("center-root", classes.image)}
+              className={clsx("center-root", classes.image, imageClassName)}
             />
             <Box className={clsx("center-root", classes.replaceButton)}>
               Replace
@@ -63,7 +66,7 @@ const UploadImageInput = ({
           </>
         ) : (
           <>
-            <ImageIcon className={classes.imageIcon} />
+            <ImageIcon className={clsx(classes.imageIcon, iconClassName)} />
           </>
         )}
       </InputLabel>
@@ -87,6 +90,9 @@ type UploadImageInputProps = BoxProps & {
   label?: string;
   value?: string;
   inputLabelProps?: object;
+  wrapperClassName?: string;
+  iconClassName?: string;
+  imageClassName?: string;
 
   onChangeImage: (url: File) => void;
 };
