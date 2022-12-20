@@ -18,6 +18,7 @@ class Job {
     max: number;
   };
   updatedAt: string;
+  application?: number;
 
   constructor(data: Job) {
     this._id = data._id;
@@ -34,6 +35,7 @@ class Job {
     this.image = data.image;
     this.salary = data.salary;
     this.updatedAt = data.updatedAt;
+    this.application = data.application;
   }
 }
 

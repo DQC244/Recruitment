@@ -62,3 +62,23 @@ export function* getMyJobList() {
     yield put(JobActions.jobFailure(error));
   }
 }
+
+export function* getApplication(action: {
+  type: string;
+  data: AppService.JobListProps;
+}) {
+  try {
+    const response: ApiResponse<KeyAbleProps> = yield call(
+      AppService.getApplication,
+      action.data
+    );
+
+    if ((response.status = ApiConstant.STT_OK)) {
+      yield put(JobActions.jobSuccess({ applicationList: response.data }));
+    } else {
+      yield put(JobActions.jobFailure(response.data));
+    }
+  } catch (error) {
+    yield put(JobActions.jobFailure(error));
+  }
+}

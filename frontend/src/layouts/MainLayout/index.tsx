@@ -21,6 +21,7 @@ const MainLayout = ({
   const router = useRouter();
   const [title, setTitle] = useState("");
 
+
   const isDashboard = [
     PathConstant.DASHBOARD,
     PathConstant.MY_JOB_DASHBOARD,
@@ -34,6 +35,7 @@ const MainLayout = ({
     PathConstant.ADMIN_PACKAGE_DASHBOARD,
     PathConstant.ADMIN_USERS_DASHBOARD,
     PathConstant.CREATE_CV,
+    PathConstant.APPLICATION_LIST_DETAIL,
   ].includes(router.pathname);
 
   useEffect(() => {

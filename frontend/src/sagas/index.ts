@@ -15,7 +15,7 @@ import {
   getCompanyList,
   getPackageList,
 } from "./company.saga";
-import { getJobDetail, getJobList, getMyJobList } from "./job.saga";
+import { getApplication, getJobDetail, getJobList, getMyJobList } from "./job.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
 function* rootSaga() {
@@ -27,6 +27,7 @@ function* rootSaga() {
     takeLatest(JobTypes.GET_JOB, getJobDetail),
     takeLatest(JobTypes.GET_JOB_LIST, getJobList),
     takeLatest(JobTypes.GET_MY_JOB_LIST, getMyJobList),
+    takeLatest(JobTypes.GET_MY_APPLICATION, getApplication),
     takeLatest(AdminTypes.GET_ORDER_LIST, getOrderList),
     takeLatest(AdminTypes.GET_USER_LIST, getUserList),
   ]);

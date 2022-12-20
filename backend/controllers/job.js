@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { PAGINATION_SETTING, ROLE, STATUS } from "../constants";
 import { createError } from "../error";
+import Application from "../models/Application";
 import Company from "../models/Company";
 import Job from "../models/Job";
 
@@ -134,14 +135,22 @@ export const getMyJob = async (req, res, next) => {
       createdAt: -1,
     });
 
+    const newJob = await Promise.all(
+      job.map(async (item) => {
+        const total = await Application.find({ jobId: item._id }).count();
+        return { ...item._doc, application: total };
+      })
+    );
+
+   
     const jobResult = {
       pagination: {
         page: 1,
-        size: job.length,
-        totalItems: job.length,
+        size: newJob.length,
+        totalItems: newJob.length,
         totalPages: 1,
       },
-      listItems: job,
+      listItems: newJob,
     };
 
     res.status(200).json(jobResult);

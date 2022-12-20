@@ -48,17 +48,16 @@ const ApplyJobModal = ({ jobId, onClose, ...otherProps }: ApplyModalProps) => {
     setCvUrl(uploadFileArray[0]);
   };
 
-  const handleApply = async() => {
+  const handleApply = async () => {
     let url;
     if (cvUrl instanceof File) {
       url = await handleUploadCv(cvUrl);
       const payload = {
         ...data,
         jobId,
-        cvUrl:url,
+        cvUrl: url,
       };
-      
-      
+
       handleApplyService(payload);
       onClose();
     }
@@ -103,6 +102,11 @@ const ApplyJobModal = ({ jobId, onClose, ...otherProps }: ApplyModalProps) => {
                 type="file"
                 label="Up Load CV"
                 onChange={handleFileChange}
+                InputProps={{
+                  inputProps: {
+                    accept: IMAGE_TYPE,
+                  },
+                }}
               />
               <Button
                 className={classes.button}
@@ -142,6 +146,8 @@ type ApplyModalProps = CommonModalProps & {
 };
 
 export default ApplyJobModal;
+
+const IMAGE_TYPE = "application/pdf";
 
 const useStyles = makeStyles((theme: ThemeProps) => ({
   paper: {

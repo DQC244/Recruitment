@@ -1,6 +1,7 @@
 import {
   Alert,
   Button,
+  IconButton,
   Paper,
   Snackbar,
   Table,
@@ -79,6 +80,7 @@ const TableJob = () => {
               </TableCell>
               <TableCell align="right">Date Posted</TableCell>
               <TableCell align="right">Closing Date</TableCell>
+              <TableCell align="right">Application</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Action</TableCell>
             </TableRow>
@@ -104,6 +106,23 @@ const TableJob = () => {
                 </TableCell>
                 <TableCell align="right">
                   {dayjs(job.closeDate).format("DD/MM/YYYY")}
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(
+                        `${PathConstant.APPLICATION_LIST}/${job._id}`
+                      );
+                    }}
+                    sx={{
+                      "&:hover": {
+                        color: "primary.main",
+                      },
+                    }}
+                  >
+                    {job?.application}
+                  </IconButton>
                 </TableCell>
                 <TableCell
                   sx={{ color: getColorStatus(job.status) }}

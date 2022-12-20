@@ -8,7 +8,7 @@ import {
   successReducerFunc,
   resetReducerFunc,
 } from "./redux-structure";
-import { JobClass, JobListClass } from "models";
+import { ApplicationListClasses, JobClass, JobListClass } from "models";
 import { AppService } from "services";
 import { AppConstant } from "const";
 import { KeyAbleProps } from "models/types";
@@ -20,6 +20,7 @@ export const { Types, Creators } = createActions({
   setQueryParams: ["data"],
   resetQueryParams: [],
   getMyJobList: ["data"],
+  getMyApplication: ["data"],
 
   jobSuccess: ["data"],
   jobFailure: ["error", "data"],
@@ -32,11 +33,13 @@ export interface IJobRedux extends IReduxStateCommon {
   job: JobClass;
   queryParams: AppService.JobListProps;
   jobList: JobListClass;
+  applicationList: ApplicationListClasses;
 }
 export const INITIAL_STATE: IJobRedux = {
   ...REDUX_STATE,
   job: {} as JobClass,
   jobList: {} as JobListClass,
+  applicationList: {} as ApplicationListClasses,
 
   queryParams: {
     ...AppConstant.DEFAULT_PAGINATION,
@@ -53,6 +56,9 @@ export const Selector = {
 
   // get pagination
   getPagination: (state: IAppReduxState) => state.jobRedux.jobList?.pagination,
+  
+  // get application
+  getApplication: (state: IAppReduxState) => state.jobRedux.applicationList?.listItems,
 
   // get query params
   getQueryParams: (state: IAppReduxState) => state.jobRedux.queryParams,
@@ -90,6 +96,7 @@ const HANDLERS = {
   [Types.SET_QUERY_PARAMS]: setQueryParams,
   [Types.RESET_QUERY_PARAMS]: resetQueryParams,
   [Types.GET_MY_JOB_LIST]: request,
+  [Types.GET_MY_APPLICATION]: request,
 
   [Types.JOB_SUCCESS]: success,
   [Types.JOB_FAILURE]: failure,

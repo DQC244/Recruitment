@@ -16,6 +16,8 @@ export const MY_COMPANY_DASHBOARD = "/dashboard/my-company";
 export const PACKAGES_DASHBOARD = "/dashboard/packages";
 export const PROFILES_DASHBOARD = "/dashboard/my-profiles";
 export const CREATE_JOBS = "/jobs/create";
+export const APPLICATION_LIST = "/dashboard/application";
+export const APPLICATION_LIST_DETAIL = "/dashboard/application/[jobId]";
 
 export const SUCCESS = "/success";
 export const ADMIN = "/admin";

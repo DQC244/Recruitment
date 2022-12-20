@@ -17,10 +17,21 @@ export const addApplication = async (req, res, next) => {
 
 export const getApplication = async (req, res, next) => {
   try {
-    const application =await Application.find({ jobId: req.body.jobId });
+    const application = await Application.find({ jobId: req.body.jobId }).sort({
+      createdAt: -1,
+    });
+  
+    const applicationResult = {
+      pagination: {
+        page: 1,
+        size: application.length,
+        totalItems: application.length,
+        totalPages: 1,
+      },
+      listItems: application,
+    };
 
-
-    res.status(200).send(application);
+    res.status(200).json(applicationResult);
   } catch (error) {
     next(error);
   }
