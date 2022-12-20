@@ -8,6 +8,7 @@ import PackageRoutes from "./routes/package";
 import CompanyRoutes from "./routes/company";
 import StripeRoutes from "./routes/stripe";
 import JobRoutes from "./routes/job";
+import ApplicationRoutes from "./routes/application";
 import OrderRoutes from "./routes/order";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -36,6 +37,7 @@ app.use("/api/company", CompanyRoutes);
 app.use("/api/job", JobRoutes);
 app.use("/api/checkout", StripeRoutes);
 app.use("/api/order", OrderRoutes);
+app.use("/api/application", ApplicationRoutes);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

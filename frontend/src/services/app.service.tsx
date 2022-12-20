@@ -117,3 +117,8 @@ export const postCheckout = (tokenId: any, amount: number, packageId: string) =>
 
 export const checkExpirePackage = () =>
   createApi().post(ApiConstant.VERIFY_PACKAGE);
+
+  // apply
+
+  export const applyJob = (data:any) =>
+  createApi().post(ApiConstant.APPLY_JOB,data);

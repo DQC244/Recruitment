@@ -7,10 +7,11 @@ import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import MainCv from "components/common/sn-cv/MainCv";
 import { ArrowIcon } from "components/icons";
+import { useRouter } from "next/router";
 
 const CreateCv: NextPage = () => {
   const classes = useStyles();
-
+  const router=useRouter()
   const [title, setTitle] = useState("Untitled CV");
 
   return (
@@ -21,6 +22,9 @@ const CreateCv: NextPage = () => {
             classes={{ startIcon: classes.startIcon }}
             variant="contained"
             startIcon={<ArrowIcon />}
+            onClick={()=>{
+              router.back()
+            }}
           >
             Back
           </Button>

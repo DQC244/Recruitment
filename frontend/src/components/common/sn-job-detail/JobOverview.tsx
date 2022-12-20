@@ -7,6 +7,8 @@ import {
   QualificationIcon,
   TimeCloseIcon,
 } from "components/icons";
+import { PathConstant } from "const";
+import dayjs from "dayjs";
 import { JobClass } from "models";
 import { ThemeProps } from "models/types";
 import React, { memo, useState } from "react";
@@ -26,7 +28,7 @@ const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
       <Stack className={classes.container} spacing={3}>
         <OverviewItem
           label="Expiration Date"
-          description={jobInfo?.closeDate?.toString()}
+          description={dayjs(jobInfo?.closeDate).format("DD/MM/YYYY")}
           icon={<TimeCloseIcon />}
         />
         <OverviewItem
@@ -52,16 +54,23 @@ const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
           icon={<MoneyIcon />}
         />
         {!isPreview && (
-          <Button
-            onClick={() => setIsOpenApplyModal(true)}
-            variant="contained"
-            className={classes.applyButton}
-          >
-            <AppTypography>Apply for job</AppTypography>
-          </Button>
+          <Stack spacing={1}>
+            <Button
+              onClick={() => setIsOpenApplyModal(true)}
+              variant="contained"
+              className={classes.applyButton}
+            >
+              <AppTypography>Apply for job</AppTypography>
+            </Button>
+            <AppTypography textAlign="center">OR</AppTypography>
+            <Button variant="contained" href={PathConstant.CREATE_CV}>
+              Create CV
+            </Button>
+          </Stack>
         )}
       </Stack>
       <ApplyJobModal
+        jobId={jobInfo?._id}
         open={isOpenApplyModal}
         onClose={() => setIsOpenApplyModal(false)}
       />

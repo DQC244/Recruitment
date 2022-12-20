@@ -52,3 +52,5 @@ export const DELETE_PACKAGE = "/api/package/delete/{id}";
 export const UPDATE_PACKAGE = "/api/package/update/{id}";
 export const CREATE_PACKAGE = "/api/package/add";
 export const GET_ORDER_INCOME = "/api/order/income";
+
+export const APPLY_JOB = "/api/application/add";
