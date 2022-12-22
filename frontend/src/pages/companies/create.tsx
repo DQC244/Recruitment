@@ -19,7 +19,7 @@ const Create: NextPage = () => {
       if (res.status === ApiConstant.STT_OK) {
         setError("");
         setTimeout(() => {
-          router.push(`${PathConstant.COMPANY}/${res.data._id}`);
+          router.push(`${PathConstant.SUCCESS_COMPANY}`);
         }, 3000);
       } else {
         setError(res.data.message);

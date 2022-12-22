@@ -23,6 +23,7 @@ export type UpdateUSerProps = {
   email?: string;
   phone?: string;
   image?: string;
+  permission?: any;
 };
 
 export const getSelfAccount = () => createApi().post(ApiConstant.GET_PROFILE);

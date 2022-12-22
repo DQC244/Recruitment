@@ -84,6 +84,7 @@ export const AuthProvider = ({ children }: ProviderProps) => {
         handleLogout,
         accountInfo,
         hasAccount,
+        getSelf
       }}
     >
       {children}
@@ -101,6 +102,7 @@ type AuthContextProps = {
   handleLogout: () => void;
   accountInfo: AccountClass;
   hasAccount: boolean;
+  getSelf:()=>void
 };
 
 type ProviderProps = {

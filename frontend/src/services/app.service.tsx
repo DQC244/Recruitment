@@ -122,6 +122,8 @@ export const checkExpirePackage = () =>
 
 export const applyJob = (data: any) =>
   createApi().post(ApiConstant.APPLY_JOB, data);
-  
+
 export const getApplication = (data: any) =>
   createApi().post(ApiConstant.GET_APPLICATION_LIST, data);
+export const convertPdf = (data?: any) =>
+  createApi().post(ApiConstant.GET_APPLICATION_CONVERT);

@@ -147,4 +147,9 @@ export const getElementById = (id: string) => {
     return document.getElementById(id);
   }
 };
+export const getElementByClass = (id: string) => {
+  if (typeof window !== "undefined" && id) {
+    return document.getElementsByClassName(id);
+  }
+};
 

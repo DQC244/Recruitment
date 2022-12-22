@@ -9,13 +9,18 @@ import { NextPage } from "next";
 import { CommonUtils } from "utils";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { CompanyActions, CompanySelector } from "redux-store";
+import { Router, useRouter } from "next/router";
+import { AppConstant, PathConstant } from "const";
 
 const Dashboard: NextPage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const packageList = useSelector(CompanySelector.getPackageList, shallowEqual);
   const { accountInfo } = useAuthContext();
+
+  console.log(accountInfo);
 
   const userPackage = useMemo(() => {
     let packageDetail;
@@ -31,11 +36,19 @@ const Dashboard: NextPage = () => {
     dispatch(CompanyActions.getPackageList());
   }, []);
 
+  useEffect(() => {
+    if (accountInfo.permission === AppConstant.USER_TYPE.candidate) {
+      router.push(PathConstant.PROFILES_DASHBOARD);
+    } else if (accountInfo.permission === AppConstant.USER_TYPE.admin) {
+      router.push(PathConstant.ADMIN);
+    }
+  }, [accountInfo]);
+
   return (
     <Stack direction="row" spacing={3} pl={37.5}>
       <SideBar />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
-        <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
+        <AppTypography variant="h3">{`Welcome, ${accountInfo.name}`}</AppTypography>
         <ActivePackages data={userPackage} />
       </Stack>
     </Stack>

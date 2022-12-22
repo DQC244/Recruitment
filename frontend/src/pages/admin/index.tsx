@@ -34,7 +34,7 @@ const DashboardAdmin: NextPage = () => {
     <Stack direction="row" spacing={3} pl={37.5}>
       <SideBarAdmin />
       <Stack pt={3} pr={3} flex={1} spacing={3}>
-        <AppTypography variant="h3">{`Welcome, ${accountInfo.email}`}</AppTypography>
+        <AppTypography variant="h3">{`Welcome, ${accountInfo.name}`}</AppTypography>
         <OrderChart />
         <Stack spacing={1}>
           <AppTypography variant="h5">Recent Transactions</AppTypography>

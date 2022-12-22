@@ -8,6 +8,7 @@ import {
   TimeCloseIcon,
 } from "components/icons";
 import { PathConstant } from "const";
+import { useAuthContext } from "context";
 import dayjs from "dayjs";
 import { JobClass } from "models";
 import { ThemeProps } from "models/types";
@@ -19,6 +20,7 @@ import OverviewItem from "./OverviewItem";
 
 const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
   const classes = useStyles();
+  const { hasAccount } = useAuthContext();
 
   const [isOpenApplyModal, setIsOpenApplyModal] = useState(false);
 
@@ -62,10 +64,14 @@ const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
             >
               <AppTypography>Apply for job</AppTypography>
             </Button>
-            <AppTypography textAlign="center">OR</AppTypography>
-            <Button variant="contained" href={PathConstant.CREATE_CV}>
-              Create CV
-            </Button>
+            {hasAccount && (
+              <>
+                <AppTypography textAlign="center">OR</AppTypography>
+                <Button variant="contained" href={PathConstant.CREATE_CV}>
+                  Create CV
+                </Button>
+              </>
+            )}
           </Stack>
         )}
       </Stack>

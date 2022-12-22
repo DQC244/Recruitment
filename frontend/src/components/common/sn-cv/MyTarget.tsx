@@ -1,14 +1,25 @@
 import { makeStyles } from "@mui/styles";
 import { ThemeProps } from "models/types";
 import React from "react";
+import clsx from "clsx";
 
 const MyTarget = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <p className={classes.title} contentEditable={true} suppressContentEditableWarning={true}>MỤC TIÊU NGHỀ NGHIỆP</p>
-      <p contentEditable={true} suppressContentEditableWarning={true} className={classes.desc}>
+    <div className={clsx("target", classes.root)}>
+      <p
+        className={clsx(classes.title)}
+        contentEditable={true}
+        suppressContentEditableWarning={true}
+      >
+        MỤC TIÊU NGHỀ NGHIỆP
+      </p>
+      <p
+        contentEditable={true}
+        suppressContentEditableWarning={true}
+        className={classes.desc}
+      >
         Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị
         trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều
         giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và
@@ -31,7 +42,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     textTransform: "uppercase",
   },
   desc: {
-    marginTop:24,
+    marginTop: 24,
     fontSize: 12,
     fontWeight: 400,
     margin: 0,

@@ -55,3 +55,4 @@ export const GET_ORDER_INCOME = "/api/order/income";
 
 export const APPLY_JOB = "/api/application/add";
 export const GET_APPLICATION_LIST = "/api/application/get";
+export const GET_APPLICATION_CONVERT = "/api/application/convert-pdf";

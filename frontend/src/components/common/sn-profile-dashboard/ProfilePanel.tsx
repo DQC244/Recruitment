@@ -1,5 +1,6 @@
 import { Alert, Button, Snackbar, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { AppConstant } from "const";
 import { useAuthContext } from "context";
 import { useHandleUploadFile } from "hooks";
 import { AccountClass } from "models";
@@ -50,6 +51,7 @@ const ProfilePanel = () => {
         image: (newImage as string) || account.image,
         phone: account.phone,
         email: account.email,
+        permission: account.permission,
       });
 
       setError(message);
@@ -93,6 +95,40 @@ const ProfilePanel = () => {
             value={account.phone || ""}
             onChange={handleChangeInfo("phone")}
           />
+          {account.permission !== 0 && (
+            <Stack direction="row" spacing={2}>
+              <Button
+                variant={
+                  AppConstant.USER_TYPE.candidate === account.permission
+                    ? "contained"
+                    : "outlined"
+                }
+                onClick={() =>
+                  setAccount({
+                    ...account,
+                    permission: AppConstant.USER_TYPE.candidate,
+                  })
+                }
+              >
+                <AppTypography>Candidate</AppTypography>
+              </Button>
+              <Button
+                variant={
+                  AppConstant.USER_TYPE.employer === account.permission
+                    ? "contained"
+                    : "outlined"
+                }
+                onClick={() =>
+                  setAccount({
+                    ...account,
+                    permission: AppConstant.USER_TYPE.employer,
+                  })
+                }
+              >
+                <AppTypography>Employer</AppTypography>
+              </Button>
+            </Stack>
+          )}
         </Stack>
       </Stack>
       <Button
@@ -105,6 +141,7 @@ const ProfilePanel = () => {
       <AppTypography onClick={() => setIsOpen(true)} className={classes.change}>
         Change Password
       </AppTypography>
+
       <ModalChangePassWord open={isOpen} onClose={() => setIsOpen(false)} />
       <Snackbar
         open={isOpenMsg}

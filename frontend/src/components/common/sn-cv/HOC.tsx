@@ -12,7 +12,6 @@ import React, {
 import clsx from "clsx";
 
 const HOC = ({ children }: HOCProps) => {
-  const indexRef = useRef<number>(1);
   const [rows, setRows] = useState<any[]>([]);
 
   const handlePlus = () => {
@@ -21,7 +20,6 @@ const HOC = ({ children }: HOCProps) => {
 
       const total = pre.map((e) => Number(e.key));
       const numberArr = checkMissingNumber(total);
-      console.log(numberArr);
 
       newRows.push(
         <Row

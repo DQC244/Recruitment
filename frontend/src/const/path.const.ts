@@ -20,6 +20,7 @@ export const APPLICATION_LIST = "/dashboard/application";
 export const APPLICATION_LIST_DETAIL = "/dashboard/application/[jobId]";
 
 export const SUCCESS = "/success";
+export const SUCCESS_COMPANY = "/success-company";
 export const ADMIN = "/admin";
 export const ADMIN_COMPANY_DASHBOARD = "/admin/company";
 export const ADMIN_PROFILE_DASHBOARD = "/admin/profile";

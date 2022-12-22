@@ -163,7 +163,7 @@ const EmployerForm = ({ userType }: EmployerFormProps) => {
           severity={error ? "error" : "success"}
           sx={{ width: "100%" }}
         >
-          {error || "success!"}
+          {error || "You have successfully registered, login now!"}
         </Alert>
       </Snackbar>
     </>
