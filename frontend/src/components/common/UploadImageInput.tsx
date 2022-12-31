@@ -37,6 +37,11 @@ const UploadImageInput = ({
 
   useEffect(() => {
     if (value) {
+      if(value instanceof File){
+        const localImageUrl = URL.createObjectURL(value);
+        setLocalImageUrl(localImageUrl);
+        return
+      }
       setLocalImageUrl(value);
     }
   }, [value]);
@@ -88,7 +93,7 @@ const MAXIMUM_SIZE = 100000000;
 
 type UploadImageInputProps = BoxProps & {
   label?: string;
-  value?: string;
+  value?: any;
   inputLabelProps?: object;
   wrapperClassName?: string;
   iconClassName?: string;

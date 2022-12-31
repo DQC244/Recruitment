@@ -32,10 +32,11 @@ const Home: NextPage = () => {
         <CategoryList />
       </Container>
 
-      <GetStarted />
-
       <Container>
         <FeaturedEmployers />
+      </Container>
+        <GetStarted />
+      <Container>
         <LatestJobList />
       </Container>
     </>

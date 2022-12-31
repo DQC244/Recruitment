@@ -121,7 +121,10 @@ const CompanyActionPanel = ({
       setLocation(data?.location);
       setTeamSize(data?.teamSize);
       setDescription(data?.description);
-      setLogo(data?.logo);
+      if(data?.logo){
+
+        setLogo(data?.logo);
+      }
       setWeb({
         web: data?.website?.web,
         facebook: data?.website?.facebook,
@@ -254,7 +257,7 @@ const CompanyActionPanel = ({
         </Stack>
         <Stack spacing={3}>
           <UploadImageInput
-            value={logo?.toString()}
+            value={logo}
             onChangeImage={handleChangeLogo}
             label="Logo"
             inputLabelProps={{

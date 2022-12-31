@@ -41,7 +41,7 @@ const EditCategoryModal = ({
               label="Thumbnail"
               onChangeImage={handleChangeImage}
               inputLabelProps={{ required: true }}
-              value={category?.image?.toString()}
+              value={category?.image}
             />
             <Button
               disabled={!category?.name || !category?.image}
