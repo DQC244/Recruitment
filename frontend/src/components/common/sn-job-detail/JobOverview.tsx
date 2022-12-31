@@ -7,7 +7,7 @@ import {
   QualificationIcon,
   TimeCloseIcon,
 } from "components/icons";
-import { PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
 import { useAuthContext } from "context";
 import dayjs from "dayjs";
 import { JobClass } from "models";
@@ -20,9 +20,17 @@ import OverviewItem from "./OverviewItem";
 
 const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
   const classes = useStyles();
-  const { hasAccount } = useAuthContext();
+  const { hasAccount, accountInfo, setIsOpen } = useAuthContext();
 
   const [isOpenApplyModal, setIsOpenApplyModal] = useState(false);
+
+  const handleCheckApply = () => {
+    if (hasAccount) {
+      setIsOpenApplyModal(true);
+    } else {
+      setIsOpen(true);
+    }
+  };
 
   return (
     <Box>
@@ -30,7 +38,7 @@ const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
       <Stack className={classes.container} spacing={3}>
         <OverviewItem
           label="Expiration Date"
-          description={dayjs(jobInfo?.closeDate).format("DD/MM/YYYY")}
+          description={jobInfo?.closeDate}
           icon={<TimeCloseIcon />}
         />
         <OverviewItem
@@ -55,25 +63,31 @@ const JobOverview = ({ jobInfo, isPreview }: JobOverviewProps) => {
           }`}
           icon={<MoneyIcon />}
         />
-        {!isPreview && (
-          <Stack spacing={1}>
-            <Button
-              onClick={() => setIsOpenApplyModal(true)}
-              variant="contained"
-              className={classes.applyButton}
-            >
-              <AppTypography>Apply for job</AppTypography>
-            </Button>
-            {hasAccount && (
-              <>
-                <AppTypography textAlign="center">OR</AppTypography>
-                <Button variant="contained" href={PathConstant.CREATE_CV}>
-                  Create CV
-                </Button>
-              </>
-            )}
-          </Stack>
-        )}
+        {!isPreview &&
+          Boolean(
+            ![
+              AppConstant.USER_TYPE.employer,
+              AppConstant.USER_TYPE.admin,
+            ].includes(accountInfo.permission)
+          ) && (
+            <Stack spacing={1}>
+              <Button
+                onClick={handleCheckApply}
+                variant="contained"
+                className={classes.applyButton}
+              >
+                <AppTypography>Apply for job</AppTypography>
+              </Button>
+              {hasAccount && (
+                <>
+                  <AppTypography textAlign="center">OR</AppTypography>
+                  <Button variant="contained" href={PathConstant.CREATE_CV}>
+                    Create CV
+                  </Button>
+                </>
+              )}
+            </Stack>
+          )}
       </Stack>
       <ApplyJobModal
         jobId={jobInfo?._id}

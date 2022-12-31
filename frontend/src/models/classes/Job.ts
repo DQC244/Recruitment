@@ -12,7 +12,7 @@ class Job {
   experience: number;
   tag: string;
   image: string;
-  status?: AppConstant.STATUS;
+  status?: number;
   salary: {
     min: number;
     max: number;

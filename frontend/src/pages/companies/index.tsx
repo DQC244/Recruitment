@@ -72,6 +72,18 @@ const Companies: NextPage = () => {
     );
   }, [queryParams]);
 
+  useEffect(() => {
+    if (!queryParams) return;
+
+    dispatch(
+      CompanyActions.getCompanyList({
+        page: AppConstant.DEFAULT_PAGINATION.page,
+        size: AppConstant.DEFAULT_PAGINATION.size,
+        status: AppConstant.STATUS.published,
+      })
+    );
+  }, []);
+
   return (
     <Container className={classes.root}>
       <Stack width="100%">

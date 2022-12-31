@@ -16,9 +16,9 @@ const Account = ({ className, ...otherProps }: IconButtonProps) => {
 
   // TODO:update when data
 
-  const { hasAccount, accountInfo, handleLogout } = useAuthContext();
+  const { hasAccount, accountInfo, handleLogout, isOpen, setIsOpen } =
+    useAuthContext();
 
-  const [isOpen, setIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleClickItem = (item: any) => {
@@ -73,26 +73,25 @@ const Account = ({ className, ...otherProps }: IconButtonProps) => {
           </AppTypography>
         )}
       </Box>
-      {hasAccount ? (
-        <CommonMenu
-          onClickItem={handleClickItem}
-          placement="bottom"
-          anchorEl={anchorEl}
-          modifiers={[
-            {
-              name: "offset",
-              options: {
-                offset: [0, 2],
-              },
+
+      <CommonMenu
+        onClickItem={handleClickItem}
+        placement="bottom"
+        anchorEl={anchorEl}
+        modifiers={[
+          {
+            name: "offset",
+            options: {
+              offset: [0, 2],
             },
-          ]}
-          open={Boolean(anchorEl)}
-          onClick={handleClose}
-          data={listMenu}
-        />
-      ) : (
-        <LoginModal open={isOpen} onClose={() => setIsOpen(false)} />
-      )}
+          },
+        ]}
+        open={Boolean(anchorEl)}
+        onClick={handleClose}
+        data={listMenu}
+      />
+
+      <LoginModal open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 };

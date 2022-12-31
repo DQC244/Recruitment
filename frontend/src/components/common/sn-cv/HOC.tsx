@@ -248,7 +248,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
 const checkMissingNumber = (array: any[]) => {
   const max = Math.max(...array); // Will find highest number
   const min = 0;
-  const missing = [];
+  const missing:any[] = [];
 
   for (let i = min; i <= max; i++) {
     if (!array.includes(i)) {

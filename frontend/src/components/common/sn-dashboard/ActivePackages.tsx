@@ -20,6 +20,8 @@ const ActivePackages = ({ data }: ActivePackagesProps) => {
     const result = await handleCheckExpirePackage();
     if (!result && accountInfo.package) {
       setIsPackage(PACKAGE_STATUS.expire);
+    } else if (!accountInfo.package) {
+      setIsPackage(PACKAGE_STATUS.no);
     } else {
       setIsPackage(PACKAGE_STATUS.has);
     }
@@ -41,7 +43,7 @@ const ActivePackages = ({ data }: ActivePackagesProps) => {
           <AppTypography>
             {isPackage === PACKAGE_STATUS.expire
               ? "Your package has expired"
-              : "No packages have been bought or all packages have been used."}
+              : "No packages have been bought"}
           </AppTypography>
         )}
       </Box>

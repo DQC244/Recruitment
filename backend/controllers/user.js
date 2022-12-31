@@ -4,8 +4,9 @@ import bcrypt from "bcrypt";
 import { PAGINATION_SETTING, ROLE } from "../constants";
 
 export const updateUser = async (req, res, next) => {
-  if (req.params.id === req.user.id) {
-    try {
+  try {
+    const userData =await User.findById(req.user.id);
+    if (req.params.id === req.user.id || userData.permission === ROLE.admin) {
       const { password, ...others } = req.body;
 
       await User.findByIdAndUpdate(
@@ -17,11 +18,11 @@ export const updateUser = async (req, res, next) => {
       );
 
       res.status(200).json("Success!");
-    } catch (error) {
-      next(error);
+    } else {
+      return next(createError(403, "you can update only your account"));
     }
-  } else {
-    return next(createError(403, "you can update only your account"));
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -64,6 +65,8 @@ export const getUserList = async (req, res, next) => {
         company: 1,
         image: 1,
         package: 1,
+        status: 1,
+        isVerified: 1,
       }
     )
       .skip(skipItem)

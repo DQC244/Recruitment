@@ -10,7 +10,6 @@ import EmployerForm from "./EmployerForm";
 
 const RegisterForm = ({ className, ...otherProps }: StackProps) => {
   const classes = useStyles();
-  const [userType, setUserType] = useState(AppConstant.USER_TYPE.candidate);
 
   return (
     <Stack
@@ -18,33 +17,7 @@ const RegisterForm = ({ className, ...otherProps }: StackProps) => {
       spacing={5}
       {...otherProps}
     >
-      <Stack direction="row" spacing={2}>
-        <Button
-          className={classes.button}
-          variant={
-            AppConstant.USER_TYPE.candidate === userType
-              ? "contained"
-              : "outlined"
-          }
-          onClick={() => setUserType(AppConstant.USER_TYPE.candidate)}
-        >
-          <AppTypography>Candidate</AppTypography>
-          <AppTypography>Register as a Candidate</AppTypography>
-        </Button>
-        <Button
-          className={classes.button}
-          variant={
-            AppConstant.USER_TYPE.employer === userType
-              ? "contained"
-              : "outlined"
-          }
-          onClick={() => setUserType(AppConstant.USER_TYPE.employer)}
-        >
-          <AppTypography>Employer</AppTypography>
-          <AppTypography>Register as an Employer</AppTypography>
-        </Button>
-      </Stack>
-      <EmployerForm userType={userType} />
+      <EmployerForm />
     </Stack>
   );
 };

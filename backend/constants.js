@@ -48,3 +48,14 @@ export const ROLE = {
 };
 
 export const DAY_BY_TIMESTAMP = 86400;
+export const HOUR_BY_TIMESTAMP = 3600;
+
+export const USER_STATUS={
+  active:0,
+  block:1
+}
+
+export const JOB_STATUS={
+  hidden:0,
+  show:1
+}

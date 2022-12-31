@@ -15,7 +15,12 @@ import {
   getCompanyList,
   getPackageList,
 } from "./company.saga";
-import { getApplication, getJobDetail, getJobList, getMyJobList } from "./job.saga";
+import {
+  getApplication,
+  getJobDetail,
+  getJobList,
+  getMyJobList,
+} from "./job.saga";
 
 /* ------------- Connect Types To Sagas ------------- */
 function* rootSaga() {

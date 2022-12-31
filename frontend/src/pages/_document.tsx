@@ -3,7 +3,6 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import theme, { createEmotionCache } from "public/material";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export default class MyDocument extends Document {
   render() {
     return (

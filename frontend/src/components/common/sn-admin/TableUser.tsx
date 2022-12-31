@@ -1,7 +1,9 @@
 import {
   Alert,
+  Avatar,
   Box,
   Button,
+  IconButton,
   Paper,
   Snackbar,
   Table,
@@ -12,12 +14,14 @@ import {
   TableRow,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { BlockIcon, UnLockIcon } from "components/icons";
 import { ApiConstant, AppConstant } from "const";
 import { ThemeProps } from "models/types";
 import React, { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { AdminSelector } from "redux-store";
-import { AdminService, AppService } from "services";
+import { AccountService, AdminService, AppService } from "services";
+import AppTooltip from "../AppTooltip";
 import { ConfirmModal } from "../modal";
 
 const TableUser = ({ onGetUserList }: TableProps) => {
@@ -28,10 +32,14 @@ const TableUser = ({ onGetUserList }: TableProps) => {
   const [selected, setSelected] = useState("");
   const [isOpenMsg, setIsOpenMsg] = useState(false);
   const [error, setError] = useState("");
+  const [action, setAction] = useState<number>();
 
   const deleteUserService = async (id: string) => {
     try {
-      const res: any = await AdminService.deleteUser(id);
+      const res: any = await AccountService.handleUpdateUser({
+        id,
+        status: action,
+      });
       if (res.status === ApiConstant.STT_OK) {
         setError("");
       } else {
@@ -44,7 +52,9 @@ const TableUser = ({ onGetUserList }: TableProps) => {
     }
   };
 
-  const handleOpenModal = (selector: string) => {
+  const handleOpenModal = (selector: string, action: number) => {
+    setAction(action);
+
     setSelected(selector);
     setIsOpenActionModal(true);
   };
@@ -67,8 +77,7 @@ const TableUser = ({ onGetUserList }: TableProps) => {
               <TableCell align="center">Avatar</TableCell>
               <TableCell align="center">Phone</TableCell>
               <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Company</TableCell>
-              <TableCell align="center">Package</TableCell>
+              <TableCell align="center">Status</TableCell>
               <TableCell align="center">User Type</TableCell>
               <TableCell align="center" width={300}>
                 Actions
@@ -91,13 +100,7 @@ const TableUser = ({ onGetUserList }: TableProps) => {
                   {user?.name}
                 </TableCell>
                 <TableCell align="center">
-                  {user?.image && (
-                    <Box
-                      component="img"
-                      src={user.image}
-                      className={classes.image}
-                    />
-                  )}
+                  <Avatar src={user?.image} />
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {user?.phone || "--"}
@@ -105,18 +108,50 @@ const TableUser = ({ onGetUserList }: TableProps) => {
                 <TableCell component="th" scope="row">
                   {user?.email || "--"}
                 </TableCell>
-                <TableCell align="center">{user?.company || "--"}</TableCell>
-                <TableCell align="center">{user?.package || "--"}</TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    color:
+                      user?.status === AppConstant.USER_STATUS.active
+                        ? "#2ecc71"
+                        : "#d32f2f",
+                  }}
+                >
+                  {user?.status === ACTION.block ? "Blocked" : "Active"}
+                </TableCell>
                 <TableCell component="th" scope="row" align="center">
                   {getLabelUser(user?.permission)}
                 </TableCell>
                 <TableCell align="center">
-                  <Button
-                    className={classes.buttonReject}
-                    onClick={() => handleOpenModal(user._id)}
+                  <AppTooltip
+                    title={
+                      user?.status === AppConstant.USER_STATUS.active
+                        ? "Block User"
+                        : "Unlock User"
+                    }
                   >
-                    Delete
-                  </Button>
+                    <IconButton
+                      className={
+                        user?.status === AppConstant.USER_STATUS.active
+                          ? classes.buttonReject
+                          : classes.buttonUnlock
+                      }
+                      onClick={() =>
+                        handleOpenModal(
+                          user._id,
+                          user?.status === AppConstant.USER_STATUS.active
+                            ? ACTION.block
+                            : ACTION.unlock
+                        )
+                      }
+                    >
+                      {user?.status === AppConstant.USER_STATUS.active ? (
+                        <BlockIcon />
+                      ) : (
+                        <UnLockIcon />
+                      )}
+                    </IconButton>
+                  </AppTooltip>
                 </TableCell>
               </TableRow>
             ))}
@@ -132,10 +167,13 @@ const TableUser = ({ onGetUserList }: TableProps) => {
         onCancel={() => setIsOpenActionModal(false)}
         onConfirm={handleDeleteUser}
         modalContentProps={{
-          content: "Are you sure you want to Delete this User?",
+          content:
+            action === AppConstant.USER_STATUS.active
+              ? "Are you sure you want to Unlock this User?"
+              : "Are you sure you want to Block this User?",
         }}
         modalTitleProps={{
-          title: "Delete",
+          title: action === AppConstant.USER_STATUS.active ? "Unlock" : "Block",
         }}
       />
       <Snackbar
@@ -188,13 +226,23 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     },
   },
   buttonReject: {
-    ...theme.typography?.body2,
+    fontSize: 26,
     width: 50,
     marginLeft: 8,
     backgroundColor: theme.palette.error.main,
     color: theme.palette.common.white,
     "&:hover": {
       backgroundColor: theme.palette.error.dark,
+    },
+  },
+  buttonUnlock: {
+    fontSize: 26,
+    width: 50,
+    marginLeft: 8,
+    backgroundColor: theme.palette.success.main,
+    color: theme.palette.common.white,
+    "&:hover": {
+      backgroundColor: theme.palette.success.dark,
     },
   },
   image: {
@@ -204,3 +252,8 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
     border: `1px solid ${theme.palette.grey[500]}`,
   },
 }));
+
+const ACTION = {
+  block: 1,
+  unlock: 0,
+};

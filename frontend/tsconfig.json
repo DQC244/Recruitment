@@ -24,10 +24,10 @@
     "jsx": "preserve", // Support JSX in .tsx files
     "sourceMap": true, // Generate corresponding .map file
     "declaration": true, // Generate corresponding .d.ts file
-    "noUnusedLocals": true, // Report errors on unused locals
-    "noUnusedParameters": true, // Report errors on unused parameters
+    "noUnusedLocals": false, // Report errors on unused locals
+    "noUnusedParameters": false, // Report errors on unused parameters
     "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
-    "noImplicitAny": true, // Material suggestion
+    "noImplicitAny": false, // Material suggestion
     "noImplicitThis": true,
     "strictNullChecks": true,
     "baseUrl": "./src",

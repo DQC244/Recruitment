@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { PAGINATION_SETTING, ROLE, STATUS } from "../constants";
+import { JOB_STATUS, PAGINATION_SETTING, ROLE, STATUS } from "../constants";
 import { createError } from "../error";
 import Application from "../models/Application";
 import Company from "../models/Company";
@@ -11,11 +11,11 @@ export const addJob = async (req, res, next) => {
     try {
       const company = await Company.findById(user.company);
       if (company.status !== STATUS.published) {
-        return res(createError(400, "Your company has not been approved"));
+        return next(createError(400, "Your company has not been approved"));
       }
 
       if (user.permission === ROLE.candidate) {
-        return res(
+        return next(
           createError(400, "You must be an employer to take this action")
         );
       }
@@ -60,7 +60,7 @@ export const getJobList = async (req, res, next) => {
     type: params.type,
     experience: params.experience,
     companyId: params.companyId,
-    status: STATUS.published,
+    status: JOB_STATUS.show,
   };
 
   if (!isNaN(params.salary)) {
@@ -142,7 +142,6 @@ export const getMyJob = async (req, res, next) => {
       })
     );
 
-   
     const jobResult = {
       pagination: {
         page: 1,
@@ -169,6 +168,21 @@ export const handleDeleteJob = async (req, res, next) => {
     await Job.findByIdAndDelete(req.params.id);
 
     res.status(200).json("Job has been deleted.");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const handleUpdateJob = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const jobUpdate = await Job.findById(req.params.id);
+    if (user.company !== jobUpdate.companyId) {
+      return next(createError(500, "you can update only your Job"));
+    }
+    await Job.findByIdAndUpdate(req.params.id, { status: req.body.status });
+
+    res.status(200).json("Job has been updated.");
   } catch (error) {
     next(error);
   }

@@ -17,7 +17,7 @@ const CategoryList = () => {
         Popular Categories
       </AppTypography>
       <Grid container rowSpacing={4}>
-        {categories.map((item, index) => (
+        {categories.slice(0,3).map((item, index) => (
           <CategoryCard xs={4} key={index} data={item} />
         ))}
       </Grid>

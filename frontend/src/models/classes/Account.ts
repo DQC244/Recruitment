@@ -9,6 +9,8 @@ class Account {
   company?: string;
   image?: string;
   package?: string;
+  status?: number;
+  isVerified?: boolean;
 
   constructor(data: Account) {
     this._id = data._id;
@@ -19,6 +21,8 @@ class Account {
     this.company = data.company;
     this.image = data.image;
     this.package = data.package;
+    this.status = data.status;
+    this.isVerified = data.isVerified;
   }
 }
 

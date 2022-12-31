@@ -19,7 +19,7 @@ router.put("/update/:id", verifyToken, updateUser);
 router.put("/change-password", verifyToken, changePassword);
 
 // delete user
-router.delete("/delete/:id", verifyTokenAdmin, deleteUser);
+// router.delete("/delete/:id", verifyTokenAdmin, deleteUser);
 
 // get user
 router.get("/find/:id", getUser);
@@ -38,5 +38,7 @@ router.post("/verify-admin", verifyTokenAdmin, (req, res, next) => {
     next(error);
   }
 });
+
+
 
 export default router;

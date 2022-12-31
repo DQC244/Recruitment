@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, useMemo } from "react";
+import React, { forwardRef, useMemo } from "react";
 import Link, { LinkProps } from "next/link";
 import { Link as MuiLink, LinkProps as MuiLinkProps } from "@mui/material";
 

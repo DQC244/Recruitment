@@ -68,8 +68,8 @@ const failure = (state = INITIAL_STATE, action: object) =>
 
 const reset = () => resetReducerFunc(INITIAL_STATE);
 
-const setQueryParams = (state = INITIAL_STATE, action: KeyAbleProps) => {
-  const data = action.data || {};
+const setQueryParams = (state = INITIAL_STATE, action: any) => {
+  const data = action?.data || {};
   return { ...state, queryParams: { ...state.queryParams, ...data } };
 };
 

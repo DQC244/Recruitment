@@ -54,6 +54,17 @@ export const getStatusLabel = (id?: STATUS) => {
   }
 };
 
+export const getStatusLabelJob = (id?: number) => {
+  switch (id) {
+    case AppConstant.JOB_STATUS.hidden:
+      return "hidden";
+    case AppConstant.JOB_STATUS.show:
+      return "showing";
+    default:
+      return "";
+  }
+};
+
 export const getColorStatus = (id?: STATUS) => {
   switch (id) {
     case AppConstant.STATUS.expired:

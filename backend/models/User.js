@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { USER_STATUS } from "../constants";
 
 const User = new mongoose.Schema(
   {
@@ -9,7 +10,9 @@ const User = new mongoose.Schema(
     permission: { type: Number, default: 1 },
     company: String,
     image: String,
+    status: { type: Number, default: USER_STATUS.active },
     package: { type: String },
+    isVerified: { type: Boolean, default: false },
   },
   {
     timestamps: true,

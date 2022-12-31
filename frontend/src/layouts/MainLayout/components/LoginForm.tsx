@@ -68,7 +68,6 @@ const LoginForm = ({ onClose }: LoginFormProps) => {
         <AppLink onClick={onClose} href={PathConstant.REGISTER}>
           Don't have an account?
         </AppLink>
-        <AppLink href="#">Forgot Password?</AppLink>
       </Stack>
     </Stack>
   );

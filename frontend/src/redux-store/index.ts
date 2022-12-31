@@ -39,7 +39,6 @@ const appReducer = combineReducers({
   adminRedux: AdminReducer,
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const rootReducer = (state: any, action: any) => {
   return appReducer(state, action);
 };

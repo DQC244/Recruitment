@@ -8,14 +8,24 @@ import { AppLink } from "components/common";
 import { useTranslation } from "react-i18next";
 import Account from "./Account";
 import { PlusIcon } from "components/icons";
-import { PathConstant } from "const";
+import { AppConstant, PathConstant } from "const";
 import { useAuthContext } from "context";
+import { useRouter } from "next/router";
 
 const MLHeader = () => {
   const classes = useStyles();
   const { t: getLabel } = useTranslation();
+  const router = useRouter();
 
-  const { hasAccount } = useAuthContext();
+  const { hasAccount, accountInfo, setIsOpen } = useAuthContext();
+
+  const handleCreateCV = () => {
+    if (hasAccount) {
+      router.push(PathConstant.CREATE_CV);
+    } else {
+      setIsOpen(true);
+    }
+  };
 
   return (
     <AppBar className={classes.appBar}>
@@ -33,13 +43,21 @@ const MLHeader = () => {
         <HeaderTabs />
         <Box display="flex">
           <Account className={classes.account} />
-          {hasAccount && (
+          {accountInfo.permission === AppConstant.USER_TYPE.employer && (
             <Button
               href={PathConstant.CREATE_JOBS}
               endIcon={<PlusIcon />}
               variant="contained"
             >
               {getLabel("lPostJob")}
+            </Button>
+          )}
+          {![
+            AppConstant.USER_TYPE.admin,
+            AppConstant.USER_TYPE.employer,
+          ].includes(accountInfo.permission) && (
+            <Button variant="contained" onClick={handleCreateCV}>
+              Create your CV
             </Button>
           )}
         </Box>

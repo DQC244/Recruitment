@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { AppConstant, ImageConstant, PathConstant } from "const";
 import AppTypography from "../AppTypography";
 import { makeStyles } from "@mui/styles";
@@ -54,7 +54,7 @@ export default FeaturedEmployers;
 const SETTINGS = {
   infinite: true,
   arrows: true,
-  slidesToShow: 5,
+  slidesToShow: 4,
   autoplay: true,
   autoplaySpeed: 2000,
 };

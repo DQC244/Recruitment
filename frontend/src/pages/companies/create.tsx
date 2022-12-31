@@ -20,7 +20,7 @@ const Create: NextPage = () => {
         setError("");
         setTimeout(() => {
           router.push(`${PathConstant.SUCCESS_COMPANY}`);
-        }, 3000);
+        }, 500);
       } else {
         setError(res.data.message);
       }

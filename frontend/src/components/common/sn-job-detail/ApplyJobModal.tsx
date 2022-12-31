@@ -1,6 +1,7 @@
 import { Alert, Button, Snackbar, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ApiConstant } from "const";
+import { useAuthContext } from "context";
 import useUploadCv from "hooks/useUploadCv";
 import { CommonModalProps, ThemeProps } from "models/types";
 import React, { ChangeEvent, useState } from "react";
@@ -12,6 +13,7 @@ import { CommonModal } from "../modal";
 const ApplyJobModal = ({ jobId, onClose, ...otherProps }: ApplyModalProps) => {
   const classes = useStyles();
   const handleUploadCv = useUploadCv();
+  const { accountInfo } = useAuthContext();
 
   const [data, setData] = useState({
     name: "",
@@ -23,7 +25,7 @@ const ApplyJobModal = ({ jobId, onClose, ...otherProps }: ApplyModalProps) => {
   const [isOpenMsg, setIsOpenMsg] = useState(false);
   const [error, setError] = useState("");
 
-  const isDisableButton = !data.email || !data.name || !data.message || !cvUrl;
+  const isDisableButton = !data.message || !cvUrl;
 
   const handleApplyService = async (data: any) => {
     try {
@@ -54,7 +56,9 @@ const ApplyJobModal = ({ jobId, onClose, ...otherProps }: ApplyModalProps) => {
       url = await handleUploadCv(cvUrl);
       const payload = {
         ...data,
+        name: accountInfo?.name,
         jobId,
+        email: accountInfo?.email,
         cvUrl: url,
       };
 
@@ -76,20 +80,6 @@ const ApplyJobModal = ({ jobId, onClose, ...otherProps }: ApplyModalProps) => {
         modalContentProps={{
           content: (
             <Stack spacing={3} mt={4}>
-              <AppInput
-                label="Full Name"
-                value={data?.name}
-                onChange={(e) =>
-                  setData({ ...data, name: e.currentTarget.value })
-                }
-              />
-              <AppInput
-                label="Email Address"
-                value={data?.email}
-                onChange={(e) =>
-                  setData({ ...data, email: e.currentTarget.value })
-                }
-              />
               <AppInput
                 label="Message"
                 value={data?.message}
@@ -134,7 +124,7 @@ const ApplyJobModal = ({ jobId, onClose, ...otherProps }: ApplyModalProps) => {
           severity={error ? "error" : "success"}
           sx={{ width: "100%" }}
         >
-          {error || "success!"}
+          {error || "You have successfully applied!"}
         </Alert>
       </Snackbar>
     </>

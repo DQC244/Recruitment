@@ -24,6 +24,9 @@ import CategoryIcon from "./CategoryIcon";
 import RadioIcon from "./RadioIcon";
 import ImageIcon from "./ImageIcon";
 import TelegramIcon from "./TelegramIcon";
+import BlockIcon from "./BlockIcon";
+import UnLockIcon from "./UnLockIcon";
+import DeleteIcon from "./DeleteIcon";
 
 export {
   UserIcon,
@@ -52,4 +55,7 @@ export {
   RadioIcon,
   ImageIcon,
   TelegramIcon,
+  BlockIcon,
+  UnLockIcon,
+  DeleteIcon,
 };

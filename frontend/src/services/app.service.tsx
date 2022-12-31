@@ -102,6 +102,9 @@ export const getMyJobList = () =>
 export const deleteJob = (id: string) =>
   createApi().delete(stringFormat(ApiConstant.DELETE_MY_JOB, { id }));
 
+export const updateJob = (id: string, status?: number) =>
+  createApi().put(stringFormat(ApiConstant.UPDATE_JOB, { id }), { status });
+
 // package
 export const getPackageList = () =>
   createApi().get(ApiConstant.GET_PACKAGE_LIST);

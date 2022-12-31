@@ -58,7 +58,7 @@ const CreateCv: NextPage = () => {
 
   const handleFormatData = () => {
     const element = CommonUtils.getElementByClass("education");
-    let Education: any[] = [];
+    const Education: any[] = [];
     Array.prototype.slice.call(element).map((item) => {
       const text = item.innerText.split(regex);
       const textItem = text.slice(1);

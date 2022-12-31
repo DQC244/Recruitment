@@ -19,7 +19,7 @@ const textSizeMedium = typography.body1;
 export default {
   styleOverrides: {
     root: {
-      textTransform: "unset",
+      textTransform: "none" as const,
       color: palette.common.black,
       ...mediumStyle,
       ...textSizeMedium,

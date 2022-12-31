@@ -60,6 +60,9 @@ const Create: NextPage = () => {
       const res: any = await AppService.createJob(data);
       if (res.status === ApiConstant.STT_OK) {
         setError("");
+        setTimeout(()=>{
+          router.replace(PathConstant.SUCCESS);
+        },200)
       } else {
         setError(res.data.message);
       }
@@ -99,7 +102,7 @@ const Create: NextPage = () => {
     if (step === STEP_LIST.length - 1) {
       if (accountInfo.package && verify) {
         handleCreateJobService(jobInfo);
-        router.replace(PathConstant.SUCCESS);
+       
       }
 
       return;

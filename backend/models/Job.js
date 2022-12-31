@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { STATUS } from "../constants";
+import { JOB_STATUS, STATUS } from "../constants";
 
 const Job = new mongoose.Schema(
   {
@@ -17,7 +17,7 @@ const Job = new mongoose.Schema(
       min: { type: Number, required: true },
       max: { type: Number, required: true },
     },
-    status: { type: Number, default: STATUS.published, require: true },
+    status: { type: Number, default: JOB_STATUS.show, require: true },
   },
   { timestamps: true }
 );

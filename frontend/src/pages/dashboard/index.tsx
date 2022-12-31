@@ -18,9 +18,7 @@ const Dashboard: NextPage = () => {
   const router = useRouter();
 
   const packageList = useSelector(CompanySelector.getPackageList, shallowEqual);
-  const { accountInfo } = useAuthContext();
-
-  console.log(accountInfo);
+  const { accountInfo, getSelf } = useAuthContext();
 
   const userPackage = useMemo(() => {
     let packageDetail;
@@ -33,6 +31,7 @@ const Dashboard: NextPage = () => {
   }, [packageList]);
 
   useEffect(() => {
+    getSelf();
     dispatch(CompanyActions.getPackageList());
   }, []);
 

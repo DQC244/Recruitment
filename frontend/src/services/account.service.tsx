@@ -24,6 +24,7 @@ export type UpdateUSerProps = {
   phone?: string;
   image?: string;
   permission?: any;
+  status?: number;
 };
 
 export const getSelfAccount = () => createApi().post(ApiConstant.GET_PROFILE);
@@ -45,3 +46,9 @@ export const handleUpdateUser = (data: UpdateUSerProps) =>
 
 export const verifyAdmin = () =>
   createApi().post(ApiConstant.POST_VERIFY_ADMIN);
+
+export const verifyCode = (email: any, code: string) =>
+  createApi().post(ApiConstant.VERIFY_CODE, {
+    email,
+    code,
+  });

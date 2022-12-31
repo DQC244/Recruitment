@@ -11,7 +11,7 @@ export default {
 
   lPostJob: "Post a Job",
   lSignIn: "SIGN IN",
-  lUsernameEmail: "Username or Email",
+  lUsernameEmail: "Email",
   lPassword: "Password",
 
   pYourUserName: "Your Username or Email",

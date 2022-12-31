@@ -6,7 +6,7 @@ export const NOT_AVAILABLE_VALUE = "N/A";
 
 export const DEBOUNCE_TIME_IN_MILLISECOND = 1000;
 
-export const SIZE_PAGINATION_DEFAULT = 2;
+export const SIZE_PAGINATION_DEFAULT = 12;
 export const DEFAULT_PAGINATION = {
   page: 1,
   size: SIZE_PAGINATION_DEFAULT,
@@ -71,4 +71,15 @@ export enum STATUS {
   published,
   expired,
   reject,
+  hidden,
+}
+
+export const USER_STATUS={
+  active:0,
+  block:1
+}
+
+export const JOB_STATUS={
+  hidden:0,
+  show:1
 }

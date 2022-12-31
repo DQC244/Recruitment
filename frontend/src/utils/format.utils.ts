@@ -17,7 +17,7 @@ export const formatNumber = (
   maximumFractionDigits = 3,
   fallbackLabel = AppConstant.NOT_HAVE_VALUE_LABEL,
   localeOption = {},
-  minimumFractionDigits = 0,
+  minimumFractionDigits = 0
 ) => {
   try {
     if (!number && number !== 0) return fallbackLabel;

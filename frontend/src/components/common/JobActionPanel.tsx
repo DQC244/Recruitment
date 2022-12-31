@@ -60,7 +60,7 @@ const JobActionPanel = ({ label, onSubmit, buttonProps }: JobActionPanel) => {
     !title ||
     !description ||
     !image ||
-    !type ||
+    isNaN(type as any) ||
     !location ||
     !closeDate ||
     !salary.min ||
@@ -218,7 +218,7 @@ const JobActionPanel = ({ label, onSubmit, buttonProps }: JobActionPanel) => {
       >
         {label}
       </Button>
-      {salaryError && <AppTypography>Check Salary again pleas</AppTypography>}
+      {salaryError && <AppTypography color="error.main">Check Salary again</AppTypography>}
     </>
   );
 };

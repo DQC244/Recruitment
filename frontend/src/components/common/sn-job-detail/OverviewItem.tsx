@@ -28,7 +28,7 @@ const OverviewItem = ({ icon, description, label }: OverviewProps) => {
 
 type OverviewProps = {
   icon: ReactNode;
-  description?: string;
+  description?: any;
   label: string;
 };
 

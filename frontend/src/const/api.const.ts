@@ -35,7 +35,7 @@ export const GET_COMPANY_LIST = "/api/company/get";
 export const POST_CREATE_JOB = "/api/job/add";
 export const GET_JOB_DETAIL = "/api/job/get/{id}";
 export const GET_JOB_LIST = "/api/job/get";
-export const POST_MY_JOB_LIST = "/api/job/get/self";
+export const POST_MY_JOB_LIST = "/api/job/get-self";
 export const GET_PACKAGE_LIST = "/api/package/get";
 
 export const POST_CHECKOUT = "/api/checkout/payment";
@@ -56,3 +56,6 @@ export const GET_ORDER_INCOME = "/api/order/income";
 export const APPLY_JOB = "/api/application/add";
 export const GET_APPLICATION_LIST = "/api/application/get";
 export const GET_APPLICATION_CONVERT = "/api/application/convert-pdf";
+
+export const VERIFY_CODE = "/api/auth/verify-token";
+export const UPDATE_JOB = "/api/job/update/{id}";

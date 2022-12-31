@@ -17,6 +17,7 @@ import UploadImageInput from "./UploadImageInput";
 import BasicDateTimePicker from "./BasicDateTimePicker";
 import JobActionPanel from "./JobActionPanel";
 import HorizontalLinearStepper from "./HorizontalLinearStepper";
+import AppTooltip from "./AppTooltip";
 
 import {
   CommonModal,
@@ -53,6 +54,7 @@ export {
   BasicDateTimePicker,
   JobActionPanel,
   HorizontalLinearStepper,
+  AppTooltip,
 };
 
 export type { AppHeadProps };

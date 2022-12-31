@@ -80,12 +80,11 @@ export const getCompany = async (req, res, next) => {
   );
 
   let filter;
-  if (params.search) {
-    filter = { $text: { $search: params.search } };
+  if (params.search || params.location) {
+    filter = { $text: { $search: params.search || params.location } };
   } else {
     filter = {
       categoryId: params.categoryId,
-      location: params.location,
       status: params.status,
     };
 

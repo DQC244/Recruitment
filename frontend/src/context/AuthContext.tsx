@@ -20,6 +20,8 @@ export const AuthProvider = ({ children }: ProviderProps) => {
 
   const router = useRouter();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const hasAccount = useMemo(
     () => hasToken && Boolean(Object.values(accountInfo).length),
     [accountInfo, hasToken]
@@ -44,6 +46,7 @@ export const AuthProvider = ({ children }: ProviderProps) => {
         setAccountInfo({
           ...responseData,
         });
+        setIsOpen(false)
       } else {
         if (getError instanceof Function) {
           getError(response.data.message);
@@ -84,7 +87,9 @@ export const AuthProvider = ({ children }: ProviderProps) => {
         handleLogout,
         accountInfo,
         hasAccount,
-        getSelf
+        getSelf,
+        setIsOpen,
+        isOpen,
       }}
     >
       {children}
@@ -102,7 +107,9 @@ type AuthContextProps = {
   handleLogout: () => void;
   accountInfo: AccountClass;
   hasAccount: boolean;
-  getSelf:()=>void
+  getSelf: () => void;
+  setIsOpen: (value: any) => void;
+  isOpen: boolean;
 };
 
 type ProviderProps = {

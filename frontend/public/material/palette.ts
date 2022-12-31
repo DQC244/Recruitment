@@ -1,7 +1,6 @@
 const white = "#FFFFFF";
 const black = "#000000";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TPalette = Record<string, any> & { mode: "light" | "dark" };
 
 const palette: TPalette = {

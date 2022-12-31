@@ -70,7 +70,7 @@ const Package: NextPage = () => {
           <Box className="space-between-root">
             <AppTypography variant="h3">Package List</AppTypography>
             <Button onClick={() => setIsOpenModal(true)} variant="contained">
-              Create
+              Add Package
             </Button>
           </Box>
           <Stack spacing={1}>

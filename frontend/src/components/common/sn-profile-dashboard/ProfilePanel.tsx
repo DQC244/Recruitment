@@ -86,6 +86,11 @@ const ProfilePanel = () => {
           <AppInput
             label="Email"
             fullWidth
+            InputProps={{
+              inputProps:{
+                readOnly:true
+              }
+            }}
             value={account.email || ""}
             onChange={handleChangeInfo("email")}
           />
