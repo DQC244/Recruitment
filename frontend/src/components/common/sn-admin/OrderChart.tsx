@@ -17,6 +17,7 @@ import { Box } from "@mui/material";
 import theme from "public/material";
 import { AdminService } from "services";
 import { ApiConstant } from "const";
+import dayjs from "dayjs";
 
 const OrderChart = () => {
   ChartJS.register(
@@ -84,6 +85,7 @@ const OrderChart = () => {
   useEffect(() => {
     getStatsOrder();
   }, []);
+
 
   return (
     <Box className={classes.root}>

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import mongoose from "mongoose";
 import { PAGINATION_SETTING } from "../constants";
 import Order from "../models/Order";
@@ -55,9 +56,7 @@ export const getOrderList = async (req, res, next) => {
 };
 
 export const getOrderIncome = async (req, res, next) => {
-  const date = new Date();
-  const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
-  const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
+  const previousMonth = dayjs().month(-6).toDate()
 
   try {
     const income = await Order.aggregate([
@@ -78,6 +77,7 @@ export const getOrderIncome = async (req, res, next) => {
       },
       { $sort: { createdAt: 1 } },
     ]);
+
     res.status(200).json(income);
   } catch (err) {
     res.status(500).json(err);

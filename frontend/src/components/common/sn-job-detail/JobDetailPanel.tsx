@@ -32,7 +32,7 @@ const JobDetailPanel = ({
                 </Grid>
               ))}
             </Grid>
-            <AppTypography variant="h4" color="black">
+            <AppTypography variant="h3" color="black">
               Job Description
             </AppTypography>
             <Box

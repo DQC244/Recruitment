@@ -154,10 +154,7 @@ const TableJob = () => {
                     {job?.application}
                   </IconButton>
                 </TableCell>
-                <TableCell
-                  sx={{ color: "info.main" }}
-                  align="center"
-                >
+                <TableCell sx={{ color: "info.main" }} align="center">
                   {getStatusLabelJob(job.status)}
                 </TableCell>
                 <TableCell align="center">
