@@ -12,6 +12,7 @@
 2. npm start : chạy sever backend
 
 -- mở thêm 1 terminal và tiếp tục chạy
+
 3. cd ./frontend : chuyển sang thư mục frontend
 
 4. npm i --legacy-peer-deps  : Cài đặt các thư viện phía frontend
