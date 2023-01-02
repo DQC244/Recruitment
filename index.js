@@ -13,7 +13,7 @@ import OrderRoutes from "./routes/order";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-const port = 8080;
+const port = 8081;
 const app = express();
 dotenv.config();
 
