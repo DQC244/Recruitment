@@ -10,6 +10,7 @@ import {
 import { makeStyles } from "@mui/styles";
 import { AppInput, AppTypography, PasswordInput } from "components/common";
 import { ApiConstant, AppConstant, PathConstant } from "const";
+import { useAuthContext } from "context";
 import { ThemeProps } from "models/types";
 import { useRouter } from "next/router";
 import React, { ChangeEvent, useState } from "react";
@@ -19,6 +20,8 @@ import { useRegisterUser } from "./hooks";
 
 const EmployerForm = (props: EmployerFormProps) => {
   const handleRegisterService = useRegisterUser();
+
+  const { setIsOpen } = useAuthContext();
 
   const classes = useStyles();
 
@@ -58,13 +61,17 @@ const EmployerForm = (props: EmployerFormProps) => {
       if (res.status === ApiConstant.STT_OK) {
         setError("");
         setTimeout(() => {
-          router.replace(PathConstant.ROOT);
-        }, 2000);
+          router.push(PathConstant.ROOT);
+
+          setTimeout(() => {
+            setIsOpen(true);
+          }, 500);
+          
+        }, 1000);
       } else {
         setError(res.data.message);
       }
       setIsOpenMsg(true);
-
     } catch (error) {
       setError("something went wrong");
       setIsOpenMsg(true);
@@ -107,7 +114,6 @@ const EmployerForm = (props: EmployerFormProps) => {
 
     if (isSuccess) {
       setSentMail(true);
-      
     } else {
       setError(message);
       setIsOpenMsg(true);
@@ -124,11 +130,11 @@ const EmployerForm = (props: EmployerFormProps) => {
             to {email}
           </AppTypography>
           <AppInput
-          InputProps={{
-            inputProps:{
-              textAlign:"center"
-            }
-          }}
+            InputProps={{
+              inputProps: {
+                textAlign: "center",
+              },
+            }}
             value={code}
             onChange={(e) => setCode(e.currentTarget.value)}
           />
