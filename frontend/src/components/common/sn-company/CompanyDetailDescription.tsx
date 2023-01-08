@@ -23,7 +23,7 @@ const CompanyDetailDescription = () => {
   return (
     <Stack direction="row" spacing={3} flex={1}>
       <Stack spacing={2} flex={1}>
-        <AppTypography variant="h5">About the Company</AppTypography>
+        <AppTypography variant="h4">About the Company</AppTypography>
         <Box dangerouslySetInnerHTML={{ __html: company?.description }}></Box>
       </Stack>
       <Stack spacing={2}>

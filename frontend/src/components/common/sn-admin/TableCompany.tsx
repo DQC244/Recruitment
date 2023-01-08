@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { ApiConstant, AppConstant, PathConstant } from "const";
+import { STATUS } from "const/app.const";
 import dayjs from "dayjs";
 import { ThemeProps } from "models/types";
 import { useRouter } from "next/router";
@@ -19,8 +20,10 @@ import React, { MouseEvent, useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { CompanySelector } from "redux-store";
 import { AppService } from "services";
+import AppTypography from "../AppTypography";
 import { getColorStatus, getStatusLabel } from "../helper";
 import { ConfirmModal } from "../modal";
+import clsx from "clsx"
 
 const TableCompany = ({ onGetCompany }: TableProps) => {
   const classes = useStyles();
@@ -79,7 +82,7 @@ const TableCompany = ({ onGetCompany }: TableProps) => {
   return (
     <>
       <TableContainer component={Paper} className={classes.root}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650, height: "100%" }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>
@@ -93,58 +96,78 @@ const TableCompany = ({ onGetCompany }: TableProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {companyList?.listItems?.map((company, index) => (
+            {companyList?.listItems?.length ? (
+              companyList?.listItems?.map((company, index) => (
+                <TableRow
+                  key={index}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                    cursor: "pointer",
+                    "&:hover": {
+                      background: "#D9D9D9",
+                    },
+                  }}
+                  onClick={() => handleRedirectJobDetail(company._id)}
+                >
+                  <TableCell component="th" scope="row">
+                    {company.name}
+                  </TableCell>
+                  <TableCell align="center">
+                    {dayjs(company.createdAt).format("DD/MM/YYYY")}
+                  </TableCell>
+                  <TableCell
+                    sx={{ color: getColorStatus(company.status) }}
+                    align="center"
+                  >
+                    {getStatusLabel(company.status)}
+                  </TableCell>
+                  <TableCell align="center">
+                    <>
+                      <Button
+                        className={clsx(classes.buttonApprove, classes.disable)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (company.status === STATUS.published) return;
+                          handleOpenModal(e, {
+                            type: ACTION_TYPE.approve,
+                            id: company._id,
+                          });
+                        }}
+                      >
+                        Approve
+                      </Button>
+                      <Button
+                        className={classes.buttonReject}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (company.status === STATUS.expired) return;
+                          handleOpenModal(e, {
+                            type: ACTION_TYPE.reject,
+                            id: company._id,
+                          });
+                        }}
+                      >
+                        Reject
+                      </Button>
+                    </>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
               <TableRow
-                key={index}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
-                  cursor: "pointer",
+                  height: "100%",
                   "&:hover": {
                     background: "#D9D9D9",
                   },
                 }}
-                onClick={() => handleRedirectJobDetail(company._id)}
               >
-                <TableCell component="th" scope="row">
-                  {company.name}
-                </TableCell>
-                <TableCell align="center">
-                  {dayjs(company.createdAt).format("DD/MM/YYYY")}
-                </TableCell>
-                <TableCell
-                  sx={{ color: getColorStatus(company.status) }}
-                  align="center"
-                >
-                  {getStatusLabel(company.status)}
-                </TableCell>
-                <TableCell align="center">
-                  <>
-                    <Button
-                      className={classes.buttonApprove}
-                      onClick={(e) =>
-                        handleOpenModal(e, {
-                          type: ACTION_TYPE.approve,
-                          id: company._id,
-                        })
-                      }
-                    >
-                      Approve
-                    </Button>
-                    <Button
-                      className={classes.buttonReject}
-                      onClick={(e) =>
-                        handleOpenModal(e, {
-                          type: ACTION_TYPE.reject,
-                          id: company._id,
-                        })
-                      }
-                    >
-                      Reject
-                    </Button>
-                  </>
+                <TableCell colSpan={4} align="center">
+                  Company Not Found
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
@@ -221,4 +244,7 @@ const useStyles = makeStyles((theme: ThemeProps) => ({
       backgroundColor: theme.palette.error.dark,
     },
   },
+  disable:{
+    color:"#c1c1c1"
+  }
 }));
